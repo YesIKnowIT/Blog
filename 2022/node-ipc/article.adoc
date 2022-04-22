@@ -1,0 +1,13 @@
+
+= NodeJS IPC
+:author: Sylvain Leroux
+:pin: -
+:revnumber: 0.1
+:revdate: 2022-04-20T14:19:27+01:00
+:keywords: NodeJS, IPC
+
+[.teaser]
+The node asynchronous model is the de factor standard for NodeJS applications. But sometimes you would like to take profit of a multicore system. Or, it was what motivated this writing, you have to deal with JavaScript modules that do not play well together because they modify the prototype of the standard object in an incompatible manner. In that case, you may prefer isolate the bad JS citizens in their own instance of the V8 engine to prevent unwanted side effects. That's what we will talk about in this article.
+
+== An example
+TDB
