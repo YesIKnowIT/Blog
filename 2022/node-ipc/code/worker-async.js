@@ -22,7 +22,7 @@ process.on('message', ([id, str]) => {
   });
 });
 
-// (2) Graceful termination uppon parent precess request
+// (2) Graceful termination uppon parent process request
 process.on('exit', () => {
   console.log("worker exiting");
 });
