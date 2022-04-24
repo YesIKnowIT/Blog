@@ -97,7 +97,7 @@ The core work is now done in the `message` event handler. Upon receiving a reque
 Parent's side, we use a similar technique: an event handler is installed to deal with the worker process' responses. I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async.js
+https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
 
 
 Once the handler is installed, I send the requests to the worker process using `worker.send`. And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
