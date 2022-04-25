@@ -33,6 +33,8 @@ sh$ node main1.js
 <div>Will insert: <p>Sylvain&#039;s test string</p></div>
 QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 <div>Inserted: <p>Sylvain''s test string</p></div>
+#                        ^^
+#                Oops: not escaped as HTML!
 ```
 
 The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module. Surprisingly enough, those two calls produce two different results! Why that? If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method. In one module, to escape the string following the SQL rules. In the other module, to escape the string following the HTML escape rules.
