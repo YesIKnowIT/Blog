@@ -38,7 +38,7 @@ QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module. Surprisingly enough, those two calls produce two different results! Why that? If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method. In one module, to escape the string following the SQL rules. In the other module, to escape the string following the HTML escape rules.
 Unluckily,  the authors of both these libraries chose the same name for this new method: `$escape`. It's not hard to understand that, when loading the `rogue2` module, the HTML `$escape` method is overwritten by the SQL `$escape` method. And after that, the HTML helper functions provided by `rogue1` call the wrong `$escape` method and return garbage.
 
-NOTE
+[NOTE]
 ====
 Library writers: That's why you should use https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol[symbols] to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
 ====
@@ -72,7 +72,7 @@ Let's try to slow down things a little by adding delays so we can confirm both p
 * Whereas `fork` load and execute a JavaScript module in a new V8 instance, `spawnSync` allows you to run an arbitrary command just like if it was started from a shell.
 * `spawnSync`, just as the `Sync` suffix suggests, will execute the child process synchronously. That means the parent process is suspended until the completion of the child process.
 
-NOTE
+[NOTE]
 ====
 If you're familiar with other programming languages, `spawnSync` is very close to the https://man7.org/linux/man-pages/man3/system.3.html[`system(3)`] function provided by the standard C library.
 ====
