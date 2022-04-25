@@ -30,9 +30,9 @@ Now, look what appends when NodeJS execute this code:
 
 ```
 sh$ node main1.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
-asParagraph(str): <p>Sylvain''s test string</p>
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
+<div>Inserted: <p>Sylvain''s test string</p></div>
 ```
 
 The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module. Surprisingly enough, those two calls produce two different results! Why that? If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method. In one module, to escape the string following the SQL rules. In the other module, to escape the string following the HTML escape rules.
@@ -54,9 +54,9 @@ All the code related to the `rogue2` module has now moved into the `worker` modu
 
 ```
 sh$ node main2.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( '/home/sylvain/Projects/Blog/2022/node-ipc/code/worker' );
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+<div>Inserted: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 ```
 
 There are two things to notice here:
@@ -76,9 +76,9 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js
 
 ```
 $ node main3.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( '/home/sylvain/Projects/Blog/2022/node-ipc/code/worker' );
-asParagraph(str): <p>Sylvain&#039;s test string</p>
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
+<div>Inserted: <p>Sylvain&#039;s test string</p></div>
 ```
 
 Now, if we run the program with the added delays,  we can see the same sequence of events as we had initially. Once again, without any conflict between the rogue libraries since they were loaded in independent processes.
@@ -113,30 +113,37 @@ worker receiving message [ '0', "Sylvain's test string A" ]
 worker receiving message [ '1', "Sylvain's test string B" ]
 worker receiving message [ '2', "Sylvain's test string C" ]
 worker receiving message [ '3', "Sylvain's test string D" ]
-worker done processing message [ '3', "Sylvain's test string D" ]
-parent receiving [
-  '3',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
-]
-parent asParagraph(str): <p>Sylvain&#039;s test string D</p>
-worker done processing message [ '2', "Sylvain's test string C" ]
-parent receiving [
-  '2',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string C' );"
-]
-parent asParagraph(str): <p>Sylvain&#039;s test string C</p>
-worker done processing message [ '0', "Sylvain's test string A" ]
+worker done processing message 0
 parent receiving [
   '0',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
 ]
-parent asParagraph(str): <p>Sylvain&#039;s test string A</p>
-worker done processing message [ '1', "Sylvain's test string B" ]
+parent processing result for message 0
+parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
+worker raising error for message 2 Error: worker error
+    at Timeout._onTimeout (/home/sylvain/Projects/Blog/2022/node-ipc/code/worker-async.js:20:15)
+    at listOnTimeout (internal/timers.js:554:17)
+    at processTimers (internal/timers.js:497:7)
+parent receiving [ '2', 'error', 'Error: worker error' ]
+parent processing worker error for message 2
+parent <div>Cannot insert: <p>Sylvain&#039;s test string C</p></div>
+worker done processing message 1
 parent receiving [
   '1',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
 ]
-parent asParagraph(str): <p>Sylvain&#039;s test string B</p>
+parent processing result for message 1
+parent <div>Inserted: <p>Sylvain&#039;s test string B</p></div>
+worker done processing message 3
+parent receiving [
+  '3',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
+]
+parent processing result for message 3
+parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
 parent terminating worker
 worker exiting
 ```
