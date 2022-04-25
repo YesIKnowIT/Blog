@@ -88,7 +88,7 @@ QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 There are two things to notice here:
 
 * First, and that was expected, all calls to `asParagraph` from the main process now return identical results. The `rogue2` module no longer conflicts with that.
-* Second, the lines in the output do not appear in the same order as previously: our application is now made of two independent processes running in parallel and scheduled at the goodwill of the operating system. If you consider the time needed to start the second V8 instance, the main program has largely the time to execute many instructions before the worker process starts.
+* Second, the lines in the output do not appear in the same order as previously: our application is now made of two independent processes running in parallel and scheduled at the goodwill of the operating system. If you consider the overhead of creating and initializing the second V8 instance, the main program has largely the time to execute many instructions before the worker process starts.
 
 Let's try to slow down things a little by adding delays so we can confirm both processes run in parallel.
 NodeJS does not provide a command to pause execution.
