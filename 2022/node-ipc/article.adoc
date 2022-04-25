@@ -150,19 +150,19 @@ worker exiting
 ```
 
 === A bit of error handling
-In the pure textbook tradition, I left error handling aside. But that raises an interesting issue: even if both of our processes are V8 instances, NodeJS is unable to propagate the errors thrown from the worker process to its parent. You have to handl that by yourself.
+In the pure textbook tradition, I left error handling aside. But that raises an interesting issue: even if both of our processes are V8 instances, NodeJS cannot propagate the errors thrown from the worker process to its parent. You have to handle that by yourself.
 
-In preceding section, you have seen the main process respond to the `done` message sent by the worker process. It's the only message handled in our very basic example. But we can extend that to understand a new message: the `error` message:
+In the preceding section, you have seen the main process responds to the `done` message sent by the worker process. It's the only message accepted by our very basic example. But we can extend that to understand a new message: the `error` message:
 
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async-error.js
 
-We will wrap the request processing code into a `try ... catch` block on the worker's side. If no exception is raised, we will still respond to the parent process with a `done` message. But if an exception is caught, we will now respond from the `catch` block with our new `error` message. In order to demonstrate the new error path, I also added some code to raise an exception when processing the message id 2.
+We will wrap the request processing code into a `try ... catch` block on the worker's side. If no exception is raised, we will still respond to the parent process with a `done` message. But if an exception is caught, we will now respond from the `catch` block with our new `error` message. To demonstrate the new error path, I also added code to raise an exception when processing the message id-2.
 
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-error.js
 
-This time, if you follow the log displayed on the screen when you run the program, you can trace what happend to the message id 2, from the error raised in the workper process, up to the detection of this error in the parent process:
+This time, if you follow the log displayed on the screen when you run the program, you can trace what happened to the message id-2, from the error raised in the worker process up to the detection of this error in the parent process:
 
 ```
 sh$ node main-async-error.js
@@ -210,10 +210,10 @@ worker exiting
 ```
 
 === What to do next?
-All the examples given above follow the the callback programming style traditionally used with NodeJS.
-A good exercice would be to convert that code to a `Promise`-based solution (either explicitly, or using the `async` and `await` keywords). As a suggestion, you may also consider using [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) or [`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) to terminate the worker process once all requests have been handled.
+All the examples given above follow the callback programming style traditionally used with NodeJS.
+A good exercise would be to convert that code to a `Promise`-based solution (either explicitly or using the `async` and `await` keywords). As a suggestion, you may also consider using [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) or [`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) to terminate the worker process once all requests have been handled.
 
-Don't hesitate to share your experiments or ask your questions on the social networks!
+Don't hesitate to share your experiments or ask your questions on social networks!
 
 == Conclusion
 The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the [official documentation](https://nodejs.org/api/child_process.html) to learn more about them and see how they allow you to interact with or gather data from the child process.
