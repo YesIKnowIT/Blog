@@ -23,6 +23,10 @@ worker.on('message', ([id, what, result]) => {
     console.log('parent processing result for message', id);
     console.log("parent", `<div>Inserted: ${asParagraph(test_messages[id])}</div>`);
   }
+  else if (what === "error") {
+    console.log('parent processing worker error for message', id);
+    console.log("parent", `<div>Cannot insert: ${asParagraph(test_messages[id])}</div>`);
+  }
   else {
     throw new Error(`Unknown message [${id}, ${what}]`);
   }
