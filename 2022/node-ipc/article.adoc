@@ -9,7 +9,7 @@
 The NodeJS asynchronous programming model is the _de facto_ standard for NodeJS applications. In that model, your application is single-threaded. Still, several tasks are interleaved, so execution may continue with another part of the code while one task is blocked (for example, waiting for some I/O operation to complete). But sometimes, you would like to take benefits from a multicore system. Or, and it was what motivated this writing, you have to deal with JavaScript modules that do not play well together because they modify the prototype of the standard object in an incompatible manner. In that case, you may prefer to isolate the bad JS citizens in their own instance of the V8 JavaScript engine to prevent unwanted side effects. That's what we will talk about in this article.
 
 == An example
-This section will illustrate why I needed to isolate some modules in their own instance of the V8 engine. If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section.
+This section will illustrate why I needed to isolate some modules in their own instance of the https://nodejs.dev/learn/the-v8-javascript-engine[V8 JavaScript engine]. If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section.
 
 So, as I said previously, I had an application where I needed to import two modules. Unfortunately, they modified the Object's prototype in two mutually incompatible manners.
 
@@ -38,10 +38,13 @@ QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module. Surprisingly enough, those two calls produce two different results! Why that? If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method. In one module, to escape the string following the SQL rules. In the other module, to escape the string following the HTML escape rules.
 Unluckily,  the authors of both these libraries chose the same name for this new method: `$escape`. It's not hard to understand that, when loading the `rogue2` module, the HTML `$escape` method is overwritten by the SQL `$escape` method. And after that, the HTML helper functions provided by `rogue1` call the wrong `$escape` method and return garbage.
 
-Library writers: That's why you should use [symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
+NOTE
+====
+Library writers: That's why you should use https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol[symbols] to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
+====
 
 == Using a worker process
-As noted in the above sidebar, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype. But in my case, both were large third-party libraries, and a rewrite was out of the question. The solution was to isolate each library in its own V8 instance so they would no longer conflict.
+As noted in the above admonition, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype. But in my case, both were large third-party libraries, and a rewrite was out of the question. The solution was to isolate each library in its own V8 instance so they would no longer conflict.
 
 === Introducing `fork` and `spawnSync`
 The bare minimum to do that is illustrated in the following example. I split the program into two files, `main` and `worker`, with the goal of running each part in its own process. The `rogue2` module usage being now confined to the worker process, it can no longer conflict with the modules loaded in the main process:
@@ -50,7 +53,7 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main2.js
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker.js
 
-All the code related to the `rogue2` module has now moved into the `worker` module. And instead of using it directly, the main program uses the `child_process.fork` function to load and run `worker.js` in a new _independent_ V8 instance. Let's try that:
+All the code related to the `rogue2` module has now moved into the `worker` module. And instead of using it directly, the main program uses the https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options[`child_process.fork`] function to load and run `worker.js` in a new _independent_ V8 instance. Let's try that:
 
 ```
 sh$ node main2.js
@@ -64,13 +67,15 @@ There are two things to notice here:
 * First, and that was expected, all calls to `asParagraph` from the main process now return identical results. The `rogue2` module no longer conflicts with that.
 * Second, the lines in the output do not appear in the same order as previously: our application is now made of two independent processes running in parallel and scheduled at the goodwill of the operating system. If you consider the time needed to start the second V8 instance, the main program has largely the time to execute many instructions before the worker process starts.
 
-Let's try to slow down things a little by adding delays so we can confirm both processes run in parallel. NodeJS does not provide a command to pause execution. So we will use a trick here: using the function `spawnSync` provided by the `child_process` module, we will spawn the OS-provided command `sleep` to create a delay. There are two major differences between `fork` we used previously and `spawnSync`:
+Let's try to slow down things a little by adding delays so we can confirm both processes run in parallel. NodeJS does not provide a command to pause execution. So we will use a trick here: using the function https://nodejs.org/api/child_process.html#child_processspawnsynccommand-args-options[`spawnSync`], also included in the `child_process` module, we will spawn the OS-provided command `sleep` to create a delay. There are two major differences between `fork` we used previously and `spawnSync`:
 
 * Whereas `fork` load and execute a JavaScript module in a new V8 instance, `spawnSync` allows you to run an arbitrary command just like if it was started from a shell.
 * `spawnSync`, just as the `Sync` suffix suggests, will execute the child process synchronously. That means the parent process is suspended until the completion of the child process.
 
-If you're familiar with other programming languages, `spawnSync` is very close to the [`system(3)`](https://man7.org/linux/man-pages/man3/system.3.html) function provided by the standard C library.
-
+NOTE
+====
+If you're familiar with other programming languages, `spawnSync` is very close to the https://man7.org/linux/man-pages/man3/system.3.html[`system(3)`] function provided by the standard C library.
+====
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js
 
@@ -211,10 +216,10 @@ worker exiting
 
 === What to do next?
 All the examples given above follow the callback programming style traditionally used with NodeJS.
-A good exercise would be to convert that code to a `Promise`-based solution (either explicitly or using the `async` and `await` keywords). As a suggestion, you may also consider using [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) or [`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) to terminate the worker process once all requests have been handled.
+A good exercise would be to convert that code to a `Promise`-based solution (either explicitly or using the `async` and `await` keywords). As a suggestion, you may also consider using https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all[`Promise.all`] or https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled[`Promise.allSettled`] to terminate the worker process once all requests have been handled.
 
 Don't hesitate to share your experiments or ask your questions on social networks!
 
 == Conclusion
-The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the [official documentation](https://nodejs.org/api/child_process.html) to learn more about them and see how they allow you to interact with or gather data from the child process.
+The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the https://nodejs.org/api/child_process.html[official documentation] to learn more about them and see how they allow you to interact with or gather data from the child process.
 
