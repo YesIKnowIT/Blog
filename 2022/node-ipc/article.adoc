@@ -104,7 +104,7 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
 Once the listener is installed, I send the requests to the worker process using `worker.send`. And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
 
 ```
-sh$ node main-server.js
+sh$ node main-async.js
 parent sending message [ '0', "Sylvain's test string A" ]
 parent sending message [ '1', "Sylvain's test string B" ]
 parent sending message [ '2', "Sylvain's test string C" ]

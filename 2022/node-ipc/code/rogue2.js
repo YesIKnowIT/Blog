@@ -10,8 +10,8 @@
 
 // Send a query to some underlying SQL database
 function doQuery(query) {
-  // In this example we will simple log the query to the console
-  return `Sending: ${query}`;
+  // In this example we will simple log the query
+  return `QUERY: ${query}`;
 }
 // Escape a string following the SQL rules:
 String.prototype.$escape = function() {
