@@ -9,9 +9,9 @@
 The NodeJS asynchronous programming model is the _de facto_ standard for NodeJS applications. In that model, your application is single-threaded. Still, several tasks are interleaved, so execution may continue with another part of the code while one task is blocked (for example, waiting for some I/O operation to complete). But sometimes, you would like to take benefits from a multicore system. Or, and it was what motivated this writing, you have to deal with JavaScript modules that do not play well together because they modify the prototype of the standard object in an incompatible manner. In that case, you may prefer to isolate the bad JS citizens in their own instance of the V8 JavaScript engine to prevent unwanted side effects. That's what we will talk about in this article.
 
 == An example
-This section will illustrate why I needed to isolate some modules in their own instance of the V8 engine. If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section. 
+This section will illustrate why I needed to isolate some modules in their own instance of the V8 engine. If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section.
 
-So, as I said previously, I had an application where I needed to import two modules. Unfortunately, they modified the Object's prototype in two mutually incompatible manners. 
+So, as I said previously, I had an application where I needed to import two modules. Unfortunately, they modified the Object's prototype in two mutually incompatible manners.
 
 I reduced that use case into the two poorly written modules:
 
@@ -41,7 +41,7 @@ Unluckily,  the authors of both these libraries chose the same name for this new
 Library writers: That's why you should use [symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
 
 == Using a worker process
-As noted in the above sidebar, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype. But in my case, both were large third-party libraries, and a rewrite was out of the question. The solution was to isolate each library in its own V8 instance so they would no longer conflict. 
+As noted in the above sidebar, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype. But in my case, both were large third-party libraries, and a rewrite was out of the question. The solution was to isolate each library in its own V8 instance so they would no longer conflict.
 
 === Introducing `fork` and `spawnSync`
 The bare minimum to do that is illustrated in the following example. I split the program into two files, `main` and `worker`, with the goal of running each part in its own process. The `rogue2` module usage being now confined to the worker process, it can no longer conflict with the modules loaded in the main process:
@@ -113,21 +113,14 @@ worker receiving message [ '0', "Sylvain's test string A" ]
 worker receiving message [ '1', "Sylvain's test string B" ]
 worker receiving message [ '2', "Sylvain's test string C" ]
 worker receiving message [ '3', "Sylvain's test string D" ]
-worker done processing message 0
+worker done processing message 2
 parent receiving [
-  '0',
+  '2',
   'done',
-  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string C' );"
 ]
-parent processing result for message 0
-parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
-worker raising error for message 2 Error: worker error
-    at Timeout._onTimeout (/home/sylvain/Projects/Blog/2022/node-ipc/code/worker-async.js:20:15)
-    at listOnTimeout (internal/timers.js:554:17)
-    at processTimers (internal/timers.js:497:7)
-parent receiving [ '2', 'error', 'Error: worker error' ]
-parent processing worker error for message 2
-parent <div>Cannot insert: <p>Sylvain&#039;s test string C</p></div>
+parent processing result for message 2
+parent <div>Inserted: <p>Sylvain&#039;s test string C</p></div>
 worker done processing message 1
 parent receiving [
   '1',
@@ -144,15 +137,84 @@ parent receiving [
 ]
 parent processing result for message 3
 parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
+worker done processing message 0
+parent receiving [
+  '0',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+]
+parent processing result for message 0
+parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
+parent terminating worker
+worker exiting
+```
+
+=== A bit of error handling
+In the pure textbook tradition, I left error handling aside. But that raises an interesting issue: even if both of our processes are V8 instances, NodeJS is unable to propagate the errors thrown from the worker process to its parent. You have to handl that by yourself.
+
+In preceding section, you have seen the main process respond to the `done` message sent by the worker process. It's the only message handled in our very basic example. But we can extend that to understand a new message: the `error` message:
+
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async-error.js
+
+We will wrap the request processing code into a `try ... catch` block on the worker's side. If no exception is raised, we will still respond to the parent process with a `done` message. But if an exception is caught, we will now respond from the `catch` block with our new `error` message. In order to demonstrate the new error path, I also added some code to raise an exception when processing the message id 2.
+
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-error.js
+
+This time, if you follow the log displayed on the screen when you run the program, you can trace what happend to the message id 2, from the error raised in the workper process, up to the detection of this error in the parent process:
+
+```
+sh$ node main-async-error.js
+parent sending message [ '0', "Sylvain's test string A" ]
+parent sending message [ '1', "Sylvain's test string B" ]
+parent sending message [ '2', "Sylvain's test string C" ]
+parent sending message [ '3', "Sylvain's test string D" ]
+worker receiving message [ '0', "Sylvain's test string A" ]
+worker receiving message [ '1', "Sylvain's test string B" ]
+worker receiving message [ '2', "Sylvain's test string C" ]
+worker receiving message [ '3', "Sylvain's test string D" ]
+worker done processing message 1
+parent receiving [
+  '1',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
+]
+parent processing result for message 1
+parent <div>Inserted: <p>Sylvain&#039;s test string B</p></div>
+worker raising error for message 2 Error: worker error
+    at Timeout._onTimeout (/home/sylvain/Projects/Blog/2022/node-ipc/code/worker-async-error.js:20:15)
+    at listOnTimeout (internal/timers.js:554:17)
+    at processTimers (internal/timers.js:497:7)
+parent receiving [ '2', 'error', 'Error: worker error' ]
+parent processing worker error for message 2
+parent <div>Cannot insert: <p>Sylvain&#039;s test string C</p></div>
+worker done processing message 0
+parent receiving [
+  '0',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+]
+parent processing result for message 0
+parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
+worker done processing message 3
+parent receiving [
+  '3',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
+]
+parent processing result for message 3
+parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
 parent terminating worker
 worker exiting
 ```
 
 === What to do next?
-In the pure textbook tradition, I left error handling as an exercise to the reader.
+All the examples given above follow the the callback programming style traditionally used with NodeJS.
+A good exercice would be to convert that code to a `Promise`-based solution (either explicitly, or using the `async` and `await` keywords). As a suggestion, you may also consider using [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) or [`Promise.allSettled`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) to terminate the worker process once all requests have been handled.
 
-More interestingly, you could try to convert from the traditional callback programming style used here to a `Promise`-based solution. As a suggestion, you may consider using `Promise.all` to terminate the worker process once all requests have been handled.
+Don't hesitate to share your experiments or ask your questions on the social networks!
 
 == Conclusion
-The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the official documentation to learn more about them and see how they allow you to interact with or gather data from the child process.
+The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the [official documentation](https://nodejs.org/api/child_process.html) to learn more about them and see how they allow you to interact with or gather data from the child process.
 

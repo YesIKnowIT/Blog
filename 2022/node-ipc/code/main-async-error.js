@@ -10,7 +10,7 @@ const { asParagraph } = require("./rogue1");
 
 // (2) Create the worker process
 const { fork } = require('child_process');
-const worker = fork(`${__dirname}/worker-async`);
+const worker = fork(`${__dirname}/worker-async-error`);
 
 // (3) Keep track of the number of pending messages
 let pending = 4;
