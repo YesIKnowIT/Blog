@@ -6,14 +6,23 @@
 :keywords: NodeJS, IPC
 
 [.teaser]
-The NodeJS asynchronous programming model is the _de facto_ standard for NodeJS applications. In that model, your application is single-threaded. Still, several tasks are interleaved, so execution may continue with another part of the code while one task is blocked (for example, waiting for some I/O operation to complete). But sometimes, you would like to take benefits from a multicore system. Or, and it was what motivated this writing, you have to deal with JavaScript modules that do not play well together because they modify the prototype of the standard object in an incompatible manner. In that case, you may prefer to isolate the bad JS citizens in their own instance of the V8 JavaScript engine to prevent unwanted side effects. That's what we will talk about in this article.
+The NodeJS asynchronous programming model is the _de facto_ standard for NodeJS applications.
+In that model, your application is single-threaded.
+Still, several tasks are interleaved, so execution may continue with another part of the code while one task is blocked (for example, waiting for some I/O operation to complete).
+But sometimes, you would like to take benefits from a multicore system.
+Or, and it was what motivated this writing, you have to deal with JavaScript modules that do not play well together because they modify the prototype of the standard object in an incompatible manner.
+In that case, you may prefer to isolate the bad JS citizens in their own instance of the V8 JavaScript engine to prevent unwanted side effects.
+That's what we will talk about in this article.
 
 == An example
-This section will illustrate why I needed to isolate some modules in their own instance of the V8 engine. If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section. 
+This section will illustrate why I needed to isolate some modules in their own instance of the https://nodejs.dev/learn/the-v8-javascript-engine[V8 JavaScript engine].
+If you are only focused on spawning new NodeJS processes and establishing a communication between the two V8 instances, you may skip this section.
 
-So, as I said previously, I had an application where I needed to import two modules. Unfortunately, they modified the Object's prototype in two mutually incompatible manners. 
+So, as I said previously, I had an application where I needed to import two modules.
+Unfortunately, they modified the Object's prototype in two mutually incompatible manners.
 
 I reduced that use case into the two poorly written modules:
+
 * The `rogue1` module provides some interface to a hypothetic SQL database.
 * And the `rogue2` module provides some helper functions to produce HTML documents.
 
@@ -21,7 +30,8 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue1.js
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue2.js
 
-Apparently, there is no link between these two modules, and you can genuinely think they will work independently of one another. So, here is some test file to check that:
+Apparently, there is no link between these two modules, and you can genuinely think they will work independently of one another.
+So, here is some test file to check that:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main1.js
 
@@ -29,81 +39,113 @@ Now, look what appends when NodeJS execute this code:
 
 ```
 sh$ node main1.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
-asParagraph(str): <p>Sylvain''s test string</p>
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
+<div>Inserted: <p>Sylvain''s test string</p></div>
+#                        ^^
+#                Oops: not escaped as HTML!
 ```
 
-The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module. Surprisingly enough, those two calls produce two different results! Why that? If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method. In one module, to escape the string following the SQL rules. In the other module, to escape the string following the HTML escape rules.
-Unluckily,  the authors of both these libraries chose the same name for this new method: `$escape`. It's not hard to understand that, when loading the `rogue2` module, the HTML `$escape` method is overwritten by the SQL `$escape` method. And after that, the HTML helper functions provided by `rogue1` call the wrong `$escape` method and return garbage.
+The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module.
+Surprisingly enough, those two calls produce two different results! Why that?
+If you look closely at the code of the two rogue modules, you will see each one modifies the String's prototype by attaching a new method.
+In one module, to escape the string following the SQL rules.
+In the other module, to escape the string following the HTML escape rules.
+Unluckily,  the authors of both these libraries chose the same name for this new method: `$escape`.
+It's not hard to understand that, when loading the `rogue2` module, the HTML `$escape` method is overwritten by the SQL `$escape` method.
+And after that, the HTML helper functions provided by `rogue1` call the wrong `$escape` method and return garbage.
 
-Library writers: That's why you should use [symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
+[NOTE]
+====
+Library writers: That's why you should use https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol[symbols] to attach new properties to existing objects' prototypes. Symbols are guaranteed to be uniques, and you may have avoided that pitfall by using them. That being said, it is usually not recommended to modify the standard object's prototypes. Think twice if you plan to do that!
+====
 
 == Using a worker process
-As noted in the above sidebar, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype. But in my case, both were large third-party libraries, and a rewrite was out of the question. The solution was to isolate each library in its own V8 instance so they would no longer conflict. 
+As noted in the above admonition, the real solution would be to rewrite the modules to avoid attaching a new method to the String's prototype.
+But in my case, both modules were large third-party libraries, and a rewrite was out of the question.
+The solution was to isolate each library in its own V8 instance so they would no longer conflict.
 
 === Introducing `fork` and `spawnSync`
-The bare minimum to do that is illustrated in the following example. I split the program into two files, `main` and `worker`, with the goal of running each part in its own process. The `rogue2` module usage being now confined to the worker process, it can no longer conflict with the modules loaded in the main process:
+The bare minimum to do that is illustrated in the following example.
+I split the program into two files, `main` and `worker`, with the goal of running each part in its own process.
+The `rogue2` module usage being now confined to the worker process, it can no longer conflict with the modules loaded in the main process:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main2.js
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker.js
 
-All the code related to the `rogue2` module has now moved into the `worker` module. And instead of using it directly, the main program uses the `child_process.fork` function to load and run `worker.js` in a new _independent_ V8 instance. Let's try that:
+All the code related to the `rogue2` module has now moved into the `worker` module.
+And instead of using it directly, the main program uses the https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options[`child_process.fork`] function to load and run `worker.js` in a new _independent_ V8 instance.
+Let's try that:
 
 ```
 sh$ node main2.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( '/home/sylvain/Projects/Blog/2022/node-ipc/code/worker' );
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+<div>Inserted: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 ```
 
 There are two things to notice here:
 
 * First, and that was expected, all calls to `asParagraph` from the main process now return identical results. The `rogue2` module no longer conflicts with that.
-* Second, the lines in the output do not appear in the same order as previously: our application is now made of two independent processes running in parallel and scheduled at the goodwill of the operating system. If you consider the time needed to start the second V8 instance, the main program has largely the time to execute many instructions before the worker process starts.
+* Second, the lines in the output do not appear in the same order as previously: our application is now made of two independent processes running in parallel and scheduled at the goodwill of the operating system. If you consider the overhead of creating and initializing the second V8 instance, the main program has largely the time to execute many instructions before the worker process starts.
 
-Let's try to slow down things a little by adding delays so we can confirm both processes run in parallel. NodeJS does not provide a command to pause execution. So we will use a trick here: using the function `spawnSync` provided by the `child_process` module, we will spawn the OS-provided command `sleep` to create a delay. There are two major differences between `fork` we used previously and `spawnSync`:
+Let's try to slow down things a little by adding delays so we can confirm both processes run in parallel.
+NodeJS does not provide a command to pause execution.
+So we will use a trick here: using the function https://nodejs.org/api/child_process.html#child_processspawnsynccommand-args-options[`spawnSync`], also included in the `child_process` module, we will spawn the OS-provided command `sleep` to create a delay.
+There are two major differences between `fork` we used previously and `spawnSync`:
 
 * Whereas `fork` load and execute a JavaScript module in a new V8 instance, `spawnSync` allows you to run an arbitrary command just like if it was started from a shell.
 * `spawnSync`, just as the `Sync` suffix suggests, will execute the child process synchronously. That means the parent process is suspended until the completion of the child process.
 
-If you're familiar with other programming languages, `spawnSync` is very close to the [`system(3)`](https://man7.org/linux/man-pages/man3/system.3.html) function provided by the standard C library.
-
+[NOTE]
+====
+If you're familiar with other programming languages, `spawnSync` is very close to the https://man7.org/linux/man-pages/man3/system.3.html[`system(3)`] function provided by the standard C library.
+====
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js
 
 ```
 $ node main3.js
-asParagraph(str): <p>Sylvain&#039;s test string</p>
-addToDict(str): Sending: INSERT INTO DICTIONARY(entry) VALUES ( '/home/sylvain/Projects/Blog/2022/node-ipc/code/worker' );
-asParagraph(str): <p>Sylvain&#039;s test string</p>
+<div>Will insert: <p>Sylvain&#039;s test string</p></div>
+QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
+<div>Inserted: <p>Sylvain&#039;s test string</p></div>
 ```
 
-Now, if we run the program with the added delays,  we can see the same sequence of events as we had initially. Once again, without any conflict between the rogue libraries since they were loaded in independent processes.
+Now, if we run the program with the added delays, we can see the same sequence of events as we had initially.
+Once again, without any conflict between the rogue libraries since they were loaded in independent processes.
 
-Of course, you won't rely on delays to order the operations in a real application, not to mention it would suspend NodeJS' asynchronous events processing. So we need a way for the parent process to submit a job to the worker process and a way for the worker to signal the completion of a task to its parent. That will be the topic of the next section.
+Of course, you won't rely on delays to order the operations in a real application, not to mention it would suspend NodeJS' asynchronous events processing.
+So we need a way for the parent process to submit a job to the worker process and a way for the worker to signal the completion of a task to its parent.
+That will be the topic of the next section.
 
 === Parent-child communication
-By now, you should be convinced the parent and the child processes run into independent V8 instances. Let's go a little bit further by rewriting our application to use the event-based IPC provided by NodeJS to establish two-way communication between the parent and the child process.
+By now, you should be convinced the parent and the child processes run into independent V8 instances.
+Let's go a little bit further by rewriting our application to use the event-based IPC provided by NodeJS to establish two-way communication between the parent and the child process.
 
-When using the `child_process.fork` function, NodeJS returns an object representing the child process. This object gives you access, among others, to an event-based communication channel between the parent and the child process. On its side, the child process can use the `process` global object to handle the incoming messages from its parent:
+When using the `child_process.fork` function, NodeJS returns an object representing the child process.
+This object gives you access, among others, to an event-based communication channel between the parent and the child process.
+On its side, the child process can use the `process` global object to handle the incoming messages from its parent:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async.js
 
-The core work is now done in the `message` event handler. Upon receiving a request from its parent process, the worker process does its job, then sends the result back to the sender. I wrapped the processing into a `setTimeout` call with a random delay to simulate asynchronous operations in the worker process.
+The core work is now done in the `message` event listener.
+Upon receiving a request from its parent process, the worker process does its job, then sends the result back to the sender.
+I wrapped the processing into a `setTimeout` call with a random delay to simulate asynchronous operations in the worker process.
 
 
-Parent's side, we use a similar technique: an event handler is installed to deal with the worker process' responses. I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
+Parent's side, we use a similar technique: an event listener is installed to deal with the worker process' responses.
+I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
 
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
 
 
-Once the handler is installed, I send the requests to the worker process using `worker.send`. And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
+Once the listener is installed, I send the requests to the worker process using `worker.send`.
+And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
 
 ```
-sh$ node main-server.js
+sh$ node main-async.js
 parent sending message [ '0', "Sylvain's test string A" ]
 parent sending message [ '1', "Sylvain's test string B" ]
 parent sending message [ '2', "Sylvain's test string C" ]
@@ -112,39 +154,117 @@ worker receiving message [ '0', "Sylvain's test string A" ]
 worker receiving message [ '1', "Sylvain's test string B" ]
 worker receiving message [ '2', "Sylvain's test string C" ]
 worker receiving message [ '3', "Sylvain's test string D" ]
-worker done processing message [ '3', "Sylvain's test string D" ]
-parent receiving [
-  '3',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
-]
-parent asParagraph(str): <p>Sylvain&#039;s test string D</p>
-worker done processing message [ '2', "Sylvain's test string C" ]
+worker done processing message 2
 parent receiving [
   '2',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string C' );"
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string C' );"
 ]
-parent asParagraph(str): <p>Sylvain&#039;s test string C</p>
-worker done processing message [ '0', "Sylvain's test string A" ]
-parent receiving [
-  '0',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
-]
-parent asParagraph(str): <p>Sylvain&#039;s test string A</p>
-worker done processing message [ '1', "Sylvain's test string B" ]
+parent processing result for message 2
+parent <div>Inserted: <p>Sylvain&#039;s test string C</p></div>
+worker done processing message 1
 parent receiving [
   '1',
-  "Sending: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
 ]
-parent asParagraph(str): <p>Sylvain&#039;s test string B</p>
+parent processing result for message 1
+parent <div>Inserted: <p>Sylvain&#039;s test string B</p></div>
+worker done processing message 3
+parent receiving [
+  '3',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
+]
+parent processing result for message 3
+parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
+worker done processing message 0
+parent receiving [
+  '0',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+]
+parent processing result for message 0
+parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
+parent terminating worker
+worker exiting
+```
+
+=== A bit of error handling
+In the pure textbook tradition, I left error handling aside.
+But that raises an interesting issue: even if both of our processes are V8 instances, NodeJS cannot propagate the errors thrown from the worker process to its parent.
+You have to handle that by yourself.
+
+In the preceding section, you have seen the main process responds to the `done` message sent by the worker process.
+It's the only message accepted by our very basic example.
+But we can extend that to understand a new message: the `error` message:
+
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async-error.js
+
+We will wrap the request processing code into a `try ... catch` block on the worker's side.
+If no exception is raised, we will still respond to the parent process with a `done` message.
+But if an exception is caught, we will now respond from the `catch` block with our new `error` message.
+To demonstrate the new error path, I also added code to raise an exception when processing the message id-2.
+
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-error.js
+
+This time, if you follow the log displayed on the screen when you run the program, you can trace what happened to the message id-2, from the error raised in the worker process up to the detection of this error in the parent process:
+
+```
+sh$ node main-async-error.js
+parent sending message [ '0', "Sylvain's test string A" ]
+parent sending message [ '1', "Sylvain's test string B" ]
+parent sending message [ '2', "Sylvain's test string C" ]
+parent sending message [ '3', "Sylvain's test string D" ]
+worker receiving message [ '0', "Sylvain's test string A" ]
+worker receiving message [ '1', "Sylvain's test string B" ]
+worker receiving message [ '2', "Sylvain's test string C" ]
+worker receiving message [ '3', "Sylvain's test string D" ]
+worker done processing message 1
+parent receiving [
+  '1',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string B' );"
+]
+parent processing result for message 1
+parent <div>Inserted: <p>Sylvain&#039;s test string B</p></div>
+worker raising error for message 2 Error: worker error
+    at Timeout._onTimeout (/home/sylvain/Projects/Blog/2022/node-ipc/code/worker-async-error.js:20:15)
+    at listOnTimeout (internal/timers.js:554:17)
+    at processTimers (internal/timers.js:497:7)
+parent receiving [ '2', 'error', 'Error: worker error' ]
+parent processing worker error for message 2
+parent <div>Cannot insert: <p>Sylvain&#039;s test string C</p></div>
+worker done processing message 0
+parent receiving [
+  '0',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string A' );"
+]
+parent processing result for message 0
+parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
+worker done processing message 3
+parent receiving [
+  '3',
+  'done',
+  "QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string D' );"
+]
+parent processing result for message 3
+parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
 parent terminating worker
 worker exiting
 ```
 
 === What to do next?
-In the pure textbook tradition, I left error handling as an exercise to the reader.
+All the examples given above follow the callback programming style traditionally used with NodeJS.
+A good exercise would be to convert that code to a `Promise`-based solution (either explicitly or using the `async` and `await` keywords). As a suggestion, you may also consider using https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all[`Promise.all`] or https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled[`Promise.allSettled`] to terminate the worker process once all requests have been handled.
 
-More interestingly, you could try to convert from the traditional callback programming style used here to a `Promise`-based solution. As a suggestion, you may consider using `Promise.all` to terminate the worker process once all requests have been handled.
+Don't hesitate to share your experiments or ask your questions on social networks!
 
 == Conclusion
-The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance. Some of these functions exist both in asynchronous and synchronous forms. I encourage you to explore the official documentation to learn more about them and see how they allow you to interact with or gather data from the child process.
+The standard `child_process` module provides several ways to spawn new processes from NodeJS, either to run external commands or to load and execute a JavaScript module in an independent V8 instance.
+Some of these functions exist both in asynchronous and synchronous forms.
+I encourage you to explore the https://nodejs.org/api/child_process.html[official documentation] to learn more about them and see how they allow you to interact with or gather data from the child process.
 

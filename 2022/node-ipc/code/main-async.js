@@ -15,10 +15,18 @@ const worker = fork(`${__dirname}/worker-async`);
 // (3) Keep track of the number of pending messages
 let pending = 4;
 
-// (4) Install a handler for the worker's responses
-worker.on('message', ([id, result]) => {
-  console.log("parent receiving", [id, result]);
-  console.log("parent asParagraph(str):", asParagraph(test_messages[id]));
+// (4) Install a listener for the worker's responses
+worker.on('message', ([id, what, result]) => {
+  console.log("parent receiving", [id, what, result]);
+
+  if (what === 'done') {
+    console.log('parent processing result for message', id);
+    console.log("parent", `<div>Inserted: ${asParagraph(test_messages[id])}</div>`);
+  }
+  else {
+    throw new Error(`Unknown message [${id}, ${what}]`);
+  }
+
   pending -= 1;
   if (pending == 0) {
     console.log("parent terminating worker");
