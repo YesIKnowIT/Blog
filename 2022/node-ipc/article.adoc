@@ -14,6 +14,7 @@ This section will illustrate why I needed to isolate some modules in their own i
 So, as I said previously, I had an application where I needed to import two modules. Unfortunately, they modified the Object's prototype in two mutually incompatible manners. 
 
 I reduced that use case into the two poorly written modules:
+
 * The `rogue1` module provides some interface to a hypothetic SQL database.
 * And the `rogue2` module provides some helper functions to produce HTML documents.
 
@@ -91,16 +92,16 @@ When using the `child_process.fork` function, NodeJS returns an object represent
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async.js
 
-The core work is now done in the `message` event handler. Upon receiving a request from its parent process, the worker process does its job, then sends the result back to the sender. I wrapped the processing into a `setTimeout` call with a random delay to simulate asynchronous operations in the worker process.
+The core work is now done in the `message` event listener. Upon receiving a request from its parent process, the worker process does its job, then sends the result back to the sender. I wrapped the processing into a `setTimeout` call with a random delay to simulate asynchronous operations in the worker process.
 
 
-Parent's side, we use a similar technique: an event handler is installed to deal with the worker process' responses. I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
+Parent's side, we use a similar technique: an event listener is installed to deal with the worker process' responses. I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
 
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
 
 
-Once the handler is installed, I send the requests to the worker process using `worker.send`. And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
+Once the listener is installed, I send the requests to the worker process using `worker.send`. And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
 
 ```
 sh$ node main-server.js
