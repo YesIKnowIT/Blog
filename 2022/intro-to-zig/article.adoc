@@ -25,3 +25,68 @@ I also assume some previous experience with an imperative programming language, 
 
 == What are we doing
 For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, words, and lines contained in a file, very much like the POSIX `wc` utility.  
+
+** EMBED code/wc-v1.zig
+
+For now, copy the code above into a new text file named `wc-v1.zig`. Then you will *compile* that program using the `zig build-exe` command:
+
+```
+sh$ zig build-exe wc-v1.zig
+``` 
+
+This step aims to turn the Zig source file into an executable program. It should produce a new file named `wc-v1` in the current directory:
+
+```
+sh$ ls -l
+total 588
+-rwxrwxr-x 1 sylvain sylvain 589840 mai    2 11:25 wc-v1
+-rw-rw-r-- 1 sylvain sylvain    618 mai    2 11:28 wc-v1.zig
+drwxr-xr-x 5 sylvain sylvain   4096 mai    2 11:25 zig-cache
+```
+
+[NOTE]
+====
+Zig has also created the `zig-cache` directory. Zig uses it to cache some compilation artifacts to speed up executable building. We won't talk about it in this article.
+====
+
+As you can see, the `wc-v1` program has the `x` bit set, meaning it's an executable program. Let's try it immediately:
+
+```
+sh$ ./wc-v1
+ 0 chars, 0 words, 0 lines
+```
+
+For now, it's not very exciting, but let's examine the program in more detail to discover a little bit more about the Zig syntax.
+
+=== Comments
+In the source file above, you can see many lines starting with `//`. Those are comments ignored by the compiler but helpful to explain how a program works to other programmers (or to the future you).
+
+A comment in Zig starts with `//` and continues up to the line's end. There are no multi-line comments in Zig.
+
+=== Modules
+https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#
+
+A Zig program can be divided into modules to improve reusability or manage complexity. The standard and third-party libraries are shipped as modules. Large scope modules can be subdivided into sub-modules. It is the case for the standard library, whose root module is accessible under the name `"std"` (with quotes).
+
+To use a module, you need to import it using the https://ziglang.org/documentation/master/#import[`@import`] function. But you also need to bind that module to a symbol to make it accessible to the rest of the code. Here, for consistency, I bind it to the (newly declared) constant `std` (no quotes).
+
+=== Variables
+As a best practice, Zig encourages you to use constants whenever you can. But sometimes, you have to store data you will update during the program life's time. You will use a variable (`var`) declaration in that use case.
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#
+
+The `var` keyword is followed by a user-defined symbol, which becomes the variable's name. After the variable's name, you see the `:u32` declaration. It specifies the *type* of the variable.
+
+Zig is a statically typed programming language. Among other things, the compiler has to know how much space to reserve in memory to store your data and how to interpret those data. The `u32` notation means our data are 32-bits unsigned integers. That means positive numbers in the range 0~2³²-1. I assume it should be sufficient to count the number of chars in a document. If it's not enough for you, you may change the variable's type to `u48` or `u64` if you want. On the other hand, if you think it's too much, why not reduce our program's memory consumption by using `u24` or even `u16`. Zig allows arbitrary bit size for integer variables.
+
+=== The main program
+Aside from the `const` and `var` declarations, function definitions are the most used kind of statement in Zig. In the purest tradition of imperative programming language, a Zig program is divided into several functions that are individual units of execution.
+
+Functions definition will likely change before the Zig 1.0 release to make them more consistent with the rest of the syntax. For now, they are introduced by the keyword `fn` followed by the developer-assigned function's name, a pair of parenthesis, and the function's return type. Like in C, when the return type is `void`, the function returns nothing (in other programming languages, we talk about *procedures* in that case).
+
+A typical program is made of hundreds of functions. Among them, the one named `main` is special since your program's execution starts with its body's first instruction and continues up to its end. Here, the body of the function, defined in curly braces, contains just one statement:
+
+https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#
+
+It's a call to the `std.debug.print` function to write a message on the console. Remember, The `std.` prefix means the standard library provides this function.
+Like the C `printf()` function or the Python `format()` function, `std.debug.print` is used for formatted output. That means the message to display contains placeholders that will be replaced by actual values when the function is executed. In Zig, the placeholders are `{}`. They will be replaced by the values given in the tuple `.{ ... }`. Since our three counter variables were initialized to 0 and never touched again, each `{}` is replaced by `0` in the output. You may try to recompile the program by changing the initialization value of the `chars` variable, for example. The new value should appear in the output (don't forget to save your changes *and* to recompile the program).
