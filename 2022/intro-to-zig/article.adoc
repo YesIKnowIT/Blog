@@ -1,0 +1,27 @@
+= Introduction to Zig
+:author: Sylvain Leroux
+:pin: -
+:revnumber: 0.1
+:revdate: 2022-05-02T10:35:27+02:00
+:keywords: Zig
+
+[.teaser]
+Discover Zig and write your first command-line utility.
+
+== What is Zig?
+Zig is a relatively new (2016) low-level programming language that could compete with C for embedded applications and library writing. Zig has excellent interoperability with C, but can also be used as a stand-alone programming language and even bare metal.
+
+At the date of this writing (Q2 2022), the Zig language hasn't still reached its 1.0 release, so it is yet subject to many changes and evolutions. It is nevertheless functional and is shipped with its (still experimental) standard library written 100% in Zig.
+
+== Prerequisites
+While writing this article, I used Zig 9.1.0 installed following the instruction given on the https://ziglearn.org/chapter-0/[ziglearn.org] website.
+
+```
+sh$ zig version
+0.9.1
+```
+
+I also assume some previous experience with an imperative programming language, ideally the C or C++, since they expose the concept of "pointer," which is central in Zig. But more on that along the road.
+
+== What are we doing
+For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, words, and lines contained in a file, very much like the POSIX `wc` utility.  
