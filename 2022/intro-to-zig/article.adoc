@@ -23,8 +23,8 @@ sh$ zig version
 
 I also assume some previous experience with an imperative programming language, ideally the C or C++, since they expose the concept of "pointer," which is central in Zig. But more on that along the road.
 
-== What are we doing
-For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, words, and lines contained in a file, very much like the POSIX `wc` utility.  
+== First steps
+For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, and lines contained in a file, very much like the POSIX `wc` utility.  
 
 ** EMBED code/wc-v1.zig
 
@@ -90,3 +90,114 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#
 
 It's a call to the `std.debug.print` function to write a message on the console. Remember, The `std.` prefix means the standard library provides this function.
 Like the C `printf()` function or the Python `format()` function, `std.debug.print` is used for formatted output. That means the message to display contains placeholders that will be replaced by actual values when the function is executed. In Zig, the placeholders are `{}`. They will be replaced by the values given in the tuple `.{ ... }`. Since our three counter variables were initialized to 0 and never touched again, each `{}` is replaced by `0` in the output. You may try to recompile the program by changing the initialization value of the `chars` variable, for example. The new value should appear in the output (don't forget to save your changes *and* to recompile the program).
+
+[NOTE]
+====
+Character strings are always enclosed by double quotes in Zig. You may also notice the `\n` metacharacter in our sample program. It's used to represent the newline character.
+====
+
+== Reading an input stream
+
+=== Using stdin
+To make our program useful, it needs to read data from somewhere. For the sake of simplicity, the program will read data from the standard input `stdin`. The standard Zig module  `std.io` provides a function to access the standard input:
+
+```
+    const stdin = std.io.getStdIn();
+```
+
+Once you have access to stdin, you can read bytes from that stream into a buffer using the following piece of code:
+
+```
+stdin.readAll(&buffer);
+```
+
+But we won't use that directly from the `main` function. Instead, to keep things organized, we will create a new function to perform the heavy work of reading the file and counting the characters read.
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#
+
+=== Working with arrays
+I introduced several new things in the code above. First, consider the `buffer` variable declaration: The buffer is a sequence of consecutive bytes in memory. This is called an array in Zig. To declare an array, you prefix the individual items' data type by the array length. A byte is an 8-bits integer (`u8`), so an array of, say, 256 bytes is declared with the type `[256]u8`.
+
+Then look at the buffer's initialization. Zig makes variable initialization mandatory. You use the special `undefined` value when you have nothing meaningful to put in a variable at the declaration site. It is the case here, since the actual content of the buffer will come from input stream reading on the next line.
+
+The actual work of reading from the file is done by the `readAll` function of the `stdin` structure. If you have familiarity with object-oriented programming, it would be tempting to use the word object here. But Zig is not object-oriented. It does not have inheritance, polymorphism, or dynamic dispatch.
+
+The `&buffer` notation allows passing the location in memory of the array (its address, we also say "a pointer" to the array). The `readAll` function will populate the bytes starting at that location with the data coming from the input stream.
+
+But all files do not have a size that is exactly 256 bytes. So, the readAll function returns the number of bytes actually read. We will display that result to the user. That solves the case for files shorter than 256 bytes. But what will append if the file is longer? Well, contrary to what append in C, for example,  when passing an array to a function in Zig, the receiver knows the size of that array. So the `readAll` function knows it must not read more than 256 bytes.
+
+=== Handling errors
+Take a closer look at the definition of the function `count`. Did you notice the exclamation mark? And look at the call to `stdin.readCall`. Did you see the `try` keyword? Both are related to error handling.
+
+In Zig, errors are just integers. There is no such thing as an error structure (at the time of this writing, at least). However, and even if they just are numbers, error codes are first-class citizens in Zig. The language has extensive features to handle them. And, by design, you cannot ignore an error returned by a function.
+
+When a function may fail with an error, its return type is prefixed by the exclamation mark. And in the body of a function, if you call a function that may fail, you either have to handle the error locally (we will see that in a moment) or propagate ("return") the error to the parent function in the call stack. It's the purpose of the `try` keyword. Let me summarize the sequence of events: If there is an I/O error while reading the input stream, the `readAll` function will abort processing by returning an error code.
+Thanks to the try keyword, our `count` function while receiving that error code will, in its turn, stop processing, returning that error to its caller, which is... well, I haven't talked about that yet. So fix that immediately.
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#
+
+We call the `count` function from the main program. You may have noticed the return type of the main program is `void`, bot `!void`. That means the main program cannot return an error. So if any sub-function call returns an error, it has to be handled by the main. It's the purpose of the `catch` construct. It will capture the error's value in the new variable `err`, then introduces a new block containing the developer-defined error handler. In this program, I kept things simple by only informing the user an error had occurred.
+
+I let you compile and run the program to see how it works now:
+
+```
+sh$ zig build-exe wc-v2.zig 
+sh$ echo "hello world" | ./wc-v2
+ 12 byte(s) read
+ 0 lines, 0 chars
+```
+
+However, it is not easy to test error handling in this program unless you have some faulty USB stick at hand. The best we can do for now is to add an instruction to simulate an error:
+
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v3.zig#
+
+Here, if the buffer contains a `X` as the starting byte, it will trigger an error. Let's test that:
+
+```
+$ echo "hello world" | ./wc-v3
+ 12 byte(s) read
+ 0 lines, 0 chars
+sh$ echo "Xhello world" | ./wc-v3
+Error error.Unexpected while reading file
+ 0 lines, 0 chars
+
+== Counting things
+We have made lots of progress in the preceding section. But the code required to update the `chars` and `lines` variables is still missing. In addition, we have to loop over `stdin.readAll` to read all data from the input file. Let's do that:
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#
+
+At this point, you should be able to understand most of the changes. Two remarks, though: first, I reduced the buffer's size to one byte. It makes counting chars and detecting the end of the file trivial, even if that does not seem very efficient.
+
+Second, look at the `done` variable definition. It does not contain a type declaration because Zig can infer the variable's type from its initialization value. `true` and `false` are two predefined constants representing the possible value of a `bool` variable. Initializing `done` to `false` implicitly makes it a variable of the `bool` type. 
+
+```
+sh$ zig build-exe wc-v4.zig 
+sh$ ./wc-v4 < /etc/passwd
+ 0 lines, 2645 chars
+```
+
+As of now, the program compiles and counts the number of characters read from the input stream. But not the number of lines. As an exercise, I suggest you modify the code to detect the `\n` (newline) character and update the `lines` variable accordingly. I won't give you the solution, but if you are really stuck, you may try to look at the next section to find inspiration.
+
+== A final (?) version
+
+I left you in the last part with a program that counts the characters in a file by reading it byte per byte. A better option would probably require reading a few kibibytes block of data at once, then iterating from memory through that block to count the characters and detect the new lines. The easiest part will be to increase the buffer size:
+
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#
+
+But we also need to loop over the bytes read:
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#
+
+I briefly introduce two new notations here. The `buffer[0..nb]` syntax takes a slice from an array. Think of that as a sub-array. The goal here is to consider only the part of the array whose bytes were updated in the last read operation. Slicing does not copy the data. I merely keep the slice length and a pointer to the slice's start in the existing array. So it's a very fast operation.
+
+Lastly, you can iterate over the items of a slice or array using a `for` loop with capturing syntax. It will execute its body once for each item of the slice or array, binding at each iteration a symbol (here `c`) to the currently examined item.
+
+All that put together leads us to that final version of the program:
+
+ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#
+
+== Done?
+And we're done. Well, I'm done. But the program can be improved in many ways. For example, you may detect word boundaries to also count the number of words in the file. Or, for the bravest among you, you could explore the `https://ziglang.org/documentation/0.9.1/std/#std;unicode.utf8ByteSequenceLength[`std.unicode.utf8ByteSequenceLen`] function to count the number of UTF-8 characters in the input files, rather than simply (and erroneously) considering than one byte is one character as we did here.
+As always, don't hesitate to experiment and share your finding on social networks!
