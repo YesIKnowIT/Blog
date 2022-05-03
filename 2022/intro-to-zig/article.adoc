@@ -23,7 +23,7 @@ sh$ zig version
 0.9.1
 ```
 
-I also assume some previous experience with an imperative programming language, ideally the C or C++.
+I also assume a previous experience with an imperative programming language, ideally C or C++, since you may be more familiar with the notions of https://en.wikipedia.org/wiki/Data_type[data types] and https://en.wikipedia.org/wiki/Pointer_(computer_programming)[pointers].
 
 == First steps
 For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, and lines contained in a file, very much like the POSIX `wc` utility.  
@@ -67,7 +67,7 @@ For now, it's not very exciting, but let's examine the program in more detail to
 
 === Comments
 In the source file above, you can see many lines starting with `//`.
-Those are comments ignored by the compiler but helpful to explain how a program works to other programmers (or to the future you).
+Those are https://ziglang.org/documentation/master/#Comments[comments] ignored by the compiler but helpful to explain how a program works to other programmers (or to the future you).
 
 A comment in Zig starts with `//` and continues up to the line's end.
 There are no multi-line comments in Zig.
@@ -88,7 +88,7 @@ Here, for consistency, I bind it to the (newly declared) constant `std` (no quot
 === Variables
 As a best practice, Zig encourages you to use constants (`const`) whenever you can.
 But sometimes, you have to store data you will update during the program life's time.
-You will use a variable (`var`) declaration in that use case.
+You will use a variable (`var`) declaration in that case.
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L14-L15
 
@@ -99,17 +99,17 @@ It specifies the *type* of the variable.
 Zig is a statically typed programming language.
 The compiler has to know how much space to reserve in memory to store your data and how to interpret those data.
 The `u32` notation means our data are 32-bits unsigned integers.
-In other words, each of our variables can store a positive numbers in the range 0~2³²-1.
-I assume it should be sufficient to count the number of chars in a document.
-If it's not enough for you, you may change the variable's type to `u48` or `u64` if you want.
+In other words, each of our variables can store a positive number in the range 0~2<sub>32</sup>-1.
+I assume it should be sufficient to count the number of characters in a document.
+If it's not enough for you, you may change the variable's type to `u48` or `u64` if you prefer.
 On the other hand, if you think it's too much, why not reduce our program's memory consumption by using `u24` or even `u16`?
-Zig allows arbitrary bit size for integer variables, so you may choose the number of bits that suits you the most.
+Zig allows arbitrary bit-width for integer variables, so you may choose the number of bits that suits you the most.
 
 === The main program
 Aside from the `const` and `var` declarations, function definitions are the most used kind of statement in Zig.
 In the purest tradition of imperative programming language, a Zig program is divided into several functions that are individual units of execution.
 
-Functions definition will likely change before the Zig 1.0 release to make them more consistent with the rest of the syntax.
+Functions definition will https://github.com/ziglang/zig/issues/1717[likely change before the Zig 1.0 release] to make them more consistent with the rest of the syntax.
 For now, they are introduced by the keyword `fn` followed by the developer-assigned function's name, a pair of parenthesis, and the function's return type.
 Like in C, when the return type is `void`, the function returns nothing (in other programming languages, we talk about *procedures* in that case).
 
@@ -122,10 +122,10 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#
 It's a call to the `std.debug.print` function to write a message on the console.
 Remember, The `std.` prefix means the standard library provides this function.
 Like the C `printf()` function or the Python `format()` function, `std.debug.print` is used for formatted output.
-That means the message to display contains placeholders that will be replaced by actual values when the function is executed.
+The message to display contains placeholders that will be replaced by actual values when the function is executed.
 In Zig, the placeholders are `{}`.
-They will be replaced by the values given in the tuple `.{ ... }`.
-Since our three counter variables were initialized to 0 and never touched again, each `{}` is replaced by `0` in the output.
+They will be replaced by the values given in the https://ziglang.org/documentation/master/#Anonymous-Struct-Literalstuple[`.{ ... }`].
+Since our counter variables were initialized to 0 and never touched again, each `{}` is replaced by `0` in the output.
 You may try to recompile the program by changing the initialization value of the `chars` variable, for example.
 The new value should appear in the output (don't forget to save your changes *and* to recompile the program).
 
@@ -176,7 +176,7 @@ It does not have inheritance, polymorphism, or dynamic dispatch.
 The `&buffer` notation allows passing the location in memory of the array (its address, we also say "a pointer" to the array).
 The `readAll` function will populate the bytes starting at that location with the data coming from the input stream.
 
-But all files do not have a size that is exactly 256 bytes.
+But not all files are exactly 256 bytes long.
 So, the `readAll` function returns the number of bytes actually read.
 We will display that result to the user.
 That solves the case for files shorter than 256 bytes.
@@ -192,7 +192,7 @@ Did you see the `try` keyword?
 Both are related to error handling.
 
 In Zig, errors are just integers.
-There is no such thing as an error structure (at the time of this writing, at least).
+There is no such thing as an error structure (https://github.com/ziglang/zig/issues/2647[at the time of this writing, at least]).
 However, and even if they just are numbers, error codes are first-class citizens in Zig.
 The language has extensive features to handle them.
 And, by design, you cannot ignore an error returned by a function.
@@ -210,10 +210,10 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#
 We call the `count` function from the main program.
 You may have noticed the return type of the main program is `void`, not `!void`.
 That means the main program cannot return an error.
-So if any sub-function call returns an error, it has to be handled by the main.
+So if any sub-function call may return an error, it has to be handled by the main.
 It's the purpose of the `catch` construct.
 It will capture the error's value in the new variable `err`, then introduces a new block containing the developer-defined error handler.
-In this program, I simply inform the user an error had occurred.
+In this program, I simply inform the user an error has occurred.
 
 I let you compile and run the program to see how it works now:
 
@@ -230,10 +230,10 @@ The best we can do for now is to add an instruction to simulate an error:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v3.zig#L27-L29
 
-Here, if the buffer contains a `X` as the starting byte, it will trigger an error.
+Here, if the buffer contains an `X` as the starting byte, it will trigger an error.
 Please notice the character `X` is enclosed in simple quotes.
 That's how you write character constants in Zig.
-Do not confuse them with strings of characters, enclosed by double quotes.
+Please do not confuse them with strings of characters enclosed by double-quotes.
 Let's test that:
 
 ```
@@ -249,7 +249,7 @@ Error error.Unexpected while reading file
 We have made lots of progress in the preceding section.
 But the code required to update the `chars` and `lines` variables is still missing.
 In addition, we somehow have hard-coded the maximum file length to 256 bytes.
-Let's take a more realistic approach by looping over `stdin.readAll` to read all data from the input file regardles of its length:
+Let's take a more realistic approach by looping over `stdin.readAll` to read all data from the input file regardless of its length:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L17-L44
 
@@ -273,10 +273,18 @@ But not the number of lines.
 As an exercise, I suggest you modify the code to detect the newline character (`'\n'`) and update the `lines` variable accordingly.
 I won't give you the solution, but if you are really stuck, you may try to look at the next section to find some inspiration.
 
+[NOTE]
+====
+Do you remember we saw Zig can store integers using an arbitrary number of bits?
+Try to reduce the `u32` type used for the `lines` and `chars` variables to something ridiculously small like `u3` or `u4`.
+What happens when you feed the program with a file large enough to https://ziglang.org/documentation/master/#Integer-Overflow[overflow] the allocated storage capabilities?
+====
+
 == A final (?) version
 
 I left you in the last part with a program that counts the number of characters in a file while reading it byte per byte.
-A better option would probably require reading a few kibibytes block of data at once, then iterating from memory through that block to count the characters and detect the new lines.
+A better option would probably require reading a  few kibibytes block of data, then iterating from memory through that block to count the characters and detect the new lines.
+Repeating these operations until the entire file has been read.
 Let' start with the easiest part: increasing the buffer size.
 
 
@@ -294,7 +302,7 @@ Slicing does not copy the data.
 I merely store the slice length and a pointer to the slice's start in the existing array.
 So it's a very fast operation.
 
-Lastly, you can iterate over the items of a slice or array using a `for` loop with capturing syntax.
+Lastly, you can iterate over the items of a slice or array using a https://ziglang.org/documentation/master/#for[`for` loop] with capturing syntax.
 It will execute its body once for each item of the slice or array, binding at each iteration a symbol (here `c`) to the currently examined item.
 
 All that put together leads us to that final version of the program:
