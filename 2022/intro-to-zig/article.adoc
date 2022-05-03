@@ -299,7 +299,7 @@ It will execute its body once for each item of the slice or array, binding at ea
 
 All that put together leads us to that final version of the program:
 
- https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig
+https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig
 
 == Done?
 And we're done.
