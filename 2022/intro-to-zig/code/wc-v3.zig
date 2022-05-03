@@ -17,29 +17,18 @@ var lines:u32 = 0;
 pub fn count() !void {
     const stdin = std.io.getStdIn();
 
-    // Count the chracters up to the end of the string
-    var done = false;
-    var buffer: [1]u8 = undefined; // A one byte buffer. Is this really efficient?
+    var buffer: [256]u8 = undefined; // A 256-bytes buffer
 
-    while(!done) {
-        // Read enough data to fill the buffer
-        // The `try` keyword means: "If there is an error, abort this function and return the error"
-        const nb = try stdin.readAll(&buffer);
+    // Read enough data to fill the buffer
+    // The `try` keyword means: "If there is an error, abort this function and return the error"
+    const nb = try stdin.readAll(&buffer);
 
-        // If we can't fill the buffer, that means we have exhausted the input stream
-        if (nb == 0) {
-            done = true;
-        }
-        else {
-            chars += 1;
-        }
-
-        // Uncomment the following three lines to simulate an error
-        // when we encounter the X character
-        // if (buffer[0] == 'X') {
-        //     return error.Unexpected;
-        // }
+    // Simulate an error when the buffer starts by an 'X'
+    if (buffer[0] == 'X') {
+        return error.Unexpected;
     }
+
+    std.debug.print(" {} byte(s) read\n", .{ nb });
 }
 
 // The main function is the starting point for your program's execution

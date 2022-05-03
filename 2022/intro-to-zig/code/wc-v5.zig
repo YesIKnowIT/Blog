@@ -19,27 +19,32 @@ pub fn count() !void {
 
     // Count the chracters up to the end of the string
     var done = false;
-    var buffer: [1]u8 = undefined; // A one byte buffer. Is this really efficient?
+    var buffer: [32*1024]u8 = undefined;
 
-    // The ! here is the logical `not` operator
     while(!done) {
         // Read enough data to fill the buffer
         // The `try` keyword means: "If there is an error, abort this function and return the error"
         const nb = try stdin.readAll(&buffer);
 
         // If we can't fill the buffer, that means we have exhausted the input stream
-        if (nb == 0) {
+        if (nb < buffer.len) {
             done = true;
         }
-        else {
-            chars += 1;
-        }
 
-        // Uncomment the following three lines to simulate an error
-        // when we encounter the X character
-        // if (buffer[0] == 'X') {
-        //     return error.Unexpected;
-        // }
+        // Iterate over the bytes of the buffer
+        for(buffer[0..nb]) |c| {
+            chars += 1;
+
+            if (c == '\n') {
+                lines += 1;
+            }
+
+            // Uncomment the following three lines to simulate an error
+            // when we encounter the X character
+            // if (c == 'X') {
+            //     return error.Unexpected;
+            // }
+        }
     }
 }
 
