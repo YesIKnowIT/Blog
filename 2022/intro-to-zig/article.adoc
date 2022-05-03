@@ -1,4 +1,4 @@
-:= Introduction to Zig
+= Introduction to Zig
 :author: Sylvain Leroux
 :pin: -
 :revnumber: 0.1
@@ -159,7 +159,7 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#
 === Working with arrays
 I introduced several new language constructs in the code above.
 First, consider the `buffer` variable declaration: The buffer is a sequence of consecutive bytes in memory.
-This is called an array in Zig.
+This is called an https://ziglearn.org/chapter-1/#arrays[array] in Zig.
 To declare an array, you prefix the individual items' data type by the array length.
 A byte is an 8-bits integer (`u8`), so an array of, say, 256 bytes is declared with the type `[256]u8`.
 
@@ -287,7 +287,7 @@ But we also need to loop over the bytes read:
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L35-L47
 
 I briefly introduce two new notations here.
-The `buffer[0..nb]` syntax takes a https://ziglang.org/documentation/master/#Slices[slice] from an array.
+The `buffer[0..nb]` syntax takes a https://ziglearn.org/chapter-1/#slices[slice] from an array.
 Think of that as a sub-array.
 The goal here is to consider only the part of the array whose bytes were updated in the last read operation.
 Slicing does not copy the data.
