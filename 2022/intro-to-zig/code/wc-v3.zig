@@ -2,8 +2,8 @@
 // Compile and run this program by typing the following commands
 // in your shell:
 //
-//      zig build-exe wc-v2.zig
-//      ./wc-v2
+//      zig build-exe wc-v3.zig
+//      ./wc-v3
 //
 
 // Import the "std" module and make it available using the `std` namespace
