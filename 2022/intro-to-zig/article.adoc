@@ -72,17 +72,17 @@ Those are https://ziglang.org/documentation/master/#Comments[comments] ignored b
 A comment in Zig starts with `//` and continues up to the line's end.
 There are no multi-line comments in Zig.
 
-=== Modules
+=== Packages
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10
 
-A Zig program can be divided into modules to improve reusability or manage complexity.
-The standard and third-party libraries are shipped as modules.
-Large scope modules can be subdivided into sub-modules.
-It is the case for the standard library, whose root module is accessible under the name `"std"` (with quotes).
+A Zig program can be divided into packages to improve reusability or manage complexity.
+The standard and third-party libraries are shipped as packages.
+Large scope packages can be subdivided into sub-packages.
+It is the case for the standard library, whose root package is accessible under the name `"std"` (with quotes).
 
-To use a module, you need to import it using the https://ziglang.org/documentation/master/#import[`@import`] internal function.
-But you also need to bind that module to a symbol to make it accessible to the rest of the code.
+To use a package, you need to import it using the https://ziglang.org/documentation/master/#import[`@import`] internal function.
+But you also need to bind that package to a symbol to make it accessible to the rest of the code.
 Here, for consistency, I bind it to the (newly declared) constant `std` (no quotes).
 
 === Variables
@@ -141,7 +141,7 @@ It's used to represent the newline character.
 === Using stdin
 To make our program useful, it needs to read data from somewhere.
 For the sake of simplicity, the program will read data from the standard input `stdin`.
-The standard Zig module `std.io` provides a function to access the standard input:
+The standard Zig package `std.io` provides a function to access the standard input:
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L18
 
