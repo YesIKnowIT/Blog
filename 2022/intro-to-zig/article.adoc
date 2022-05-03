@@ -1,4 +1,4 @@
-= Introduction to Zig
+:= Introduction to Zig
 :author: Sylvain Leroux
 :pin: -
 :revnumber: 0.1
@@ -154,7 +154,7 @@ stdin.readAll(&buffer);
 
 But we won't use that directly from the `main` function. Instead, to keep things organized, we will create a new function to perform the heavy work of reading the file and counting the number of characters read.
 
- https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L17-L27
+https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L17-L27
 
 === Working with arrays
 I introduced several new language constructs in the code above.
@@ -237,12 +237,13 @@ Do not confuse them with strings of characters, enclosed by double quotes.
 Let's test that:
 
 ```
-$ echo "hello world" | ./wc-v3
+sh$ echo "hello world" | ./wc-v3
  12 byte(s) read
  0 lines, 0 chars
 sh$ echo "Xhello world" | ./wc-v3
 Error error.Unexpected while reading file
  0 lines, 0 chars
+```
 
 == Counting things
 We have made lots of progress in the preceding section.
