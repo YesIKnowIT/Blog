@@ -49,7 +49,7 @@ ORIG_HEAD=$(head)
 
 {
 #git reset --soft "${UPSTREAM}"
-git checkout B1~1
+#git checkout B1~1
 #git checkout B1
 #git add 1.txt
 #git commit -m "changed"
@@ -76,10 +76,10 @@ HEAD=$(head)
         for P in $PS; do
             echo '"'$H'" -> "'$P'";'
         done
+        if [[ -z "$PS" ]]; then
+            echo '"'$H'" -> "";'
+        fi
     done
-
-    echo 'subgraph cluster_root {'
-    echo 'rankdir="TB";'
 
     echo 'subgraph cluster_main {'
     echo 'label = "main";'
@@ -111,8 +111,6 @@ HEAD=$(head)
     echo '{'
     echo 'rank = same;'
     echo '"'$ORIG_MAIN'" -> "'$ORIG_B1'" -> "'$ORIG_B2'" [style = invis];'
-    echo '}'
-
     echo '}'
 
     echo '}'
