@@ -39,6 +39,7 @@ function _save() {
 
 #    echo '"'""'" [style="invis" width=0 label=""];'
     echo '"'"$START"'" [style="invis" width=0 label=""];'
+    echo '"origin/main" [shape = box width = .75 style = "filled" width = .5];'
     git log --topo-order --reverse --pretty='%H %s' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD ^$START | while read H LABEL; do
         if [[ ${#LABEL} -gt 4 ]]; then
             WIDTH=.75
@@ -47,6 +48,7 @@ function _save() {
         fi
         echo "\"$H\" [label=\"${LABEL}\" shape=circle width=$WIDTH];"
     done
+    echo '"origin/main" -> "'"${UPSTREAM}"'"'
     git log --topo-order --reverse --pretty='%H %P' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD ^$START| while read H PS; do
         for P in $PS; do
             echo '"'$H'" -> "'$P'";'
@@ -60,6 +62,7 @@ function _save() {
     echo 'label = "main";'
     echo 'style = "invis";'
 #    echo '"";'
+    echo '"origin/main";'
     echo '"'"$START"'";'
     git log --pretty='"%H";' $START..$ORIG_MAIN
     echo '}'

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WIDTH=730
-XWIDTH=975
+XWIDTH=1000
 
 cd tmp
 for f in ???.png; do
