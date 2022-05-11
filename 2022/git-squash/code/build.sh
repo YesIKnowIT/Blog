@@ -32,11 +32,20 @@ function _save() {
 
     echo 'rankdir="RL";'
     echo 'margin = .25;'
+    echo 'ranksep = .3;'
+    echo 'nodesep = .6;'
     echo 'edge[penwidth=2];'
     echo 'node[style=filled fillcolor="#f1f1f1" penwidth=2 fontsize=12 fontname=notosans];'
 
     echo '"" [style="invis",width=0];'
-    git log --pretty='"%H" [label="%s" shape=circle width=.5];' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD
+    git log --pretty='%H %s' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD | while read H LABEL; do
+        if [[ ${#LABEL} -gt 4 ]]; then
+            WIDTH=.75
+        else
+            WIDTH=.5
+        fi
+        echo "\"$H\" [label=\"${LABEL}\" shape=circle width=$WIDTH];"
+    done
     git log --pretty='%H %P' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD | while read H PS; do
         for P in $PS; do
             echo '"'$H'" -> "'$P'";'
@@ -82,9 +91,7 @@ function _save() {
 }
 
 function save() {
-    DIRNAME="$(dirname "$1")/../"
-    BASENAME="$(basename "$1")"
-    PNG="${DIRNAME}${BASENAME}"
+    PNG="${1}"
     DOT="${PNG%.png}.dot"
     _save | tee "${DOT}" | dot -Tpng > "${PNG}"
 }

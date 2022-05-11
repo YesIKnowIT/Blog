@@ -1,11 +1,13 @@
-git reset --soft "${UPSTREAM}"
 save 1-1.png
 
-git commit -m "F...J"
+git reset --soft "${UPSTREAM}"
 save 1-2.png
 
+git commit -m "F...J"
+save 1-3.png
+
 git merge --squash B2 
-git commit -m "K-O"
+git commit -m "K...O"
 save 2-1.png
 
 git checkout B2
