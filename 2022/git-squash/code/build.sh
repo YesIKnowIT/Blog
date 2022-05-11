@@ -3,7 +3,7 @@
 set -e
 
 BOOK=book-of-nonsense.txt
-DATE=1970-01-01T00:00:00
+#DATE=1970-01-01T00:00:00
 COMMITS="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 declare -i CIDX=0
 
@@ -16,7 +16,7 @@ function commit() {
     sed -n '3,7p' "$1" | while IFS='' read; do
         echo "${REPLY}" >> "$2"
         git add "$2"
-        git commit --quiet --date="${DATE}" --author='Edward Lear <e.lear@example.com>' -m "${COMMITS:CIDX:1}"
+        git commit --quiet --author='Edward Lear <e.lear@example.com>' -m "${COMMITS:CIDX:1}"
         CIDX=$((CIDX+1))
     done
     CIDX=$((CIDX+5))
@@ -37,8 +37,9 @@ function _save() {
     echo 'edge[penwidth=2];'
     echo 'node[style=filled fillcolor="#f1f1f1" penwidth=2 fontsize=12 fontname=notosans];'
 
-    echo '"" [style="invis",width=0];'
-    git log --pretty='%H %s' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD | while read H LABEL; do
+#    echo '"'""'" [style="invis" width=0 label=""];'
+    echo '"'"$START"'" [style="invis" width=0 label=""];'
+    git log --topo-order --reverse --pretty='%H %s' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD ^$START | while read H LABEL; do
         if [[ ${#LABEL} -gt 4 ]]; then
             WIDTH=.75
         else
@@ -46,7 +47,7 @@ function _save() {
         fi
         echo "\"$H\" [label=\"${LABEL}\" shape=circle width=$WIDTH];"
     done
-    git log --pretty='%H %P' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD | while read H PS; do
+    git log --topo-order --reverse --pretty='%H %P' $ORIG_MAIN $ORIG_B1 $ORIG_B2 $ORIG_HEAD main B1 B2 HEAD ^$START| while read H PS; do
         for P in $PS; do
             echo '"'$H'" -> "'$P'";'
         done
@@ -58,8 +59,9 @@ function _save() {
     echo 'subgraph cluster_main {'
     echo 'label = "main";'
     echo 'style = "invis";'
-    echo '"";'
-    git log --pretty='"%H";' $ORIG_MAIN
+#    echo '"";'
+    echo '"'"$START"'";'
+    git log --pretty='"%H";' $START..$ORIG_MAIN
     echo '}'
 
     echo 'subgraph cluster_b1 {'
@@ -82,10 +84,10 @@ function _save() {
     echo 'B2[shape = box width = .75 style = "filled"];'
     echo 'main[shape = box width = .75 style = "filled"];'
     echo 'HEAD[shape = box width = .75 style = "filled"];'
-    echo '{'
-    echo 'rank = same;'
-    echo '"'$ORIG_MAIN'" -> "'$ORIG_B1'" -> "'$ORIG_B2'" [style = invis];'
-    echo '}'
+#    echo '{'
+#    echo 'rank = same;'
+#    echo '"'$ORIG_MAIN'" -> "'$ORIG_B1'" -> "'$ORIG_B2'" [style = invis];'
+#    echo '}'
 
     echo '}'
 }
@@ -110,6 +112,7 @@ git init --quiet .
 git checkout --quiet -b main
 commit xx01 1.txt
 
+START=$(git rev-parse HEAD~3)
 UPSTREAM=$(git rev-parse HEAD)
 commit xx04 4.txt
 
