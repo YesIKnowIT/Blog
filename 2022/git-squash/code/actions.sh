@@ -1,3 +1,5 @@
 git reset --soft "${UPSTREAM}"
-git add 2.txt
+save 1.png
+
 git commit -m "F...J"
+save 2.png

@@ -1,12 +1,6 @@
 #!/bin/bash
 
-SCRIPT="$1"
-DIR="${SCRIPT%.sh}"
-
-if [[ -z "${SCRIPT}" ]]; then
-    echo "Usage: $0 script-file" >&2
-    exit 1
-fi
+set -e
 
 BOOK=book-of-nonsense.txt
 DATE=1970-01-01T00:00:00
@@ -28,43 +22,12 @@ function commit() {
     CIDX=$((CIDX+5))
 }
 
-if [ ! -f "${BOOK}" ]; then
-    wget 'https://www.gutenberg.org/ebooks/982.txt.utf-8' -O "${BOOK}"
-fi
+function _save() {
+    MAIN=$(git rev-parse main)
+    B1=$(git rev-parse B1)
+    B2=$(git rev-parse B2)
+    HEAD=$(head)
 
-csplit "${BOOK}" '/^[0-9]\+\./' '{*}' > /dev/null
-
-rm -rf .git [0-9].txt
-git init --quiet .
-git checkout --quiet -b main
-commit xx01 1.txt
-
-UPSTREAM=$(git rev-parse HEAD)
-commit xx04 4.txt
-
-git checkout --quiet -b "B1" "${UPSTREAM}"
-commit xx02 2.txt
-
-git checkout --quiet -b "B2" "${UPSTREAM}"
-commit xx03 3.txt
-
-git checkout --quiet main
-
-ORIG_MAIN=$(git rev-parse main)
-ORIG_B1=$(git rev-parse B1)
-ORIG_B2=$(git rev-parse B2)
-ORIG_HEAD=$(head)
-
-{
-    source "${SCRIPT}"
-} > /dev/null
-
-MAIN=$(git rev-parse main)
-B1=$(git rev-parse B1)
-B2=$(git rev-parse B2)
-HEAD=$(head)
-
-{
     echo 'digraph G {'
 
     echo 'rankdir="RL";'
@@ -117,3 +80,44 @@ HEAD=$(head)
 
     echo '}'
 }
+
+function save() {
+    DIRNAME="$(dirname "$1")/../"
+    BASENAME="$(basename "$1")"
+    PNG="${DIRNAME}${BASENAME}"
+    DOT="${PNG%.png}.dot"
+    _save | tee "${DOT}" | dot -Tpng > "${PNG}"
+}
+
+mkdir -p tmp
+cd tmp
+
+if [ ! -f "${BOOK}" ]; then
+    wget 'https://www.gutenberg.org/ebooks/982.txt.utf-8' -O "${BOOK}"
+fi
+
+csplit "${BOOK}" '/^[0-9]\+\./' '{*}' > /dev/null
+
+rm -rf .git [0-9].txt
+git init --quiet .
+git checkout --quiet -b main
+commit xx01 1.txt
+
+UPSTREAM=$(git rev-parse HEAD)
+commit xx04 4.txt
+
+git checkout --quiet -b "B1" "${UPSTREAM}"
+commit xx02 2.txt
+
+git checkout --quiet -b "B2" "${UPSTREAM}"
+commit xx03 3.txt
+
+git checkout --quiet main
+
+ORIG_MAIN=$(git rev-parse main)
+ORIG_B1=$(git rev-parse B1)
+ORIG_B2=$(git rev-parse B2)
+ORIG_HEAD=$(head)
+
+echo "source $(pwd)"
+source "../actions.sh"
