@@ -1,5 +1,13 @@
 #!/bin/bash
 
+SCRIPT="$1"
+DIR="${SCRIPT%.sh}"
+
+if [[ -z "${SCRIPT}" ]]; then
+    echo "Usage: $0 script-file" >&2
+    exit 1
+fi
+
 BOOK=book-of-nonsense.txt
 DATE=1970-01-01T00:00:00
 COMMITS="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -48,13 +56,7 @@ ORIG_B2=$(git rev-parse B2)
 ORIG_HEAD=$(head)
 
 {
-#git reset --soft "${UPSTREAM}"
-#git checkout B1~1
-#git checkout B1
-#git add 1.txt
-#git commit -m "changed"
-#git merge B1 -m "merge B1"
-:
+    source "${SCRIPT}"
 } > /dev/null
 
 MAIN=$(git rev-parse main)
