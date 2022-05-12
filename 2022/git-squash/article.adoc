@@ -38,7 +38,7 @@ But what's the HEAD?
 
 === The HEAD
 
-The HEAD is a reference maintained by Git, which designs the "current" branch.
+The https://git-scm.com/docs/gitglossary#def_HEAD[HEAD] is a reference maintained by Git, which designs the "current" branch.
 The graph above shows that the HEAD is a symbolic link to the main branch, and the main branch points to the commit J.
 It is a typical situation when you check a branch out with Git.
 If you have a Git repository at hand, you can verify that by yourself using the `git symbolic-ref` and `git rev-parse` commands:
