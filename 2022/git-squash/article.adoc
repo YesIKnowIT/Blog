@@ -27,7 +27,7 @@ To do that, you have at least three solutions:
 
 1. `git reset --soft`
 2. `git merge --squash`
-3. `git rebase`
+3. `git rebase -i`
 
 == Resetting the HEAD
 
