@@ -17,9 +17,9 @@ As you can see, I carried out some work on three different branches after the co
 
 I have now finished my work, and I want to push the three fixes upstream. But before that, I would like to group the commits of each branch into only one commit. To do that, you have at least three solutions:
 
-git reset --soft
-git merge --squash
-git rebase
+1. git reset --soft
+2. git merge --squash
+3. git rebase
 
 == Resetting the HEAD
 Our first solution will group the revisions F to J of the main branch. This solution is based on the `git reset --soft` command.
@@ -67,9 +67,9 @@ And here is the new revision graph:
 image::1-3.png[]
 
 [NOTE]
-----
+====
 We introduced a new revision here totally independent of the F through J revisions. It just appends the new revision contains the same changes. The metainformation (commit message, author, date) introduced by revisions F and its descendants was not propagated in the new revision. It's up to you to provide a detailed commit message so that important information is not lost in the process. 
-----
+====
 
 == Squash merge
 Let's now consider the changes introduced in the B1 branch. This time, we will use `git merge --squash` to compact the revisions K to O into one single commit, applied on top of the HEAD:
@@ -102,11 +102,15 @@ git checkout B2
 
 image::3-1.png[]
 
+=== Interactive rebasing to squash commits
+
 Git offers the `git rebase -i' command when you want to rewrite the history of a local branch. The `-i' option stands for interactive. Indeed, it will open an EDITOR so you can reorder, remove and/or combine the revisions introduced in the previous commits of the working branch. Here I'm interested in rewriting the last five commits:
 
 ```
 git rebase -i HEAD~5
 ```
+
+XXX SCREENSHOT HERE
 
 If the editor, replace the word "pick" with "squash" on the lines two and the followings. As the help message explains, this will meld each marked revision with its direct parent. You probably want to update the commit message too. So I suggest you also replace "pick" with "reword" on the first line.
 Once you've saved your modifications, quit the text editor, and Git will start applying the change you requested. If you have asked to update the commit message, Git will present another EDITOR so you can type it.
@@ -118,6 +122,8 @@ image::3-2.png[]
 
 Like in the two others solutions explained in this article, we introduced a new commit, combining the changes of several other revisions. Notice how the B2 and HEAD references have changed to point to the newly introduced commit.
 
+=== Rebasing to reapply changes on a new base tip
+
 At this point, it would be tempting to immediately check out the main branch and merge it with B2. But as a postulate, at the start of this article, I stated the three initial sets of changes when independent. So I can apply them sequentially. In other words, I don't really need a merge here: it is enough to apply the `P...T` changes on top of the existing main branch.
 
 Unfortunately, the main branch has changed a lot since the initial development of the P to T revisions. To take that into account, we will issue another `git rebase` command. This time a non-interactive one:
@@ -126,10 +132,13 @@ Unfortunately, the main branch has changed a lot since the initial development o
 git rebase main
 ```
 
-This command asks Git to change the attaching point of the current branch to a more recent version of the main branch. And indeed:
+This command asks Git to change the attaching point of the current branch to the most recent version of the main branch. And indeed:
 
 
 image::3-3.png[]
+
+
+=== Fast-forwarding
 
 Now, back to the main branch:
 
