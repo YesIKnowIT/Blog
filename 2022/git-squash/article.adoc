@@ -74,7 +74,7 @@ image::1-2.png[]
 Two remarks:
 
 * First, even if we no longer have any branch pointing to the revisions J, Git didn't remove it. It is still accessible (notably, in that case, through the ORIG_HEAD reference).
-* Second, because of the `--soft` option, `git reset` did not change the working tree (the checked-out files) nor the index (the list of files to include in the next commit)
+* Second, because of the `--soft` option, `git reset` did not change the https://git-scm.com/docs/gitglossary#def_working_tree[working tree] (the checked-out files) nor the https://git-scm.com/docs/gitglossary#def_index[index] (the list of files to include in the next commit)
 
 The second point is essential here: it means the files on your working tree still contain all the changes introduced by the revisions F to J.
 And those files are already staged for the next commit (no need for `git add`).
