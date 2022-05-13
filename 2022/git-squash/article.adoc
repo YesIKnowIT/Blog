@@ -125,9 +125,9 @@ image::2-1.png[]
 
 Our last option to combine multiple commits into one will use the `git rebase` command.
 While learning Git, I found it was the most obvious solution.
-But I don't really know why: while preparing this article, I realized it was also the most cumbersome way of doing.
+But I don't really know why: while preparing this article, I realized it was also the most cumbersome way of doing it.
 Of course, your mileage may vary.
-However, even if you share that feeling, take some time to read the next few paragraphs: it introduces rebasing techniques you may find helpful in other circumstances.
+However, even if you share that feeling, take some time to read the following few paragraphs: it introduces rebasing techniques you may find helpful in other circumstances.
 
 Here I want to combine the commits P to T.
 The starting point is to check out the branch B2:
@@ -151,7 +151,7 @@ git rebase -i HEAD~5
 
 XXX SCREENSHOT HERE
 
-In the editor, replace the word "pick" with "squash" on the lines two and the followings.
+In the editor, replace the word "pick" with "squash" on lines two and the followings.
 As the help message explains, this will meld each marked revision with its parent.
 You probably want to update the commit message too.
 So I suggest you also replace "pick" with "reword" on the first line.
@@ -231,9 +231,9 @@ I also recommend rebasing (and re-testing) the individual branches after each ch
 
 == Conclusion
 
-Of course, in your daily work, you won't need to mix the three different solutions presented here.
+Of course, you won't need to mix the three different solutions presented here in your daily work.
 You will probably stick to the one that better suits your workflow.
 Incidentally, I wasn't exhaustive on the topic.
-There is at least one other solution implying `git stash` to combine several commits in a single one.
+For example, you may also use `git stash` to combine several commits in a single one.
 I will let you investigate that alternative by yourself.
 As always, don't hesitate to share your findings on social networks!
