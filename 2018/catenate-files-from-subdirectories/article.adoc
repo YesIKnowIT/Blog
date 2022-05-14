@@ -1,0 +1,64 @@
+= How to catenate files scattered through several sub-directories
+:author: Sylvain Leroux
+:pin: 677088125201762023
+:revnumber: 1.0
+:revdate: 2018-03-27T14:36:13+02:00
+:keywords: Linux, Grep, Find, Globstar, Catenate, Text Files
+
+Yesterday, I needed to catenate all the https://en.wikipedia.org/wiki/Comma-separated_values[CSV] files from some dataset. The trouble was they were scattered into many different directories on several levels. My initial reflex was to use the find command--but I then wondered if there were other ways of doing that?
+
+== The dataset
+I can't distribute the data set I was working on. But here are few commands to approximate its layout, that way you will have a better idea of the problem:
+
+----
+for i in {a..e}; do
+  mkdir -p dataset/$i
+  echo "$i: I don't want that" > dataset/$i/head.txt
+  echo "$i,I,want,that" > dataset/$i/head.csv
+  for j in {1..5}; do
+    mkdir dataset/$i/$j
+    echo "$i$j,I,want,that,too" > dataset/$i/$j/data.csv
+  done
+done
+----
+
+== Using the `find` command
+I like the `find` command. I _really_ like it: it can solve so many different problems! Here, it was pretty straightforward to use:
+
+----
+find dataset/ -name '*.csv' -exec cat {} \;
+----
+
+Or better, if your `find` command supports that alternate syntax:
+
+----
+find dataset/ -name '*.csv' -exec cat {} +
+----
+
+The difference is, in the second form, only _one_ instance of the `cat` command is created, with all filenames passed as arguments of the same instance. Whereas with the former syntax, the `find` command will spawn a _new_ `cat` instance for each found file.
+
+== Using the `grep` command
+I am probably not the first one to discover that, but I must admit I'm particularly proud of having thought to this one:
+
+----
+grep -lr --include '*.csv' '' dataset/
+----
+
+You may already know the `-r` option of `grep` to recursively search into directories. And if you are using GNU `grep`, you might be aware of the `--include` option that limits the search space to the files matching a given https://en.wikipedia.org/wiki/Glob_(programming)[glob pattern]. The trick here is to use the empty `''` search pattern. It will match _all lines_ of _all files_ of the search space. So `grep` will display all lines of each file matching the `*.csv` glob pattern. _Exactly_ what I wanted.
+
+Note: the `-l` option is used to remove the filename from the default `grep` output since I'm only interested in the file content.
+
+== Using the Bash _extended_ glob patterns
+When the `globstar` option is enabled, the Bash supports the `**` glob pattern that will match zero or more directories. This is not a Bash-specific feature since https://en.wikipedia.org/wiki/Z_shell[Zsh] and the https://en.wikipedia.org/wiki/KornShell[Korn Shell (ksh)] (at least) have a similar feature. But I'm less familiar with them, so I will stick with the Bash syntax:
+
+----
+(shopt -s globstar; cat dataset/**/*.csv)
+----
+
+Here I use the parenthesis to fork a new sub-shell that will execute the commands give inside the parenthesis. That way, I can alter the shell options in the child process without interfering with the settings of the parent shell. Speaking of that, this is the role of the `shopt` Bash internal command to set the shell options, in that case, to activate the `globstar` feature. Now, I can use an _extended_ glob pattern to pass as arguments to the `cat` command all `*.csv` files, including those buried in subdirectories (`**`).
+
+And this is the end of that pretty short article. I hope you learned a trick or two. If you're interested in knowing more about the `find` command or the _globstar_ Bash option, I may suggest you take a look at that series of three videos I published earlier:
+
+1. https://www.yesik.it/EP01[How to Move hundreds of Files in no Time ... using Glob Patterns]
+2. https://www.yesik.it/EP02[How to Move hundreds of Files in no Time ... using the Find Command]
+3. https://www.yesik.it/EP03[How to Move hundreds of Files in no Time ... using globstar (**)]

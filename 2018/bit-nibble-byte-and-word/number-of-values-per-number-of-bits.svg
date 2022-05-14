@@ -1,0 +1,1359 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="600"
+   height="550"
+   viewBox="0 0 158.75 145.52084"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="number-of-values-per-number-of-bits.svg">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2126"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2132"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#f4e3d7;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2126-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-2-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2126-1-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2126-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-90"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2126-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2126-71"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="370.37859"
+     inkscape:cy="127.79859"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g2745"
+     showgrid="true"
+     units="px"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-global="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="849"
+     inkscape:window-x="0"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid10" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-151.47915)">
+    <rect
+       ry="2.1166666"
+       rx="2.1166666"
+       y="158.09377"
+       x="3.968749"
+       height="129.64583"
+       width="39.6875"
+       id="rect1267-4-9-9"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#f4e3d7;fill-opacity:1;fill-rule:nonzero;stroke:#d38d5f;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    <g
+       transform="translate(-50.270833,50.270833)"
+       id="g1635-8">
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="172.64581"
+         x="66.145836"
+         height="63.500008"
+         width="26.45833"
+         id="rect1267-4-9-5"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffccaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff6600;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833358, 1.05833358;stroke-dashoffset:1.32291698;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="205.71873"
+         x="78.052086"
+         height="29.104168"
+         width="13.229164"
+         id="rect1267-4-4-61"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833348, 1.05833348;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="173.96873"
+         x="78.052086"
+         height="29.10417"
+         width="13.229167"
+         id="rect1267-4-1"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833358, 1.05833358;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+    <g
+       id="g1635-0"
+       transform="translate(-50.270833,-13.229166)">
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="172.64581"
+         x="66.145836"
+         height="63.500008"
+         width="26.458332"
+         id="rect1267-4-9-9-9"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffccaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff6600;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="205.71873"
+         x="78.052086"
+         height="29.104168"
+         width="13.229164"
+         id="rect1267-4-4-6"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833348, 1.05833348;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <rect
+         ry="2.1166666"
+         rx="2.1166666"
+         y="173.96873"
+         x="78.052086"
+         height="29.10417"
+         width="13.229167"
+         id="rect1267-4-3"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833358, 1.05833358;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916676;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 1.05833346;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect1267"
+       width="13.229156"
+       height="29.104168"
+       x="125.67709"
+       y="160.73959"
+       rx="2.1166666"
+       ry="2.1166666" />
+    <g
+       id="g1129"
+       transform="translate(105.83333,-13.229171)">
+      <text
+         inkscape:transform-center-y="1.3229167"
+         inkscape:transform-center-x="3.7041668"
+         id="text839"
+         y="183.22916"
+         x="35.718754"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:3.70416665px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:'Carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px"
+           y="183.22916"
+           x="35.718754"
+           id="tspan837"
+           sodipodi:role="line">1 bit</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+           y="186.93332"
+           x="35.718754"
+           sodipodi:role="line"
+           id="tspan1729">can hold one</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+           y="190.6375"
+           x="35.718754"
+           sodipodi:role="line"
+           id="tspan1731">of those</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:carlito;-inkscape-font-specification:'carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px"
+           y="194.34166"
+           x="35.718754"
+           sodipodi:role="line"
+           id="tspan1737">2 values</tspan></text>
+      <g
+         id="g889">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861"><tspan
+             sodipodi:role="line"
+             id="tspan859"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         id="g884">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5"><tspan
+             sodipodi:role="line"
+             id="tspan859-3"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g1955"
+       transform="translate(2.645834,-13.229163)">
+      <g
+         id="g1635">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffccaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff6600;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833359, 1.05833359;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect1267-4-9"
+           width="26.45833"
+           height="63.500008"
+           x="66.145836"
+           y="172.64581"
+           rx="2.1166666"
+           ry="2.1166666" />
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833348, 1.05833348;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect1267-4-4"
+           width="13.229164"
+           height="29.104168"
+           x="78.052086"
+           y="205.71873"
+           rx="2.1166666"
+           ry="2.1166666" />
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffaaaa;fill-opacity:1;fill-rule:nonzero;stroke:#ff0000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833358, 1.05833358;stroke-dashoffset:1.53458369;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect1267-4"
+           width="13.229167"
+           height="29.10417"
+           x="78.052086"
+           y="173.96873"
+           rx="2.1166666"
+           ry="2.1166666" />
+      </g>
+      <g
+         transform="translate(23.812501,-5.0862631e-6)"
+         id="g1117">
+        <g
+           id="g889-5"
+           transform="translate(23.812499,-3.1608072e-6)">
+          <rect
+             y="175.29166"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-6"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-2"
+             y="183.22916"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="183.22916"
+               x="26.458334"
+               id="tspan859-9"
+               sodipodi:role="line">0</tspan></text>
+        </g>
+        <g
+           id="g889-5-1"
+           transform="translate(34.395833,1.9254558e-6)">
+          <rect
+             y="175.29166"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-6-2"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-2-7"
+             y="183.22916"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="183.22916"
+               x="26.458334"
+               id="tspan859-9-0"
+               sodipodi:role="line">0</tspan></text>
+        </g>
+        <g
+           id="g889-5-9"
+           transform="translate(23.812499,15.874997)">
+          <rect
+             y="175.29166"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-6-3"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-2-6"
+             y="183.22916"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="183.22916"
+               x="26.458334"
+               id="tspan859-9-06"
+               sodipodi:role="line">0</tspan></text>
+        </g>
+        <g
+           id="g884-2"
+           transform="translate(34.395833,-3.1608072e-6)">
+          <rect
+             y="191.16666"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-3-6"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-5-1"
+             y="199.10416"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="199.10416"
+               x="26.458334"
+               id="tspan859-3-8"
+               sodipodi:role="line">1</tspan></text>
+        </g>
+        <g
+           id="g884-2-7"
+           transform="translate(23.812501,15.874997)">
+          <rect
+             y="191.16666"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-3-6-9"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-5-1-2"
+             y="199.10416"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="199.10416"
+               x="26.458334"
+               id="tspan859-3-8-0"
+               sodipodi:role="line">1</tspan></text>
+        </g>
+        <g
+           id="g889-5-1-2"
+           transform="translate(34.395833,31.749997)">
+          <rect
+             y="175.29166"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-6-2-3"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-2-7-7"
+             y="183.22916"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="183.22916"
+               x="26.458334"
+               id="tspan859-9-0-5"
+               sodipodi:role="line">0</tspan></text>
+        </g>
+        <g
+           id="g884-9"
+           transform="translate(23.8125,31.750002)">
+          <rect
+             y="191.16666"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-3-2"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-5-2"
+             y="199.10416"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="199.10416"
+               x="26.458334"
+               id="tspan859-3-89"
+               sodipodi:role="line">1</tspan></text>
+        </g>
+        <g
+           id="g884-9-7"
+           transform="translate(34.395833,31.749997)">
+          <rect
+             y="191.16666"
+             x="21.166666"
+             height="10.583333"
+             width="10.583333"
+             id="rect12-3-2-3"
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+          <text
+             id="text861-5-2-6"
+             y="199.10416"
+             x="26.458334"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px"
+               y="199.10416"
+               x="26.458334"
+               id="tspan859-3-89-1"
+               sodipodi:role="line">1</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:3.70416665px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="71.4375"
+           y="183.22916"
+           id="text839-4"
+           inkscape:transform-center-x="3.7041668"
+           inkscape:transform-center-y="1.3229167"><tspan
+             sodipodi:role="line"
+             id="tspan837-8"
+             x="71.4375"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:'Carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px">2 bits</tspan><tspan
+             id="tspan1729-9"
+             sodipodi:role="line"
+             x="71.4375"
+             y="186.93332"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px">can hold one</tspan><tspan
+             id="tspan1731-6"
+             sodipodi:role="line"
+             x="71.4375"
+             y="190.6375"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px">of those</tspan><tspan
+             id="tspan1737-7"
+             sodipodi:role="line"
+             x="71.4375"
+             y="194.34166"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:carlito;-inkscape-font-specification:'carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px">4 values</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g1117-2"
+       transform="translate(-31.75,-13.229173)">
+      <g
+         transform="translate(29.104167,-3.1608072e-6)"
+         id="g889-5-19">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,1.9254558e-6)"
+         id="g889-5-1-5">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-2-0"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-7-3"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-0-6"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104167,15.874997)"
+         id="g889-5-9-1">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-3-0"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-6-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-06-3"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,-3.1608072e-6)"
+         id="g884-2-2">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-6-0"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-1-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-8-1"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104169,15.874997)"
+         id="g884-2-7-5">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-6-9-5"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-1-2-4"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-8-0-7"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,31.749997)"
+         id="g889-5-1-2-6">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-2-3-5"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-7-7-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-0-5-9"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104168,31.750002)"
+         id="g884-9-3">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,31.749997)"
+         id="g884-9-7-2">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-3-5"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-6-4"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-1-7"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104167,63.499997)"
+         id="g889-5-19-3">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4-0"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78-7"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4-8"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,63.500002)"
+         id="g889-5-1-5-6">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-2-0-8"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-7-3-8"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-0-6-4"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104167,79.374997)"
+         id="g889-5-9-1-3">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-3-0-1"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-6-6-4"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-06-3-9"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,63.499997)"
+         id="g884-2-2-2">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-6-0-0"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-1-6-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-8-1-8"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104169,79.374997)"
+         id="g884-2-7-5-9">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-6-9-5-2"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-1-2-4-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-8-0-7-6"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,95.249997)"
+         id="g889-5-1-2-6-4">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-2-3-5-9"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-7-7-6-5"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-0-5-9-0"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(29.104168,95.250002)"
+         id="g884-9-3-4">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7-8"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4-7"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5-1"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(39.687501,95.249997)"
+         id="g884-9-7-2-7">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-3-5-2"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-6-4-7"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-1-7-2"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,1.9254558e-6)"
+         id="g889-5-19-2">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4-6"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78-1"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4-0"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,15.875002)"
+         id="g889-5-19-2-6">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4-6-1"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78-1-5"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4-0-9"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,31.750002)"
+         id="g889-5-19-2-6-4">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4-6-1-9"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78-1-5-0"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4-0-9-9"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,47.625002)"
+         id="g889-5-19-2-6-4-1">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#008000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-6-4-6-1-9-7"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="175.29166" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="183.22916"
+           id="text861-2-78-1-5-0-7"><tspan
+             sodipodi:role="line"
+             id="tspan859-9-4-0-9-9-1"
+             x="26.458334"
+             y="183.22916"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">0</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,47.625002)"
+         id="g884-9-3-1">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7-5"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4-9"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5-7"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,63.500002)"
+         id="g884-9-3-1-7">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7-5-6"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4-9-7"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5-7-3"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,79.375002)"
+         id="g884-9-3-1-6">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7-5-5"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4-9-6"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5-7-39"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <g
+         transform="translate(18.520835,95.250002)"
+         id="g884-9-3-1-4">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect12-3-2-7-5-8"
+           width="10.583333"
+           height="10.583333"
+           x="21.166666"
+           y="191.16666" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.93247366px;line-height:10.41137218px;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.74366933px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="26.458334"
+           y="199.10416"
+           id="text861-5-2-4-9-1"><tspan
+             sodipodi:role="line"
+             id="tspan859-3-89-5-7-2"
+             x="26.458334"
+             y="199.10416"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Rubik Mono One';-inkscape-font-specification:'Rubik Mono One';stroke-width:0.74366933px">1</tspan></text>
+      </g>
+      <text
+         inkscape:transform-center-y="1.3229167"
+         inkscape:transform-center-x="3.7041668"
+         id="text839-4-7"
+         y="183.22916"
+         x="78.052086"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:3.70416665px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:'Carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px"
+           y="183.22916"
+           x="78.052086"
+           id="tspan837-8-3"
+           sodipodi:role="line">3 bits</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+           y="186.93332"
+           x="78.052086"
+           sodipodi:role="line"
+           id="tspan1729-9-7">can hold one</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Carlito;-inkscape-font-specification:Carlito;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+           y="190.6375"
+           x="78.052086"
+           sodipodi:role="line"
+           id="tspan1731-6-1">of those</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.17499995px;font-family:carlito;-inkscape-font-specification:'carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px"
+           y="194.34166"
+           x="78.052086"
+           sodipodi:role="line"
+           id="tspan1737-7-2">8 values</tspan></text>
+    </g>
+    <g
+       id="g2755"
+       transform="translate(8.9085502,-5.2916667)">
+      <text
+         id="text1699"
+         y="225.56248"
+         x="137.58333"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916676;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833357, 1.05833357;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916676"
+           y="225.56248"
+           x="137.58333"
+           id="tspan1697"
+           sodipodi:role="line">each time you</tspan><tspan
+           id="tspan1701"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916676"
+           y="230.85416"
+           x="138.78223"
+           sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29166651px;font-family:carlito;-inkscape-font-specification:'carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end"
+   id="tspan2763">add one bit</tspan>, you </tspan><tspan
+           id="tspan1707"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916676"
+           y="236.14581"
+           x="137.58333"
+           sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29166651px;font-family:carlito;-inkscape-font-specification:'carlito, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:end;writing-mode:lr-tb;text-anchor:end"
+   id="tspan2765">double</tspan> the number</tspan><tspan
+           id="tspan1709"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916676"
+           y="241.43748"
+           x="138.78223"
+           sodipodi:role="line">of possible values </tspan></text>
+      <text
+         id="text1699-0"
+         y="252.02084"
+         x="137.58333"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833358, 1.05833358;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan1709-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="252.02084"
+           x="137.58333"
+           sodipodi:role="line">the numbers grow</tspan><tspan
+           id="tspan2006"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="257.3125"
+           x="137.58333"
+           sodipodi:role="line">pretty fast</tspan></text>
+    </g>
+    <g
+       id="g2745"
+       transform="translate(-4.2333326,-6.8791679)">
+      <text
+         id="text1699-0-7"
+         y="272.65833"
+         x="103.24264"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833359, 1.05833359;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="272.65833"
+           x="103.24264"
+           sodipodi:role="line">1 bit</tspan></text>
+      <text
+         id="text1699-0-7-1"
+         y="293.82495"
+         x="105.30416"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="293.82495"
+           x="105.30416"
+           sodipodi:role="line">16 bits</tspan></text>
+      <text
+         id="text1699-0-7-1-0"
+         y="299.11661"
+         x="105.30416"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833361, 1.05833361;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-3-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="299.11661"
+           x="105.30416"
+           sodipodi:role="line">32 bits</tspan></text>
+      <text
+         id="text1699-0-7-2"
+         y="272.65833"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="272.65833"
+           x="150.91383"
+           sodipodi:role="line">2</tspan></text>
+      <text
+         id="text1699-0-7-1-7"
+         y="293.82495"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833361, 1.05833361;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-3-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="293.82495"
+           x="150.91383"
+           sodipodi:role="line">65,536</tspan></text>
+      <text
+         id="text1699-0-7-1-0-6"
+         y="299.11661"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833362, 1.05833362;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-3-3-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="299.11661"
+           x="150.91383"
+           sodipodi:role="line">4,294,967,296</tspan></text>
+      <text
+         id="text1699-0-7-4"
+         y="267.36667"
+         x="126.90289"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="267.36667"
+           x="126.90289"
+           sodipodi:role="line">can store one value among</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115"
+         d="m 107.28964,271.46769 h 38.89157"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115-7"
+         d="M 107.28964,292.63437 H 133.4812"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend-2);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115-7-1"
+         d="M 107.28964,297.92604 H 117.6062"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend-2-2);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         id="text1699-0-7-9"
+         y="288.53329"
+         x="105.30416"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="288.53329"
+           x="105.30416"
+           sodipodi:role="line">8 bits</tspan></text>
+      <text
+         id="text1699-0-7-2-1"
+         y="288.53329"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833361, 1.05833361;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-1-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="288.53329"
+           x="150.91383"
+           sodipodi:role="line">256</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115-4"
+         d="m 107.28964,287.34269 h 33.5999"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend-9);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         id="text1699-0-7-27"
+         y="283.24164"
+         x="105.30416"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-29"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="283.24164"
+           x="105.30416"
+           sodipodi:role="line">4 bits</tspan></text>
+      <text
+         id="text1699-0-7-2-0"
+         y="283.24164"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833361, 1.05833361;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-1-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="283.24164"
+           x="150.91383"
+           sodipodi:role="line">16</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115-0"
+         d="m 107.28964,282.05102 h 36.24573"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend-90);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <text
+         id="text1699-0-7-7"
+         y="277.94998"
+         x="105.30416"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.0583336, 1.0583336;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="277.94998"
+           x="105.30416"
+           sodipodi:role="line">2 bits</tspan></text>
+      <text
+         id="text1699-0-7-2-6"
+         y="277.94998"
+         x="150.91383"
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29166651px;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:end;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:end;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833361, 1.05833361;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         xml:space="preserve"><tspan
+           id="tspan2006-1-1-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:carlito;-inkscape-font-specification:carlito;text-align:end;text-anchor:end;fill:#000000;stroke:none;stroke-width:0.52916682"
+           y="277.94998"
+           x="150.91383"
+           sodipodi:role="line">4</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path2115-41"
+         d="m 107.28964,276.75936 h 38.89157"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26380289;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.00000095;stroke-opacity:1;marker:none;marker-end:url(#Arrow1Mend-8);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+  </g>
+</svg>
