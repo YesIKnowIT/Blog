@@ -37,14 +37,14 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main1.js
 
 Now, look what appends when NodeJS execute this code:
 
-```
+----
 sh$ node main1.js
 <div>Will insert: <p>Sylvain&#039;s test string</p></div>
 QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 <div>Inserted: <p>Sylvain''s test string</p></div>
 #                        ^^
 #                Oops: not escaped as HTML!
-```
+----
 
 The code contains two identical calls to the `asParagraph` function provided by the `rogue1` module.
 Surprisingly enough, those two calls produce two different results! Why that?
@@ -78,12 +78,12 @@ All the code related to the `rogue2` module has now moved into the `worker` modu
 And instead of using it directly, the main program uses the https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options[`child_process.fork`] function to load and run `worker.js` in a new _independent_ V8 instance.
 Let's try that:
 
-```
+----
 sh$ node main2.js
 <div>Will insert: <p>Sylvain&#039;s test string</p></div>
 <div>Inserted: <p>Sylvain&#039;s test string</p></div>
 QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
-```
+----
 
 There are two things to notice here:
 
@@ -105,12 +105,12 @@ If you're familiar with other programming languages, `spawnSync` is very close t
 
 https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js
 
-```
+----
 $ node main3.js
 <div>Will insert: <p>Sylvain&#039;s test string</p></div>
 QUERY: INSERT INTO DICTIONARY(entry) VALUES ( 'Sylvain''s test string' );
 <div>Inserted: <p>Sylvain&#039;s test string</p></div>
-```
+----
 
 Now, if we run the program with the added delays, we can see the same sequence of events as we had initially.
 Once again, without any conflict between the rogue libraries since they were loaded in independent processes.
@@ -144,7 +144,7 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
 Once the listener is installed, I send the requests to the worker process using `worker.send`.
 And it's done: We can now process data asynchronously while keeping the poorly written modules isolated in their own V8 instance:
 
-```
+----
 sh$ node main-async.js
 parent sending message [ '0', "Sylvain's test string A" ]
 parent sending message [ '1', "Sylvain's test string B" ]
@@ -188,7 +188,7 @@ parent processing result for message 0
 parent <div>Inserted: <p>Sylvain&#039;s test string A</p></div>
 parent terminating worker
 worker exiting
-```
+----
 
 === A bit of error handling
 In the pure textbook tradition, I left error handling aside.
@@ -212,7 +212,7 @@ https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-e
 
 This time, if you follow the log displayed on the screen when you run the program, you can trace what happened to the message id-2, from the error raised in the worker process up to the detection of this error in the parent process:
 
-```
+----
 sh$ node main-async-error.js
 parent sending message [ '0', "Sylvain's test string A" ]
 parent sending message [ '1', "Sylvain's test string B" ]
@@ -255,7 +255,7 @@ parent processing result for message 3
 parent <div>Inserted: <p>Sylvain&#039;s test string D</p></div>
 parent terminating worker
 worker exiting
-```
+----
 
 === What to do next?
 All the examples given above follow the callback programming style traditionally used with NodeJS.
