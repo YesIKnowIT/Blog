@@ -26,14 +26,14 @@ I reduced that use case into the two poorly written modules:
 * The `rogue1` module provides some interface to a hypothetic SQL database.
 * And the `rogue2` module provides some helper functions to produce HTML documents.
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue1.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue1.js[]
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue2.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/rogue2.js[]
 
 Apparently, there is no link between these two modules, and you can genuinely think they will work independently of one another.
 So, here is some test file to check that:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main1.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main1.js[]
 
 Now, look what appends when NodeJS execute this code:
 
@@ -70,9 +70,9 @@ The bare minimum to do that is illustrated in the following example.
 I split the program into two files, `main` and `worker`, with the goal of running each part in its own process.
 The `rogue2` module usage being now confined to the worker process, it can no longer conflict with the modules loaded in the main process:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main2.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main2.js[]
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker.js[]
 
 All the code related to the `rogue2` module has now moved into the `worker` module.
 And instead of using it directly, the main program uses the https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options[`child_process.fork`] function to load and run `worker.js` in a new _independent_ V8 instance.
@@ -103,7 +103,7 @@ There are two major differences between `fork` we used previously and `spawnSync
 If you're familiar with other programming languages, `spawnSync` is very close to the https://man7.org/linux/man-pages/man3/system.3.html[`system(3)`] function provided by the standard C library.
 ====
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main3.js[]
 
 ----
 $ node main3.js
@@ -127,7 +127,7 @@ When using the `child_process.fork` function, NodeJS returns an object represent
 This object gives you access, among others, to an event-based communication channel between the parent and the child process.
 On its side, the child process can use the `process` global object to handle the incoming messages from its parent:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async.js[]
 
 The core work is now done in the `message` event listener.
 Upon receiving a request from its parent process, the worker process does its job, then sends the result back to the sender.
@@ -138,7 +138,7 @@ Parent's side, we use a similar technique: an event listener is installed to dea
 I also added some extra logic to count the number of requests handled to trigger the child process' termination when we're done.
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async.js[]
 
 
 Once the listener is installed, I send the requests to the worker process using `worker.send`.
@@ -200,7 +200,7 @@ It's the only message accepted by our very basic example.
 But we can extend that to understand a new message: the `error` message:
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async-error.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/main-async-error.js[]
 
 We will wrap the request processing code into a `try ... catch` block on the worker's side.
 If no exception is raised, we will still respond to the parent process with a `done` message.
@@ -208,7 +208,7 @@ But if an exception is caught, we will now respond from the `catch` block with o
 To demonstrate the new error path, I also added code to raise an exception when processing the message id-2.
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-error.js
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/node-ipc/code/worker-async-error.js[]
 
 This time, if you follow the log displayed on the screen when you run the program, you can trace what happened to the message id-2, from the error raised in the worker process up to the detection of this error in the parent process:
 
