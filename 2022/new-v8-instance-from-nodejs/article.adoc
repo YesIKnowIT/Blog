@@ -1,4 +1,4 @@
-= NodeJS IPC
+= How to spawn a new V8 instance from Node.js
 :author: Sylvain Leroux
 :pin: -
 :revnumber: 0.1
