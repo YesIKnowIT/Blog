@@ -1,8 +1,8 @@
 = How to spawn a new V8 instance from Node.js
 :author: Sylvain Leroux
 :pin: -
-:revnumber: 0.1
-:revdate: 2022-04-20T14:19:27+01:00
+:revnumber: 1.0
+:revdate: 2022-05-17T15:15:08+02:00
 :keywords: NodeJS, IPC
 
 [.teaser]
