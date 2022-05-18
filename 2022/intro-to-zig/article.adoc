@@ -99,7 +99,7 @@ It specifies the *type* of the variable.
 Zig is a statically typed programming language.
 The compiler has to know how much space to reserve in memory to store your data and how to interpret those data.
 The `u32` notation means our data are 32-bits unsigned integers.
-In other words, each of our variables can store a positive number in the range 0~2<sub>32</sup>-1.
+In other words, each of our variables can store a positive number in the range 0~2^32^-1.
 I assume it should be sufficient to count the number of characters in a document.
 If it's not enough for you, you may change the variable's type to `u48` or `u64` if you prefer.
 On the other hand, if you think it's too much, why not reduce our program's memory consumption by using `u24` or even `u16`?
