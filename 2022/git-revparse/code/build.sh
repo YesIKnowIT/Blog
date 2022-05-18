@@ -94,9 +94,6 @@ fi
 
 csplit "${BOOK}" '/^[0-9]\+\./' '{*}' > /dev/null
 
-BRANCHES=(main B1 B2)
-declare -A ORIG
-declare -A ACTUAL
 
 rm -rf .git [0-9]*.txt
 git init --quiet .
@@ -109,6 +106,10 @@ commit xx04 4.txt
 git checkout -b B1
 git checkout -b B2
 git checkout main
+
+BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
+declare -A ORIG
+declare -A ACTUAL
 
 START=$(git rev-parse HEAD~3)
 UPSTREAM=$(git rev-parse HEAD)
