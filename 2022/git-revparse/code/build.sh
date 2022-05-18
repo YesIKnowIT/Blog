@@ -65,12 +65,8 @@ function _save() {
 
     for ref in "${BRANCHES[@]}" HEAD; do
         echo "\"$ref\" -> \"${ACTUAL[$ref]}\";"
+        echo "\"$ref\"[shape = box width = .75 style = \"filled\"];"
     done
-
-    echo 'B1[shape = box width = .75 style = "filled"];'
-    echo 'B2[shape = box width = .75 style = "filled"];'
-    echo 'main[shape = box width = .75 style = "filled"];'
-    echo 'HEAD[shape = box width = .75 style = "filled"];'
 #    echo '{'
 #    echo 'rank = same;'
 #    echo '"'$ORIG_MAIN'" -> "'$ORIG_B1'" -> "'$ORIG_B2'" [style = invis];'
@@ -98,14 +94,8 @@ csplit "${BOOK}" '/^[0-9]\+\./' '{*}' > /dev/null
 rm -rf .git [0-9]*.txt
 git init --quiet .
 git checkout --quiet -b main
-commit xx01 1.txt
-commit xx02 2.txt
-commit xx03 3.txt
-commit xx04 4.txt
 
-git checkout -b B1
-git checkout -b B2
-git checkout main
+source ../init.sh
 
 BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
 declare -A ORIG
