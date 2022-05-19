@@ -26,9 +26,27 @@ function _save() {
     echo 'node[style=filled fillcolor="#f1f1f1" penwidth=2 fontsize=12 fontname=notosans];'
 
     #
+    # ANNOTATIONS
+    #
+    echo '{'
+    echo 'node [shape=plaintext fillcolor=transparent margin="0.011,0.011"];'
+    for N in "${NOTES[@]}"; do
+        IFS=":" read REF LABEL <<< $N
+        echo "\"${LABEL}\";"
+    done
+    echo '}'
+    for N in "${NOTES[@]}"; do
+        IFS=":" read REF LABEL <<< $N
+        echo '{'
+        echo 'rank=same;'
+        echo "\"${LABEL}\" -> \"${REF}\" [weight="-1000"];"
+        echo '}'
+    done
+
+    #
     # MAIN GRAPH
     #
-    echo "subgraph \"cluster_root\" {"
+    echo "subgraph \"clustroot\" {"
 #    echo '"'""'" [style="invis" width=0 label=""];'
     echo '"'"$START"'" [style="invis" width=0 label=""];'
 #    echo '"origin/main" [shape = box width = .75 style = "filled" width = .5];'
@@ -66,20 +84,6 @@ function _save() {
     for ref in "${BRANCHES[@]}" HEAD; do
         echo "\"$ref\" -> \"${ACTUAL[$ref]}\";"
         echo "\"$ref\"[shape = box width = .75 style = \"filled\"];"
-    done
-    #
-    # ANNOTATIONS
-    #
-    echo '{'
-    echo 'node [shape=plaintext fillcolor=transparent margin="0.011,0.011"];'
-    for n in "${!NOTES[@]}"; do
-        echo "\"${n}\";"
-    done
-    echo '}'
-    P="${START}"
-    for n in "${!NOTES[@]}"; do
-        echo "\"${n}\" -> \"${NOTES[$n]}\";"
-        P="${n}"
     done
 
 
@@ -119,7 +123,7 @@ source ../init.sh
 BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
 declare -A ORIG
 declare -A ACTUAL
-declare -A NOTES
+declare -a NOTES
 
 UPSTREAM=$(git rev-parse HEAD)
 

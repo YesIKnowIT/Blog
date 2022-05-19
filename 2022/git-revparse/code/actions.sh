@@ -2,15 +2,15 @@ git branch top
 save 1-1.png
 
 for((i=0;i<6;++i)); do
-  NOTES["HEAD~$i"]=$(git rev-parse "HEAD~$i")
+  NOTES+=( $(git rev-parse "HEAD~$i"):"HEAD~$i" )
 done
 save 1-2.png
 
 unset NOTES
-declare -A NOTES
+NOTES=()
 P=HEAD
 for((i=0;i<5;++i)); do
-  NOTES["$P~1"]=$(git rev-parse "$P~1")
+  NOTES+=( $(git rev-parse "$P~1"):"$P~1" )
   P="$P~1"
 done
 save 1-3.png
