@@ -1,3 +1,11 @@
+function trace_path {
+  P=HEAD
+  for S in "$@"; do
+      NOTES+=( $(git rev-parse "$P$S"):"$P$S" )
+      P="$P$S"
+  done
+}
+
 git branch top
 save 1-1.png
 
@@ -8,12 +16,13 @@ save 1-2.png
 
 unset NOTES
 NOTES=()
-P=HEAD
-for((i=0;i<5;++i)); do
-  NOTES+=( $(git rev-parse "$P~1"):"$P~1" )
-  P="$P~1"
-done
+trace_path ~1 ~1 ~1 ~1 ~1
 save 1-3.png
+
+unset NOTES
+NOTES=()
+trace_path ~1 ^2 ~1
+save 1-4.png
 #
 #sleep 1
 #git commit -m "F...J"
