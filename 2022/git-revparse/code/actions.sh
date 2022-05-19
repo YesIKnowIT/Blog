@@ -1,5 +1,6 @@
 function trace_path {
-  P=HEAD
+  P=$1
+  shift
   for S in "$@"; do
       NOTES+=( $(git rev-parse "$P$S"):"$P$S" )
       P="$P$S"
@@ -16,12 +17,15 @@ save 1-2.png
 
 unset NOTES
 NOTES=()
-trace_path ~1 ~1 ~1 ~1 ~1
+trace_path HEAD ~1 ~1 ~1 ~1 ~1
 save 1-3.png
 
 unset NOTES
 NOTES=()
-trace_path ~1 ^2 ~1
+trace_path HEAD ~1
+trace_path HEAD~1 ^1
+trace_path HEAD~1 ^2 ~1
+trace_path HEAD~1 ^3
 save 1-4.png
 #
 #sleep 1
