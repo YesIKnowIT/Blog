@@ -25,6 +25,9 @@ function _save() {
     echo 'edge[penwidth=2];'
     echo 'node[style=filled fillcolor="#f1f1f1" penwidth=2 fontsize=12 fontname=notosans];'
 
+    #
+    # MAIN GRAPH
+    #
     echo "subgraph \"cluster_root\" {"
 #    echo '"'""'" [style="invis" width=0 label=""];'
     echo '"'"$START"'" [style="invis" width=0 label=""];'
@@ -49,6 +52,9 @@ function _save() {
         fi
     done
 
+    #
+    # BRANCHES
+    #
     for ref in "${BRANCHES[@]}"; do
         echo "subgraph \"cluster_${ref}\" {"
         echo "label = \"${ref}\";"
@@ -61,6 +67,22 @@ function _save() {
         echo "\"$ref\" -> \"${ACTUAL[$ref]}\";"
         echo "\"$ref\"[shape = box width = .75 style = \"filled\"];"
     done
+    #
+    # ANNOTATIONS
+    #
+    echo '{'
+    echo 'node [shape=plaintext fillcolor=transparent margin="0.011,0.011"];'
+    for n in "${!NOTES[@]}"; do
+        echo "\"${n}\";"
+    done
+    echo '}'
+    P="${START}"
+    for n in "${!NOTES[@]}"; do
+        echo "\"${n}\" -> \"${NOTES[$n]}\";"
+        P="${n}"
+    done
+
+
 #    echo '{'
 #    echo 'rank = same;'
 #    echo '"'$ORIG_MAIN'" -> "'$ORIG_B1'" -> "'$ORIG_B2'" [style = invis];'
@@ -97,6 +119,7 @@ source ../init.sh
 BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
 declare -A ORIG
 declare -A ACTUAL
+declare -A NOTES
 
 UPSTREAM=$(git rev-parse HEAD)
 

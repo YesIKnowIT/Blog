@@ -1,10 +1,19 @@
-#git filter-branch -f --msg-filter "echo '~1'" HEAD~1..HEAD
-
 git branch top
 save 1-1.png
 
-git checkout HEAD~2
+for((i=0;i<6;++i)); do
+  NOTES["HEAD~$i"]=$(git rev-parse "HEAD~$i")
+done
 save 1-2.png
+
+unset NOTES
+declare -A NOTES
+P=HEAD
+for((i=0;i<5;++i)); do
+  NOTES["$P~1"]=$(git rev-parse "$P~1")
+  P="$P~1"
+done
+save 1-3.png
 #
 #sleep 1
 #git commit -m "F...J"
