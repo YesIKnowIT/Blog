@@ -26,3 +26,5 @@ git branch -D B
 
 git add xx08
 git commit -m 'I'
+git checkout $(git rev-parse HEAD)
+git branch -D main

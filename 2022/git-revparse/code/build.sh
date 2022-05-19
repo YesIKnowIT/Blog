@@ -81,10 +81,15 @@ function _save() {
         echo '}'
     done
 
-    for ref in "${BRANCHES[@]}" HEAD; do
+    for ref in "${BRANCHES[@]}"; do
         echo "\"$ref\" -> \"${ACTUAL[$ref]}\";"
         echo "\"$ref\"[shape = box width = .75 style = \"filled\"];"
     done
+    echo "{"
+    echo "rank=same;"
+    echo "\"HEAD\" -> \"${ACTUAL[HEAD]}\";"
+    echo "\"HEAD\"[shape = box width = .75 style = \"filled\"];"
+    echo "}"
 
 
 #    echo '{'
@@ -120,14 +125,16 @@ START=$(git rev-parse HEAD)
 
 source ../init.sh
 
-BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
+BRANCHES=( $(git branch --format="%(refname:lstrip=2)" | sed '/(HEAD/'d ) )
+echo "${BRANCHES[@]}"
 declare -A ORIG
 declare -A ACTUAL
 declare -a NOTES
 
-UPSTREAM=$(git rev-parse HEAD)
+UPSTREAM=$(head)
 
 for ref in "${BRANCHES[@]}"; do
+    echo "--> $ref"
     ORIG["$ref"]=$(git rev-parse "$ref")
 done
 ORIG[HEAD]=$(head)
