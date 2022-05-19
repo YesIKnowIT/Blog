@@ -34,9 +34,10 @@ function _save() {
     echo 'edge[penwidth=2];'
     echo 'node[style=filled fillcolor="#f1f1f1" penwidth=2 fontsize=12 fontname=notosans];'
 
+    echo "subgraph \"cluster_root\" {"
 #    echo '"'""'" [style="invis" width=0 label=""];'
     echo '"'"$START"'" [style="invis" width=0 label=""];'
-    echo '"origin/main" [shape = box width = .75 style = "filled" width = .5];'
+#    echo '"origin/main" [shape = box width = .75 style = "filled" width = .5];'
     git log --topo-order --reverse --pretty='%H %s' "${ORIG[@]}" "${ACTUAL[@]}" ^$START | while read H LABEL; do
         if [[ ${#LABEL} -gt 4 ]]; then
             WIDTH=.75
@@ -45,7 +46,9 @@ function _save() {
         fi
         echo "\"$H\" [label=\"${LABEL}\" shape=circle width=$WIDTH];"
     done
-    echo '"origin/main" -> "'"${UPSTREAM}"'"'
+    echo '}'
+
+#    echo '"origin/main" -> "'"${UPSTREAM}"'"'
     git log --topo-order --reverse --pretty='%H %P' "${ORIG[@]}" "${ACTUAL[@]}" ^$START| while read H PS; do
         for P in $PS; do
             echo '"'$H'" -> "'$P'";'

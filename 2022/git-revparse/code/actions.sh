@@ -1,7 +1,8 @@
+git branch top
 save 1-1.png
-#
-#git reset --soft HEAD~5
-#save 1-2.png
+
+git checkout HEAD~2
+save 1-2.png
 #
 #sleep 1
 #git commit -m "F...J"
