@@ -1,3 +1,5 @@
+#git filter-branch -f --msg-filter "echo '~1'" HEAD~1..HEAD
+
 git branch top
 save 1-1.png
 

@@ -1,20 +1,28 @@
-commit xx01 1.txt
+git add xx01
+git commit -m 'A'
 git branch A
 git branch B
-commit xx02 2.txt
-commit xx03 3.txt
-commit xx04 4.txt
+git add xx02
+git commit -m 'B'
+git add xx03
+git commit -m 'C'
+git add xx04
+git commit -m 'D'
 
 git checkout A
-commit xx05 5.txt
+git add xx05
+git commit -m 'E'
 
 git checkout B
-commit xx06 6.txt
-commit xx07 7.txt
+git add xx06
+git commit -m 'F'
+git add xx07
+git commit -m 'G'
 
 git checkout main
-git merge -m 'M' A B
+git merge -m 'H' A B
 git branch -D A
 git branch -D B
 
-commit xx08 8.txt
+git add xx08
+git commit -m 'I'

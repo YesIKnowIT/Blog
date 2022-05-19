@@ -4,19 +4,10 @@ set -e
 
 BOOK=book-of-nonsense.txt
 #DATE=1970-01-01T00:00:00
-COMMITS="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-declare -i CIDX=0
 
 function head() {
     LINK=$(git symbolic-ref --quiet HEAD || git rev-parse HEAD)
     echo ${LINK##*/}
-}
-
-function commit() {
-    cat "$1" >  "$2"
-    git add "$2"
-    git commit --quiet --author='Edward Lear <e.lear@example.com>' -m "${COMMITS:CIDX:1}"
-    CIDX=$((CIDX+1))
 }
 
 function _save() {
