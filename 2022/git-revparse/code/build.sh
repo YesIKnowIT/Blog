@@ -16,7 +16,7 @@ function commit() {
     cat "$1" >  "$2"
     git add "$2"
     git commit --quiet --author='Edward Lear <e.lear@example.com>' -m "${COMMITS:CIDX:1}"
-    CIDX=$((CIDX+5))
+    CIDX=$((CIDX+1))
 }
 
 function _save() {
@@ -94,6 +94,9 @@ csplit "${BOOK}" '/^[0-9]\+\./' '{*}' > /dev/null
 rm -rf .git [0-9]*.txt
 git init --quiet .
 git checkout --quiet -b main
+git commit --allow-empty -m "Root"
+START=$(git rev-parse HEAD)
+
 
 source ../init.sh
 
@@ -101,7 +104,6 @@ BRANCHES=( $(git branch --format="%(refname:lstrip=2)") )
 declare -A ORIG
 declare -A ACTUAL
 
-START=$(git rev-parse HEAD~3)
 UPSTREAM=$(git rev-parse HEAD)
 
 for ref in "${BRANCHES[@]}"; do
