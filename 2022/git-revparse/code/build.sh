@@ -11,6 +11,8 @@ function head() {
 }
 
 function _save() {
+    DARKGRAY="#555555"
+
     for ref in "${BRANCHES[@]}"; do
         ACTUAL["$ref"]=$(git rev-parse "$ref")
     done
@@ -32,14 +34,14 @@ function _save() {
     echo 'node [shape=plaintext fillcolor=transparent margin="0.011,0.011"];'
     for N in "${NOTES[@]}"; do
         IFS=":" read REF LABEL <<< $N
-        echo "\"${LABEL}\";"
+        echo "\"${LABEL}\" [fontcolor=\"${DARKGRAY}\"];"
     done
     echo '}'
     for N in "${NOTES[@]}"; do
         IFS=":" read REF LABEL <<< $N
         echo '{'
         echo 'rank=same;'
-        echo "\"${LABEL}\" -> \"${REF}\" [weight="-1000"];"
+        echo "\"${LABEL}\" -> \"${REF}\" [constraint=false style=dashed color=\"${DARKGRAY}\"];"
         echo '}'
     done
 
