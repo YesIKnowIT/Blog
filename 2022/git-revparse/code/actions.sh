@@ -10,9 +10,8 @@ function trace_path {
 git branch top
 save 1-1.png
 
-for((i=0;i<6;++i)); do
-  NOTES+=( $(git rev-parse "HEAD~$i"):"HEAD~$i" )
-done
+NOTES=()
+trace_path HEAD ~1
 save 1-2.png
 
 unset NOTES
@@ -20,13 +19,19 @@ NOTES=()
 trace_path HEAD ~1 ~1 ~1 ~1 ~1
 save 1-3.png
 
+NOTES=()
+for((i=1;i<6;++i)); do
+  NOTES+=( $(git rev-parse "HEAD~$i"):"HEAD~$i" )
+done
+save 1-4.png
+
 unset NOTES
 NOTES=()
 trace_path HEAD ~1
 trace_path HEAD~1 ^1
 trace_path HEAD~1 ^2 ~1
 trace_path HEAD~1 ^3
-save 1-4.png
+save 1-5.png
 #
 #sleep 1
 #git commit -m "F...J"
