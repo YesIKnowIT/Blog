@@ -121,7 +121,7 @@ d247342 D                  # Head's parent's parent   ^^^^^^^^
 image::1-3.png
 
 You can shorten that notation by replacing n consecutive occurrences of `~1` with `~n`.
-So `HEAD~1~1~1` could be written as `HEAD~3` instead:
+So `HEAD\~1~1~1` could be written as `HEAD~3` instead:
 
 image::1-4.png
 
@@ -140,8 +140,8 @@ Well, Git offers us the caret for that.
 
 Previously, we saw Git remembers the order of the branches in a merge.
 If you want to select the branch to follow, you may express that with a caret (`^`).
-The tilde always follows the path of the first branch. So ~1 is synonymous with ^1.
-On the other hand, ^2 will follow the path of the second branch, ^3 the third, and so on.
+The tilde always follows the path of the first branch. So `~1` is synonymous with `^1`.
+On the other hand, `^2` will follow the path of the second branch, `^3` the third, and so on.
 
 
 Let's check that from the command line:
@@ -168,22 +168,22 @@ As an exercise, I let you try to find how you could reference the various revisi
 |Path from I
 
 |Revision I
-|HEAD
+|`HEAD`
 
 |Revision H
-|HEAD~1
+|`HEAD~1`
 
 |Revision G
-|HEAD~1^3
+|`HEAD~1^3`
 
 |Revision F
 |
 
 |Revision E
-|HEAD~1^2
+|`HEAD~1^2`
 
 |Revision D
-|HEAD~~ or HEAD~1~1 or HEAD~2 or HEAD~1^1 or HEAD~^ or HEAD^^
+|`HEAD~~` or `HEAD\~1~1` or `HEAD~2` or `HEAD~1^1` or `HEAD~^` or `HEAD^^`
 
 |Revision C
 |
@@ -192,7 +192,7 @@ As an exercise, I let you try to find how you could reference the various revisi
 |
 
 |Revision A
-|HEAD~1^2~1 or HEAD~5 or ...
+|`HEAD\~1^2~1` or `HEAD~5` or ...
 |===
 
 == And that's not all
