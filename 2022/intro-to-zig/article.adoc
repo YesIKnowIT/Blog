@@ -29,7 +29,7 @@ I also assume a previous experience with an imperative programming language, ide
 == First steps
 For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, and lines contained in a file, very much like the POSIX `wc` utility.  
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10[]
 
 For now, copy the code above into a new text file named `wc-v1.zig`.
 Then you will *compile* that program using the `zig build-exe` command:
@@ -75,7 +75,7 @@ There are no multi-line comments in Zig.
 
 === Packages
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10[]
 
 A Zig program can be divided into packages to improve reusability or manage complexity.
 The standard and third-party libraries are shipped as packages.
@@ -91,7 +91,7 @@ As a best practice, Zig encourages you to use constants (`const`) whenever you c
 But sometimes, you have to store data you will update during the program life's time.
 You will use a variable (`var`) declaration in that case.
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L14-L15
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L14-L15[]
 
 The `var` keyword is followed by a user-defined symbol, which becomes the variable's name.
 After the variable's name, you see the `:u32` declaration.
@@ -118,7 +118,7 @@ A typical program is made of hundreds of functions.
 Among them, the one named `main` is special since your program's execution starts with its body's first instruction and continues up to its end.
 Here, the body of the function, defined in curly braces, contains just one statement:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L20
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L20[]
 
 It's a call to the `std.debug.print` function to write a message on the console.
 Remember, The `std.` prefix means the standard library provides this function.
@@ -144,7 +144,7 @@ To make our program useful, it needs to read data from somewhere.
 For the sake of simplicity, the program will read data from the standard input `stdin`.
 The standard Zig package `std.io` provides a function to access the standard input:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L18
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L18[]
 
 Once you have access to stdin, you can read bytes from that stream into a buffer using the following piece of code:
 
@@ -155,7 +155,7 @@ stdin.readAll(&buffer);
 
 But we won't use that directly from the `main` function. Instead, to keep things organized, we will create a new function to perform the heavy work of reading the file and counting the number of characters read.
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L17-L27
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L17-L27[]
 
 === Working with arrays
 I introduced several new language constructs in the code above.
@@ -206,7 +206,7 @@ It's the purpose of the `try` keyword. Let me summarize the sequence of events:
 2) The `count` function will receive that error code on the line containing the call to `readAll`
 3) Thanks to the try keyword, our `count` function will, in its turn, stop processing, returning that error to its caller, which is... well, I haven't talked about that yet. So fix that immediately.
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L30-L37
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L30-L37[]
 
 We call the `count` function from the main program.
 You may have noticed the return type of the main program is `void`, not `!void`.
@@ -229,7 +229,7 @@ However, it is not easy to test error handling in this program unless you have s
 The best we can do for now is to add an instruction to simulate an error:
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v3.zig#L27-L29
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v3.zig#L27-L29[]
 
 Here, if the buffer contains an `X` as the starting byte, it will trigger an error.
 Please notice the character `X` is enclosed in simple quotes.
@@ -252,7 +252,7 @@ But the code required to update the `chars` and `lines` variables is still missi
 In addition, we somehow have hard-coded the maximum file length to 256 bytes.
 Let's take a more realistic approach by looping over `stdin.readAll` to read all data from the input file regardless of its length:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L17-L44
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L17-L44[]
 
 At this point, you should be able to understand most of the changes.
 Two remarks, though: first, I reduced the buffer's size to one byte.
@@ -289,11 +289,11 @@ Repeating these operations until the entire file has been read.
 Let' start with the easiest part: increasing the buffer size.
 
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig#L22
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig#L22[]
 
 But we also need to loop over the bytes read:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L35-L47
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L35-L47[]
 
 I briefly introduce two new notations here.
 The `buffer[0..nb]` syntax takes a https://ziglearn.org/chapter-1/#slices[slice] from an array.
@@ -308,7 +308,7 @@ It will execute its body once for each item of the slice or array, binding at ea
 
 All that put together leads us to that final version of the program:
 
-https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig[]
 
 == Done?
 And we're done.
