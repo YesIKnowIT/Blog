@@ -19,35 +19,35 @@ It is nevertheless functional and is shipped with its (still experimental) stand
 == Prerequisites
 While writing this article, I used Zig 9.1.0 installed following the instruction given on the https://ziglearn.org/chapter-0/[ziglearn.org] website.
 
-```
+----
 sh$ zig version
 0.9.1
-```
+----
 
 I also assume a previous experience with an imperative programming language, ideally C or C++, since you may be more familiar with the notions of https://en.wikipedia.org/wiki/Data_type[data types] and https://en.wikipedia.org/wiki/Pointer_(computer_programming)[pointers].
 
 == First steps
 For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, and lines contained in a file, very much like the POSIX `wc` utility.  
 
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10[]
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig[]
 
 For now, copy the code above into a new text file named `wc-v1.zig`.
 Then you will *compile* that program using the `zig build-exe` command:
 
-```
+----
 sh$ zig build-exe wc-v1.zig
-``` 
+----
 
 This step aims to turn the Zig source file into an executable program.
 It should produce a new file named `wc-v1` in the current directory:
 
-```
+----
 sh$ ls -l
 total 588
 -rwxrwxr-x 1 sylvain sylvain 589840 mai    2 11:25 wc-v1
 -rw-rw-r-- 1 sylvain sylvain    618 mai    2 11:28 wc-v1.zig
 drwxr-xr-x 5 sylvain sylvain   4096 mai    2 11:25 zig-cache
-```
+----
 
 [NOTE]
 ====
@@ -59,10 +59,10 @@ We won't talk about it in this article.
 As you can see, the `wc-v1` program has the `x` bit set, meaning it's an executable program.
 Let's try it immediately:
 
-```
+----
 sh$ ./wc-v1
  0 chars, 0 words, 0 lines
-```
+----
 
 For now, it's not very exciting, but let's examine the program in more detail to discover a little bit more about the Zig syntax.
 
@@ -116,11 +116,11 @@ Like in C, when the return type is `void`, the function returns nothing (in othe
 
 A typical program is made of hundreds of functions.
 Among them, the one named `main` is special since your program's execution starts with its body's first instruction and continues up to its end.
+
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L17-L21[]
+
 Here, the body of the function, defined in curly braces, contains just one statement:
-
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L20[]
-
-It's a call to the `std.debug.print` function to write a message on the console.
+a call to the `std.debug.print` function to write a message on the console.
 Remember, The `std.` prefix means the standard library provides this function.
 Like the C `printf()` function or the Python `format()` function, `std.debug.print` is used for formatted output.
 The message to display contains placeholders that will be replaced by actual values when the function is executed.
@@ -148,9 +148,9 @@ embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-
 
 Once you have access to stdin, you can read bytes from that stream into a buffer using the following piece of code:
 
-```
+----
 stdin.readAll(&buffer);
-```
+----
 
 
 But we won't use that directly from the `main` function. Instead, to keep things organized, we will create a new function to perform the heavy work of reading the file and counting the number of characters read.
@@ -218,12 +218,12 @@ In this program, I simply inform the user an error has occurred.
 
 I let you compile and run the program to see how it works now:
 
-```
+----
 sh$ zig build-exe wc-v2.zig 
 sh$ echo "hello world" | ./wc-v2
  12 byte(s) read
  0 lines, 0 chars
-```
+----
 
 However, it is not easy to test error handling in this program unless you have some faulty USB stick at hand.
 The best we can do for now is to add an instruction to simulate an error:
@@ -237,14 +237,14 @@ That's how you write character constants in Zig.
 Please do not confuse them with strings of characters enclosed by double-quotes.
 Let's test that:
 
-```
+----
 sh$ echo "hello world" | ./wc-v3
  12 byte(s) read
  0 lines, 0 chars
 sh$ echo "Xhello world" | ./wc-v3
 Error error.Unexpected while reading file
  0 lines, 0 chars
-```
+----
 
 == Counting things
 We have made lots of progress in the preceding section.
@@ -263,11 +263,11 @@ It does not contain a type declaration because Zig can infer the variable's type
 `true` and `false` are two predefined constants representing the possible value of a boolean (`bool`) variable.
 Initializing `done` to `false` implicitly makes it a variable of the `bool` type. 
 
-```
+----
 sh$ zig build-exe wc-v4.zig 
 sh$ ./wc-v4 < /etc/passwd
  0 lines, 2645 chars
-```
+----
 
 As of now, the program compiles and counts the number of characters read from the input stream.
 But not the number of lines.
@@ -293,7 +293,7 @@ embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-
 
 But we also need to loop over the bytes read:
 
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L35-L47[]
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig#L35-L47[]
 
 I briefly introduce two new notations here.
 The `buffer[0..nb]` syntax takes a https://ziglearn.org/chapter-1/#slices[slice] from an array.
