@@ -158,10 +158,42 @@ E cbd3b84
 
 image::1-4.png
 
-As an exercise, I let you try to find how you could reference revisions B, C and F when the HEAD point to revision I.
+As an exercise, I let you try to find how you could reference the various revisions of our commit graph when the HEAD point to revision I.
 
-XXXX INSERT TABLE FOR ANSWERS
+[caption=]
+.Path to ancestors when HEAD points to revision I
+[cols="2*<",options="header"]
+|===
+|Target
+|Path from I
 
+|Revision I
+|HEAD
+
+|Revision H
+|HEAD~1
+
+|Revision G
+|HEAD~1^3
+
+|Revision F
+|
+
+|Revision E
+|HEAD~1^2
+
+|Revision D
+|HEAD~~ or HEAD~1~1 or HEAD~2 or HEAD~1^1 or HEAD~^ or HEAD^^
+
+|Revision C
+|
+
+|Revision B
+|
+
+|Revision A
+|HEAD~1^2~1 or HEAD~5 or ...
+|===
 
 == And that's not all
 
