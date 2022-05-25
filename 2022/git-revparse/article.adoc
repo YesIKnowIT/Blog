@@ -17,12 +17,12 @@ To illustrate that article, I created the sample git repository shown below:
 image::1-1.png[]
 
 [NOTE]
-----
+====
 The letters in the circles are the commit subjects (the first line of the commit message).
 For simplicity, when I said "the commit I" in this article, it should be understood as "the commit whose subject is I".
 
 By the way, I also use the word `revision` as a synonym for the noun `commit`, as explained in the https://git-scm.com/docs/gitglossary#def_revision[Git glossary].
-----
+====
 
 If you prefer ASCII-art, this is how `git log --graph` would display that same graph:
 
@@ -224,6 +224,6 @@ For a complete description of all the ways of addressing a Git revision, I refer
 If you read that document, you will discover you can also write something like `git diff '@{3 days ago}'` (yes, yes: it's perfectly valid and does exactly what you imagine!)
 But that will be for another time.
 I hope you enjoyed this article.
-If this is the case, don't forget to follow me on https://twitter.com/Yes_I_Know_IT[Twitter!].
+If this is the case, don't forget to follow me on https://twitter.com/Yes_I_Know_IT[Twitter]!
 
 
