@@ -29,7 +29,7 @@ I also assume a previous experience with an imperative programming language, ide
 == First steps
 For the rest of this article, I will guide you step by step in writing in Zig a command-line utility to count the characters, and lines contained in a file, very much like the POSIX `wc` utility.  
 
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L10[]
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig[]
 
 For now, copy the code above into a new text file named `wc-v1.zig`.
 Then you will *compile* that program using the `zig build-exe` command:
@@ -116,11 +116,11 @@ Like in C, when the return type is `void`, the function returns nothing (in othe
 
 A typical program is made of hundreds of functions.
 Among them, the one named `main` is special since your program's execution starts with its body's first instruction and continues up to its end.
+
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L17-L21[]
+
 Here, the body of the function, defined in curly braces, contains just one statement:
-
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v1.zig#L20[]
-
-It's a call to the `std.debug.print` function to write a message on the console.
+a call to the `std.debug.print` function to write a message on the console.
 Remember, The `std.` prefix means the standard library provides this function.
 Like the C `printf()` function or the Python `format()` function, `std.debug.print` is used for formatted output.
 The message to display contains placeholders that will be replaced by actual values when the function is executed.
@@ -293,7 +293,7 @@ embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-
 
 But we also need to loop over the bytes read:
 
-embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v4.zig#L35-L47[]
+embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v5.zig#L35-L47[]
 
 I briefly introduce two new notations here.
 The `buffer[0..nb]` syntax takes a https://ziglearn.org/chapter-1/#slices[slice] from an array.
