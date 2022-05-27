@@ -5,6 +5,15 @@
 YEAR=$(date +%Y)
 TITLE="$1"
 HANDLE=$(sed -E 's/[^a-z0-9]+/-/g'  <<< "${TITLE,,}")
+BRANCH="$YEAR/$HANDLE"
 
-echo $YEAR $TITLE
-echo "$HANDLE"
+if output=$(git status --porcelain) && [ -z "$output" ]; then
+    git checkout --orphan "$BRANCH" || error 10
+    git reset --hard
+    rm -rf *
+    git merge tools
+    echo $YEAR $TITLE
+    echo "$HANDLE"
+else 
+    error 10 "Working director is not clean"
+fi
