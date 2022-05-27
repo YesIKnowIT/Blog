@@ -10,10 +10,13 @@ BRANCH="$YEAR/$HANDLE"
 if output=$(git status --porcelain) && [ -z "$output" ]; then
     git checkout --orphan "$BRANCH" || error 10
     git reset --hard
-    rm -rf *
+    rm -rf -- * .tools
     git merge tools
-    echo $YEAR $TITLE
-    echo "$HANDLE"
+
+    mkdir -p -- "$BRANCH"
+    (
+        echo "# ${TITLE}"
+    ) > "$BRANCH/article.adoc"
 else 
     error 10 "Working director is not clean"
 fi
