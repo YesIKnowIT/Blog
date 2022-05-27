@@ -17,6 +17,10 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
     (
         echo "# ${TITLE}"
     ) > "$BRANCH/article.adoc"
+
+    git add "$BRANCH" || error 10
+    git commit -m "Create article" || error 10
+    find "$YEAR"
 else 
     error 10 "Working director is not clean"
 fi
