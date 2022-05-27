@@ -1,0 +1,10 @@
+#
+# This script is designed to be sourced by the root `blog` tool
+#
+
+YEAR=$(date +%Y)
+TITLE="$1"
+HANDLE=$(sed -E 's/[^a-z0-9]+/-/g'  <<< "${TITLE,,}")
+
+echo $YEAR $TITLE
+echo "$HANDLE"

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function error() {
+    NUM="$1"
+    MESSAGE="$2"
+
+    (
+        echo "Error"
+        echo "    $MESSAGE"
+    ) >&2
+    exit "$NUM"
+}
+
+if [[ $BASH_SOURCE = */* ]]; then
+    cd -- "${BASH_SOURCE%/*}/" || error 2 "Can't cd to script location"
+else
+    error 3 "Can't determine script location"
+fi
+
+CMD="$1"
+shift
+
+TOOL=".tools/blog-$CMD"
+
+if [ -f "$TOOL" ]; then
+    source "$TOOL" "$@"
+else
+    (
+        echo "Unknown command $CMD"
+        echo "Available commands are:"
+        for cmd in .tools/blog-*; do
+            echo "    blog ${cmd#*-}"
+        done
+    ) >&2
+    exit 1
+fi

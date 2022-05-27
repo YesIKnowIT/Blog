@@ -1,0 +1,5 @@
+Various tools to help managing the Blog repository.
+
+The scripts `.tools/blog-*` will be sourced by the root `blog` Bash script.
+The scripts `.tools/blog-*` may assume the working directory is the location of the root `blog` script.
+
