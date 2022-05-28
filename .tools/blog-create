@@ -20,12 +20,14 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 
     mkdir -p -- "$BRANCH"
     awk \
+        -v "TITLE=$TITLE" \
         -v "DATE=$(date -Iseconds)" \
         -v "USERNAME=$(git config user.name)" \
     '
         done { print; next }
         /^##/ { done = 1 }
 
+        $1=="#" { $2=TITLE }
         $1==":author:" { $2=USERNAME }
         $1==":revdate:" { $2=DATE }
         1 { print }
