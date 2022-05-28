@@ -1,0 +1,44 @@
+#
+# This script is designed to be sourced by the root `blog` tool
+#
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)" || exit 10
+TYPE="patch"
+
+if output=$(git status --porcelain) && [ -z "$output" ]; then
+    for article in ????/*/article.adoc; do
+        TMP="$(mktemp)"
+        awk \
+            -v "DATE=$(date -Iseconds)" \
+            -v "TYPE=$TYPE" \
+        '
+            done { print; next }
+            /^##/ { done = 1 }
+
+            $1==":revdate:" { $2=DATE }
+            $1==":revnumber:" {
+                if (!match($2, /v?([0-9]+)[.]([0-9]+)/, R)) {
+                    print "Cannot understand version string " $0 > "/dev/stderr"
+                    exit 1
+                }
+                if ((R[1] != 0) && (TYPE=="patch")) {
+                    ++R[2];
+                }
+                else {
+                    ++R[1];
+                    R[2]=0;
+                }
+
+                $2="v" R[1] "." R[2]
+            }
+
+            1 { print }
+        ' "$article" > "$TMP" || error 10
+        mv "$TMP" "$article"
+    done
+    git commit -a -m "Bump revision" || error 10
+    git checkout master || error 10
+    git merge --allow-unrelated-histories "$BRANCH" -m "Merge branch $BRANCH" || error 10
+else 
+    error 10 "Working director is not clean"
+fi
