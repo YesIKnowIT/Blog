@@ -11,7 +11,10 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
     git checkout --orphan "$BRANCH" || error 10
     git reset --hard
     rm -rf -- * .tools
-    git merge tools
+    git checkout tools -- blog .tools
+    git reset HEAD # Reset HEAD because git checkout stagged the files
+
+    cp .tools/template.gitignore .gitignore
 
     mkdir -p -- "$BRANCH"
     (

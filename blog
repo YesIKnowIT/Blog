@@ -4,7 +4,7 @@ function error() {
     NUM="$1"
     MESSAGE="$2"
 
-    (
+    [[ -z "$MESSAGE" ]] || (
         echo "Error"
         echo "    $MESSAGE"
     ) >&2
