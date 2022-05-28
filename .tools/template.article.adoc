@@ -1,0 +1,12 @@
+= MAIN TITLE
+:author: TDB
+:pin: -
+:revnumber: v0.1
+:revdate: TDB
+:keywords: 
+
+[.teaser]
+This article is about...
+
+== My starting point
+

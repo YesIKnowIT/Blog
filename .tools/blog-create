@@ -12,14 +12,22 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
     git reset --hard
     rm -rf -- * .tools
     git checkout tools -- blog .tools
-    git reset HEAD # Reset HEAD because git checkout stagged the files
+    git reset # Reset staging area because git checkout stagged the files
 
     cp .tools/template.gitignore .gitignore
 
     mkdir -p -- "$BRANCH"
-    (
-        echo "# ${TITLE}"
-    ) > "$BRANCH/article.adoc"
+    awk \
+        -v "DATE=$(date -Iseconds)" \
+        -v "USERNAME=$(git config user.name)" \
+    '
+        done { print; next }
+        /^##/ { done = 1 }
+
+        $1==":author:" { $2=USERNAME }
+        $1==":revdate:" { $2=DATE }
+        1 { print }
+    ' .tools/template.article.adoc > "$BRANCH/article.adoc"
 
     git add "$BRANCH" || error 10
     git commit -m "Create article" || error 10
