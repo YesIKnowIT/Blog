@@ -10,9 +10,11 @@ BRANCH="$YEAR/$HANDLE"
 if output=$(git status --porcelain) && [ -z "$output" ]; then
     git checkout --orphan "$BRANCH" || error 10
     git reset --hard
-    rm -rf -- * .tools
+    rm -rf -- * 
+
+    rm -rf blog .tools
     git checkout tools -- blog .tools
-    git reset # Reset staging area because git checkout stagged the files
+    git reset -- blog .tools/*
 
     cp .tools/template.gitignore .gitignore
 

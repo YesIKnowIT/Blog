@@ -1,0 +1,7 @@
+#
+# This script is designed to be sourced by the root `blog` tool
+#
+
+rm -rf blog .tools
+git checkout tools -- blog .tools
+git reset -- blog .tools/*
