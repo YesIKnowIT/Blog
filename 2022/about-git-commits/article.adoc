@@ -1,0 +1,12 @@
+= About git commits
+:author: Sylvain Leroux
+:pin: -
+:revnumber: v0.1
+:revdate: 2022-05-28T17:19:46+02:00
+:keywords: 
+
+[.teaser]
+This article is about...
+
+== My starting point
+
