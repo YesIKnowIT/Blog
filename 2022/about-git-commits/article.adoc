@@ -8,5 +8,375 @@
 [.teaser]
 This article is about...
 
-== My starting point
+== Introduction
+
+== Looking behind the scene
+
+=== Staging a data file
+In you day to day job, you interact with the index, also known as the stage area, primarily through the `git add`/`git rm` commands.
+But what do the do really?
+
+Let's make a little experimentation:
+
+----
+sh$ mkdir exp-1-1       # 1
+sh$ cd exp-1-1          # 2
+sh$ git init exp-1-1    # 3
+Initialized empty Git repository in exp-1-1/.git/
+sh$ cd exp-1-1/         # 4
+sh$ find .git > list1   # 5
+----
+
+1. Let's create a new directory to work into
+2. And change the working directory to that one.
+   For now it's an ordinary directory. I has noting special that would make it a Git repository.
+   That will change at the next step.
+3. Initialise the curent directory as a Git repository.
+   Git inform us it has created the hidden `.git` directory.
+   That's where Git will store all the data it need to work.
+   It Git's little private corner if you want.
+   Normally, you don't look into that directory, except mayby to change the configuration by editing `.git/config`.
+   But today, we will be a little bit more curious.
+4. We will keep track of the files in the `.git` directory so we have a basis of comparaison to later check if new files where created.
+
+
+We will now create a new file.
+For now, it is just basic file manipulation, and Git is absolutly not concerned by our work as it will inform you if you use the `git status` command:
+
+----
+sh$ echo "Hello world" > hello.txt
+sh$ ls
+hello.txt  list1
+sh$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        hello.txt
+        list1
+
+nothing added to commit but untracked files present (use "git add" to track)
+----
+
+Let's now track our newly created file:
+
+----
+sh$ git add hello.txt 
+sh$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   hello.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        list1
+----
+
+Apparenty, things have changed for Git. It's now tracking the `hello.txt` file.
+But how does that reflect in the `.git` directory?
+
+----
+sh$ find .git > list2
+sh$ diff list1 list2
+19a20
+> .git/index
+20a22,23
+> .git/objects/80
+> .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
+----
+
+Ah, ah! The new files have appeared:
+* `.git/index`
+* `.git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7`
+
+The `index` file is a binary file used by Git to keep track of the file staged for addition (or removal, by the way) in the next commit.
+It's a binary file, so we won't examine it manually.
+But Git provides some commands to interact directly with that file. We will see that later.
+
+For now, let's concentrate to the second file. The one with that strange name made of a serie of digit and letters from `a` to `f`.
+It sits in the `.git/object` directory -- sometimes known as the Git object database.
+That's where Git store all its data in Zlib compressed files.
+
+
+This one in readable, and it's content may surprise you:
+
+----
+sh$ file .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7 
+.git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7: zlib compressed data
+sh$ zlib-flate -uncompress < .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
+blob 12Hello world
+----
+
+It's our file! Well almost. Git added a header made of the word `blob` and the size in bytes of the of the data.
+Not visible in the output of the `zlib-flate` command, there is also a https://en.wikipedia.org/wiki/Null_character[null character] between the header and the content of the file.
+You can see it by piping the output of `zlib-flate` to the `cat -v` command:
+
+----
+sh$ zlib-flate -uncompress < .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7 | cat -v
+blob 12^@Hello world
+----
+
+The `^@` is the https://en.wikipedia.org/wiki/Caret_notation[caret notation] for the null character.
+
+
+But this is not the only surprise.
+Do you remember the strange name of this file?
+It looked like a random string, but if you tried the same experiment on your own computer, you may have noticed the file has the same name on your machine!
+
+If fact, the name of the file is the SHA1 https://en.wikipedia.org/wiki/Hash_function[hash] of its content:
+
+----
+sh$ zlib-flate -uncompress < .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7 | sha1sum
+802992c4220de19a90767f3000a79a31b98d0df7  -
+----
+
+In the Git vocabulary, we also say it's the Object Identifier (OID) of the file.
+Since the OID is directly computed from the content of the file, you may also sometimes read Git is a https://en.wikipedia.org/wiki/Content-addressable_storage[content adressable] filesystem.
+
+
+Until now I used common tools to reverse engeneer the git blog file.
+But, those are inner detail, subject to change between versiions of Git.
+So Git provides commands to deal with these data files without requiring any extra tool.
+For example, to see the content of a Git object knowing its OID, you can use `git show`.
+It returns the content of the file, with the Git-specific header removed:
+
+----
+sh$ git show 802992c4220de19a90767f3000a79a31b98d0df7
+Hello world
+----
+
+You can also query the type, data length and content an object using the `git cat-file` command:
+
+----
+sh$ git cat-file -t 802992c4220de19a90767f3000a79a31b98d0df7
+blob
+sh$ git cat-file -s 802992c4220de19a90767f3000a79a31b98d0df7
+12
+sh$ git cat-file -p 802992c4220de19a90767f3000a79a31b98d0df7
+Hello world
+----
+
+=== The index
+It was a long time ago now, but you may still remember after staging a file, we saw another file created: `.git/index`.
+Git stores the current staging information in that file.
+The index is not part of the git object database, so you can't examine it using `git show` or `git cat-file`.
+I need to introduce yet another command for that purpose: the `git ls-files` command.
+Let's take a look at that:
+
+----
+sh$ git ls-files --stage
+100644 802992c4220de19a90767f3000a79a31b98d0df7 0       hello.txt
+----
+
+Various information are returned by `git ls-files --stage` for each staged file:
+* A set of permissions bits for the file.
+* The OID the references the content of the file.
+* A "stage level". In normal use case, you should always see 0 here.
+* Finally, the name of the file
+
+In some sense, you may see the index file like a file system's directory data structure, whose entries points to the location of the data associated with each file name.
+
+=== Updateing a file in the index
+Imagine now I'm not satisfied with the current content of the `hello.txt` file. Actually, I forgot the puntuations. Let's fix that:
+
+----
+sh$ echo "Hello, world!" > hello.txt
+sh$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   hello.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   hello.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        list1
+        list2
+        tmp
+----
+
+The intersting part here is we have a version of `hello.txt` staged.
+But we also have a different version of the file, having the same name, in the working directory.
+
+You may already have encountered this situation in your daily Git work.
+The solution is simply to add the new version of the file into the index:
+
+----
+sh$ git add hello.txt 
+sh$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   hello.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        list1
+        list2
+        tmp
+----
+
+Problem solved: the most recent version of `hello.txt` is now staged, ready for commit.
+But did you ever wonder what appened to the previously staged verion or the file?
+Was it overwritten by the new version? Is it definitivelly lost?
+
+To answer these questions, let's see what exactly has changed as far as Git is concerned:
+
+----
+find .git > list3
+sh$ diff list1 list3
+19a20
+> .git/index
+20a22,25
+> .git/objects/80
+> .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
+> .git/objects/af
+> .git/objects/af/5626b4a114abcb82d63db7c8082c3c4756e51b
+----
+Obviously, the previous version was not lost, since the corresponding blob is still present in the Git's object database.
+But we may see Git has added a new object: the blob corresponding to the updated version of our file.
+Now both the new and the previous version of the file coexists in the database.
+So, how does Git know which version it should commmit?
+By looking into the index.
+
+But you don't have to take my words for granted:
+
+----
+sh$ git show af5626b4a114abcb82d63db7c8082c3c4756e51b
+Hello, world!
+sh$ git ls-files --stage
+100644 af5626b4a114abcb82d63db7c8082c3c4756e51b 0       hello.txt
+----
+
+The key point to remember here is, when you stage a new version of a file, the previous version is not lost.
+A new blob is created into the object database, and the index is updated to point to the new version of the file.
+
+=== What about the commits?
+
+OK, we have staged files. Found they were stored as blob object in the Git's object database.
+We also learned the index is updated to references the staged object through their OID.
+But what happens when we commit our changes?
+
+----
+sh$ git commit -m "Initial commit"
+[master (root-commit) aa89f17] Initial commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.txt
+----
+As a quick note, you remember the permissions bits we saw when using `git ls-files`.
+We can see them in the output prodced by `git commit`.
+
+----
+find .git > list4
+sh$ diff list1 list4
+5a6
+> .git/refs/heads/master
+19a21
+> .git/index
+20a23,28
+> .git/objects/80
+> .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
+> .git/objects/af
+> .git/objects/af/5626b4a114abcb82d63db7c8082c3c4756e51b
+> .git/objects/aa
+> .git/objects/aa/89f1701dc5409bb63228f1e9f64aa7ff0bba17
+22a31,32
+> .git/objects/ec
+> .git/objects/ec/947e3dd7a7752d078f1ed0cfde7457b21fef58
+23a34,39
+> .git/COMMIT_EDITMSG
+> .git/logs
+> .git/logs/HEAD
+> .git/logs/refs
+> .git/logs/refs/heads
+> .git/logs/refs/heads/master
+----
+This time, many this have changed! 
+
+First, we have not one, but two new entries in the object database. This calls for a closer examination:
+
+----
+sh$ git cat-file -t ec947e3dd7a7752d078f1ed0cfde7457b21fef58
+tree
+sh$ git cat-file -p ec947e3dd7a7752d078f1ed0cfde7457b21fef58
+100644 blob af5626b4a114abcb82d63db7c8082c3c4756e51b    hello.txt
+----
+
+Apparently, we have a new type of object in our database: a tree.
+And that tree is nothing more than a copy of the index at the time of the commit.
+Speaking of commit, let's examine the other new object created in the database:
+
+----
+sh$ git cat-file -t aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+commit
+sh$ git cat-file -p aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+tree ec947e3dd7a7752d078f1ed0cfde7457b21fef58
+author Sylvain Leroux <sylvain@chicoree.fr> 1653860652 +0200
+committer Sylvain Leroux <sylvain@chicoree.fr> 1653860652 +0200
+
+Initial commit
+
+----
+
+Yes: it's the commit object.  And now the picture is complete.
+The commit object stores the commit message, some metadata and most important, a pointer to a tree object, which list the content of
+the staging area at the moment of the commit, each file entry pointing to the acual content of the file.
+
+By the way, speaking of the index, what's its content after the commit?
+
+----
+sh$ git ls-files --stage
+100644 af5626b4a114abcb82d63db7c8082c3c4756e51b 0       hello.txt
+----
+
+It hasn't changed! One thing to remember is a Git commit is a complete snapshot of the staging area.
+Not just a record of the changes that occured since the previous commit (as other revision control system might do).
+
+But since Git index the data files ("blob") by the hash of their content, it will not duplicate the data that hasn't changed between commits.
+
+=== Branches
+Something else has changed in the `.git` directory after our commit. A new entry was added in the `.git/ref` subdirectory.
+We didn't talk about it until know, so let's take the time to examine it in detail:
+
+----
+sh$ cat .git/refs/heads/master 
+aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+----
+Yes, a branch is nothing more than a pointer to a commit in the object store.
+
+=== The HEAD
+
+If you read aven a little about Git, you might have heard of the HEAD.
+It's just a reference maintained by Git to know which commit your current working tree is based on.
+And indeed, there's nothing more here:
+
+----
+sh$ cat .git/HEAD
+ref: refs/heads/master
+----
+
 
