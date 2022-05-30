@@ -3,18 +3,22 @@
 :pin: -
 :revnumber: v0.1
 :revdate: 2022-05-28T17:19:46+02:00
-:keywords: 
+:keywords: Git
 
 [.teaser]
 This article is about...
 
 == Introduction
+We use Git every day.
+But what Git does exactly when we stage a file, or commit a change set to a repository?
+How Git store our data?
+We will try to answer those questions by looking behind the scene to see how Git manage our data.
 
-== Looking behind the scene
+In this article, I assume you have a practical experience with Git and you are familiar with the `git add` and `git commit` commands.
+The demonstration were done using a Linux Ubuntu system.
+But you can reproduce similar manipulations on any system supporting Git, like OpenBSD or MacOS.
 
-=== Staging a data file
-In you day to day job, you interact with the index, also known as the stage area, primarily through the `git add`/`git rm` commands.
-But what do the do really?
+== Initial setup
 
 Let's make a little experimentation:
 
@@ -40,7 +44,11 @@ sh$ find .git > list1   # 5
 4. We will keep track of the files in the `.git` directory so we have a basis of comparaison to later check if new files where created.
 
 
-We will now create a new file.
+=== Staging a data file
+
+In you day to day job, you interact with the index, also known as the stage area, primarily through the `git add`/`git rm` commands.
+But what do the do really?
+To look at that we will now create a new file.
 For now, it is just basic file manipulation, and Git is absolutly not concerned by our work as it will inform you if you use the `git status` command:
 
 ----
@@ -64,7 +72,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 Let's now track our newly created file:
 
 ----
-sh$ git add hello.txt 
+sh$ git add hello.txt
 sh$ git status
 On branch master
 
@@ -110,7 +118,7 @@ That's where Git store all its data in Zlib compressed files.
 This one in readable, and it's content may surprise you:
 
 ----
-sh$ file .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7 
+sh$ file .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
 .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7: zlib compressed data
 sh$ zlib-flate -uncompress < .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7
 blob 12Hello world
@@ -221,7 +229,7 @@ You may already have encountered this situation in your daily Git work.
 The solution is simply to add the new version of the file into the index:
 
 ----
-sh$ git add hello.txt 
+sh$ git add hello.txt
 sh$ git status
 On branch master
 
@@ -315,7 +323,7 @@ sh$ diff list1 list4
 > .git/logs/refs/heads
 > .git/logs/refs/heads/master
 ----
-This time, many this have changed! 
+This time, many this have changed!
 
 First, we have not one, but two new entries in the object database. This calls for a closer examination:
 
@@ -363,7 +371,7 @@ Something else has changed in the `.git` directory after our commit. A new entry
 We didn't talk about it until know, so let's take the time to examine it in detail:
 
 ----
-sh$ cat .git/refs/heads/master 
+sh$ cat .git/refs/heads/master
 aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
 ----
 Yes, a branch is nothing more than a pointer to a commit in the object store.
@@ -379,4 +387,191 @@ sh$ cat .git/HEAD
 ref: refs/heads/master
 ----
 
+== The case of the subdirectory
 
+Until now, we simply added files sitting at the root of the working directory.
+But how does Git handle sub-directories?
+
+To examine that, we will create a new directory and add a file inside that directory.
+Then we will use `git add` to stage that newly added file.
+
+----
+sh$ mkdir fr
+sh$ echo "Bonjour, le monde!" > fr/bonjour.txt
+sh$ git add fr/bonjour.txt
+----
+
+We used the `git add` command. So, the new file is staged -- in other word, Git has created a new blob object to store the content of the file and the index was updated.
+Let's look at the index first this time:
+
+----
+sh$ git ls-files --stage
+100644 84745588cb61f0d9e15a41144af8daf30caf20d4 0       fr/bonjour.txt
+100644 af5626b4a114abcb82d63db7c8082c3c4756e51b 0       hello.txt
+----
+
+You may notice the index does not handle files in subdirectory differently than files sitting at the root of the working tree.
+Simple, the new file is recorded in the index with its path.
+
+By looking at the index first, we also can see the OID of the blob containing our new data.
+I let the command name blank in the code block below as you should now be able to use the correct Git command to examine that object:
+
+----
+sh$ git  ....  84745588cb61f0d9e15a41144af8daf30caf20d4
+Bonjour, le monde!
+----
+
+For memory, the HEAD still reference the commit we made in the first part of this article:
+
+----
+sh$ git rev-parse HEAD
+aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+sh$ git cat-file -p aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+tree ec947e3dd7a7752d078f1ed0cfde7457b21fef58
+author Sylvain Leroux <sylvain@chicoree.fr> 1653860652 +0200
+committer Sylvain Leroux <sylvain@chicoree.fr> 1653860652 +0200
+
+Initial commit
+----
+
+We have some change staged, let's apply the mantra "commit often":
+
+----
+sh$ git commit -m "Second commit"
+[master 89adbd7] Second commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 fr/bonjour.txt
+sh$ git log --format=oneline
+89adbd7ea23b4394d34d2bf26a83d6721d3f9e94 (HEAD -> master) Second commit
+aa89f1701dc5409bb63228f1e9f64aa7ff0bba17 Initial commit
+----
+
+The `git log` command gives us a lot of informations:
+First, the HEAD still references the `master` branch
+
+----
+sh$ cat .git/HEAD
+ref: refs/heads/master
+----
+
+Then, the branch master now references the commit `89adbd7ea23b4394d34d2bf26a83d6721d3f9e94`
+
+----
+tree 43541e6608e3172081f67d469a133e1262b723c6
+parent aa89f1701dc5409bb63228f1e9f64aa7ff0bba17
+author Sylvain Leroux <sylvain@chicoree.fr> 1653943012 +0200
+committer Sylvain Leroux <sylvain@chicoree.fr> 1653943012 +0200
+
+Second commit
+----
+
+You may notice this commit record one more piece of information compared to the initial one:
+there is now a `parent` field that references the previous commit.
+This is using that field that Git remembers in which order the commits are chained.
+
+We may also see by examining the commit object that a new tree object was created with OID `43541e6608e3172081f67d469a133e1262b723c6`.
+You probably have an idea of what we will do now:
+
+----
+sh$ git cat-file -p 43541e6608e3172081f67d469a133e1262b723c6
+040000 tree eba5b0c78c7a3f9cdfcf13ca10121527312003b5    fr
+100644 blob af5626b4a114abcb82d63db7c8082c3c4756e51b    hello.txt
+----
+
+This time again, things are a little bit diffrent compared to our first commit.
+You can see the tree object contains now two entries.
+One for the file `hello.txt` we already had and whose content is stored as a blob object.
+But there is now another entry pointing toward a tree object.
+
+Here Git really behave like a filesystem and adopt a hierarchical tree structure.
+The tree `fr` whose OID is `eba5b0c78c7a3f9cdfcf13ca10121527312003b5` being like a sub-directory of the repository.
+Like previously, you show now be familiar enough with that operation to complete the code block below with the right command to examine the content of the new tree.
+
+----
+sh$ git  ........ ..  eba5b0c78c7a3f9cdfcf13ca10121527312003b5
+100644 blob 84745588cb61f0d9e15a41144af8daf30caf20d4    bonjour.txt
+----
+
+== Moving things
+
+I could multiply the examples, and, as a matter of fact, I encourage you to continue this little game of reverse-engeneering on Git by yourself.
+I will conclude with a last example, this time to show you what happens when you move files around in your repository:
+
+----
+sh$ mkdir en
+sh$ cp hello.txt en/
+sh$ git rm hello.txt
+rm 'hello.txt'
+sh$ git add en/hello.txt
+sh$ git commit
+Aborting commit due to empty commit message.
+sh$ git commit -m "Third commit"
+[master 478b7ac] Third commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename hello.txt => en/hello.txt (100%)
+----
+
+This time I moved the `hello.txt` file into its own subdirectory.
+I took the long way, using file copy, then `git add` and `git rm`.
+But look in the output of the the `git commit` command: despite my efforts, Git was not fooled and properly understood the file has moved.
+It somehow detectected it was not a new file creation, but a move.
+
+Take a fiew minutes break here to think how Git could have reached to that conclusion.
+
+
+To solve that mystery, we will apply the same procedure as above:
+examine the commit object, then the tree(s), to finally descend down to the blobs:
+
+----
+sh$ git log --format=oneline
+478b7aceb5bf619290dc7dfac4118bef494023a1 (HEAD -> master) Third commit
+89adbd7ea23b4394d34d2bf26a83d6721d3f9e94 Second commit
+aa89f1701dc5409bb63228f1e9f64aa7ff0bba17 Initial commit
+
+
+sh$ git cat-file -p 478b7aceb5bf619290dc7dfac4118bef494023a1
+tree af6aba37e10abbcfc78d57d8777118d4cfa8620b
+parent 89adbd7ea23b4394d34d2bf26a83d6721d3f9e94
+author Sylvain Leroux <sylvain@chicoree.fr> 1653944421 +0200
+committer Sylvain Leroux <sylvain@chicoree.fr> 1653944421 +0200
+
+Third commit
+
+
+sh$ git cat-file -p af6aba37e10abbcfc78d57d8777118d4cfa8620b
+040000 tree ec947e3dd7a7752d078f1ed0cfde7457b21fef58    en
+040000 tree eba5b0c78c7a3f9cdfcf13ca10121527312003b5    fr
+----
+
+At this point things have changed a little.
+We still have the `fr` entry refrencing the tree object `eba5b0c78c7a3f9cdfcf13ca10121527312003b5` (which is the same as in the previous commit).
+But we now have another tree for the second subdirectory we created this time.
+
+And guess what? If you examine the content of that tree object, you will see it refrences the exact same blob as before:
+
+----
+sh$ git cat-file -p ec947e3dd7a7752d078f1ed0cfde7457b21fef58
+100644 blob af5626b4a114abcb82d63db7c8082c3c4756e51b    hello.txt
+----
+
+Since Git implements a content addressable filesystem, as long as the content of the file `hello.txt` does not change, it still has the same OID.
+So its relatively easy for Git to detact that in a previous commit the blob OID `af5626b4a114abcb82d63db7c8082c3c4756e51b` was n the top-level tree object,
+and that now its in a sub-tree, and conclude the file has moved.
+
+== Conclusion
+And this ends our tour behind the scene of Git. You may continue your exploration by examining the object database of one of your repository.
+Probably the database will contain many many more objects than the example I showed you today.
+But Starting from a commit or from the index, you should be able to find your way back to the content of any file on the repository.
+And doing so, you would basiccaly do by hand the same job as the `git checkout` command.
+
+Since we have seen a lot of new Git command in this article, I left you with a quick recap.
+As always, I hope you liked this article, and I'm looking forward to reding you on Twitter!
+
+`git add`::Store in the object database a blog corresponding to the added file, and update the index to refrence that blob
+`git cat-file`::Given its OID, display the content or metadata of an object
+`git commit`::Capture a snapshot of the index by creating a commit and eventually one or everal tree in the object databas
+`git log`::Display information about a commit and its ancestors by following the parent reference of each commit.
+`git ls-files`::Show information about files in the index (or working tree)
+`git rev-parse`::Show the OID of a commit. Useful to defernce HEAD of a branch name notably
+`git rm`::Remove the reference to a file from the index. Do not remove any object from the database
+`git show`::Given its OID, display the content of an object. Support more formatting options than `git cat-file`
