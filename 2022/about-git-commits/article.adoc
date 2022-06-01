@@ -169,7 +169,11 @@ But this is not the only surprise.
 Do you remember the strange name of this file?
 It looked like a random string, but if you tried the same experiment on your own computer, you might have noticed the file has the same name on your machine!
 
-If fact, the name of the file is the SHA1 https://en.wikipedia.org/wiki/Hash_function[hash] of its content:
+If fact, the name of the file is the SHA1 hash of its content.
+A https://en.wikipedia.org/wiki/Hash_function[hash] is nothing more than a fixed size number calculated from raw data.
+And https://en.wikipedia.org/wiki/SHA-1[SHA1] is one particular algorithm to calculate a hash.
+But there are plenty more: maybe did you already heard about https://en.wikipedia.org/wiki/MD5[MD5] or https://en.wikipedia.org/wiki/SHA-2[SHA-256]?
+Anyway, the Git developpers chose SHA1. And we can check an object is the objects database is effectively identified by the SHA1 hash of its content:
 
 ----
 sh$ zlib-flate -uncompress < .git/objects/80/2992c4220de19a90767f3000a79a31b98d0df7 | sha1sum
