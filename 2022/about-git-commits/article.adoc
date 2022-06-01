@@ -402,6 +402,8 @@ The commit object stores the commit message, some metadata and a pointer to a tr
 in the staging area at the moment of the commit, each file entry pointing to the acual content of the file.
 That's several level of indirection, but computers are notably good at following references, and references of references, ad lib, without getting lost.
 
+image::git-objects-database-1.png[]
+
 By the way, speaking of the index, what's its content after the commit?
 
 ----
@@ -564,6 +566,8 @@ sh$ git  ........ ..  eba5b0c78c7a3f9cdfcf13ca10121527312003b5
 100644 blob 84745588cb61f0d9e15a41144af8daf30caf20d4    bonjour.txt
 ----
 
+image::git-objects-database-2.png[]
+
 == Moving things
 
 I could multiply the examples, and, as a matter of fact, I encourage you to continue this little game of reverse-engeneering on Git by yourself.
@@ -630,6 +634,13 @@ Since Git implements a content addressable filesystem, as long as the content of
 You can move it anywhere into your repository, you can even rename it, its OID will not change.
 So its relatively easy for Git to detect that in a previous commit the blob OID `af5626b4a114abcb82d63db7c8082c3c4756e51b` was referenced from a different tree, 
 and conclude the file has moved.
+
+image::git-objects-database-3.png[]
+
+Even better than that!
+It's not obvious by looking only at the tree dump produced by `git cat-files`, but it's more visible on the above drawing:
+the content addressable strategy used by Git made it able to reuse the tree `ec947e3dd7a7752d078f1ed0cfde7457b21fef58` created with our initial commit.
+After all, what we call now the `en/` subdirectory is exactly the same thing as the root of the working tree at that time.
 
 == Conclusion
 And this ends our tour of the Git's backstage. You may continue your exploration by examining the object database of one of your repository.
