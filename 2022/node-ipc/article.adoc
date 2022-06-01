@@ -1,8 +1,8 @@
 = NodeJS IPC
 :author: Sylvain Leroux
 :pin: -
-:revnumber: 0.1
-:revdate: 2022-04-20T14:19:27+01:00
+:revnumber: v1.0
+:revdate: 2022-06-01T12:36:21+02:00
 :keywords: NodeJS, IPC
 
 [.teaser]
