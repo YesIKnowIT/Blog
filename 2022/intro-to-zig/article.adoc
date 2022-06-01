@@ -1,9 +1,9 @@
-= Introduction to Zig
+= How to write my first Zig program
 :author: Sylvain Leroux
 :contributor: Saulius Krasuckas
 :pin: -
-:revnumber: v1.0
-:revdate: 2022-06-01T12:36:21+02:00
+:revnumber: v1.1
+:revdate: 2022-06-01T15:46:58+02:00
 :keywords: Zig
 
 [.teaser]
