@@ -202,9 +202,9 @@ When a function may fail with an error, its return type is prefixed by the excla
 And in the body of a function, if you call a function that may fail, you either have to handle the error locally (we will see that in a moment) or propagate ("return") the error to the parent function in the call stack.
 It's the purpose of the `try` keyword. Let me summarize the sequence of events:
 
-1) If there is an I/O error while reading the input stream, the `readAll` function will abort processing by returning an error code.
-2) The `count` function will receive that error code on the line containing the call to `readAll`
-3) Thanks to the try keyword, our `count` function will, in its turn, stop processing, returning that error to its caller, which is... well, I haven't talked about that yet. So fix that immediately.
+1. If there is an I/O error while reading the input stream, the `readAll` function will abort processing by returning an error code.
+2. The `count` function will receive that error code on the line containing the call to `readAll`
+3. Thanks to the try keyword, our `count` function will, in its turn, stop processing, returning that error to its caller, which is... well, I haven't talked about that yet. So fix that immediately.
 
 embed::https://github.com/YesIKnowIT/Blog/blob/master/2022/intro-to-zig/code/wc-v2.zig#L30-L37[]
 
