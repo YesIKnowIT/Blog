@@ -1,4 +1,4 @@
-= Introduction to Zig
+= How to write my first Zig program
 :author: Sylvain Leroux
 :contributor: Saulius Krasuckas
 :pin: -
