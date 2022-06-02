@@ -15,9 +15,9 @@ But what does Git exactly do when we stage a file or commit a changeset to a rep
 How does Git store our data?
 We will try to answer those questions by looking behind the scene to see how Git does its magic.
 
-In this article, I assume you have a practical experience with Git, and you are familiar with the basic commands like `git add` and `git commit`.
-I wrote this article on a Linux Ubuntu system. And I used a few commands that may not be available on your system, especially if you're coming from the Windows or Mac world.
-But don't let that repel you: past the first few paragraphs, I'll use exclusively commands provided by Git so you can practice on virtually any device.
+In this article, I assume you are familiar with the basic Git commands like `git add` and `git commit`, and you can comfortably work with Git from the command line.
+I also use a few other command-line tools like `find` or `diff`.
+They should be available on any Linux distribution and most *BSD systems.
 
 == Initial setup
 
