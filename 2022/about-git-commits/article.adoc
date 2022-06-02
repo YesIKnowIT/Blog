@@ -50,7 +50,7 @@ sh$ find .git > list1        # 5
 The Git command we use the most frequently is undoubtedly `git add`.
 It puts a file in the so-called staging area so that it will be part of the next commit.
 
-But that's the purpose of that command. In practice, what does it do in practice?
+But what's the purpose of that command? What does it do in practice?
 
 So let's create a new file.
 We will stage this file in a moment, but for now, it is just basic file manipulation, and Git is absolutely not concerned by our work as `git status` will kindly remind you:
