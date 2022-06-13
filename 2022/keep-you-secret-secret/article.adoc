@@ -10,3 +10,172 @@ This article is about...
 
 == My starting point
 
+
+Would you push your credit card number into a Git repository? Certainly no.
+Even if that repository in private, and you trust all the members of your team, there are too many risks:
+Even if you trust all themember of your team today, will it be the same in a few months, or after a new hire?
+What would happen if 
+Once published as cleartext, your credit card number can easilly leak, be copied to an unsecure location, or be transmitted to unexpected third parties.
+Even if you remove the critical piece of informations from the repository at a later point in time, it is still avaialbe from the project's history; that's the whole point of using Git.
+Rewriting history you said? Well, why not, but who wuld garantee there don't exist clones of the repoitory where the removed file is still avaialbe?
+Not memtioning the whole purpose of a code management system as Git is to remember the content of your files, even if you remove it later, once published any piece of information remain accessible in the history.
+
+
+
+
+
+I take here the perpective of working with personal secrets. 
+Things like your AWS or Google Cloud access token you don't want to share. 
+But over which you have full control in terms of creation and revocation.
+
+
+== In the backend
+
+Whether on your development machine, or on the deployment hosts, when working for the backend, you have control over the run-time environment.
+So you can change a file or setup some environement variables to create target-specific confirgurations or secrets.
+Those are the two primary strategy we will study here:
+
+=== External config file
+
+The simplest solution to manage your local configuration settings and secrets is to store them in a configuration file.
+The exact file format is of little importance as long as you can read it from your application:
+for example, it could be JSON file, a YAML file, or even a source file for your developement language as in the following example:
+
+----
+include::code/config.js[]
+----
+
+----
+include::code/backend0.js[]
+----
+
+The key point is you don't want to share your configuration file with the other users.
+So, that file must NOT be tracked by your source code management tool.
+
+I would encourrage you to do all the necessary to ensure that file would never be version controlled.
+With git, this implies adding it to `.gitignore` and banning commands like `git add --all`.
+
+This solution has the vertue of simplicity.
+Besides the risk of committing it by error, I find this solution somewhat cumbersome when I need to provide defaut values.
+A problem elegantly solved using environment variables as we will see it now.
+
+
+=== Enironment variables
+
+I read here and there authors qualifying this as a legacy solution.
+But it remains my favorite one.
+
+An environment variable is a runtime entity that exists in the context of a running process.
+You can store whatever you ant in an environment variable:
+for example the port your server should listen to, the http proxy address or your private key to access an API.
+
+On managed hosting, the deployment platform usually provides tool, either using a CLI or a GUI, to setup the environment variables that will be avaialble to your application at run-time.
+Most if not all programming languages exposes the environment variables so you may access tem from your code..
+For example, `Node.js` offers the `Process.env` objects for that purpose:
+
+----
+include::code/backend1.js[]
+----
+
+Look especially how the `port` constant is initialized.
+This syntax means "take the value of the environment variable `MY_PORT` *or* (if unset, empty or zero) set it to 3000".
+This is a way to provide a default value (`3000`) that can be overriden by an environment varaible (`MY_PORT`).
+
+
+On your local development computer, you will setup environement variables using the built-in shell features.
+For example, from a Bourne Shell (`bash`, `dash`, `sh`, ...) you may write:
+
+----
+export MY_PORT=3300
+export MY_API_KEY='123$abc'
+
+node backend1.js
+----
+
+You should see the server listen on the given port.
+And if you point your browser to `http://localhost:3300` you could see the server "using" your API key:
+
+----
+Example app listening on port 3300
+Don't tell anyone, but our API key is 123$abc
+----
+
+
+As explained above, the environment variables only exists in the shell you set them up, and any of its sub-processes.
+If you close that shell, your setup will be lost.
+
+When you have many environment variable to setup that way, it is tempting to write them all in a file, so you can load all of them at once in your shell:
+
+----
+# All my environment variables are defined in that file
+# (Bash syntax)
+sh$ cat my.env
+export MY_PORT=3300
+export MY_API_KEY='123$abc'
+
+# Load that file in the context of the current shell
+sh$ source my.env
+
+# Run the node application
+sh$ node backend1.js
+Example app listening on port 3300
+----
+
+Here again, if you want to preserve you secret keys or credentials, you should take all the necessary measures to avoid adding that file to the version control system.
+At the bare minimum by blacklisting it:
+
+----
+echo my.env >> .gitignore
+----
+
+Or better, by storing that file otside of tyour working tree. Maybe in a directory only readable be you.
+
+==== Permanent changes
+
+If you want to make your changes permanents, for example if you manage the deployment host by yourself, you will setup the environement variable through a combination of initialization scripts (maybe in `/etc/profile.d` or `~/.bashrc` / `~/.profile`) or global environement files (`/etc/environment`).
+I let you check the documentation for your specific operating system to learn more about the avaiaalble options.
+
+In all cases, you should ensure unauthorized users cannot access the content of these files if they contains credentials or cleartext paswords!
+
+==== From a container
+
+If you run you application in a container, your container runtime certainly provides a way to setup environment varaibles so they will be avialable to the containairized application. For example, you may use an `ENV` statement in a Dockerfile (which is probably not the best for sensitive informations) or by passing them with the `-e` flag of `docker run`.
+
+----
+sudo docker run -it --rm \
+    -v "$PWD":/usr/src/app \
+    -w /usr/src/app \
+    -p 4000:4000 \
+    -e MY_PORT=4000 \
+    -e MY_API_KEY='123$abc' \
+    node:16.15-alpine node backend1.js
+----
+
+=== Decouple secret management
+
+Last but not least, let me introduce the concept of decoupled service management.
+In this model, you interact with a third party application to access your secrets.
+
+The secret management tool will takes the responsibility to securely store and restrict access to the secrets.
+Most evolved systems may also logs secret's usages, revoke credentials when they are no longuer in use, or expire them after a certain time.
+
+
+HashiCorp Vault is one of these solutions.
+Depite many adantages, it is not exactly suited for the use case that interests me today.
+So, I will avoid setting up a Vault intstance just for that purpose.
+But you know such softwar exists, and you may investigate more about them if you need.
+
+== In the frontend
+
+=== buildtime injection
+
+
+=== runtine resolution (unsuitable)
+
+=== remote fetching
+
+
+== Resources
+
+* https://withblue.ink/2021/05/07/storing-secrets-and-passwords-in-git-is-bad.html
+* https://medium.com/@sheshbabu/ways-to-manage-config-in-frontend-and-their-tradeoffs-d7d3132803ea
