@@ -18,13 +18,13 @@ function config() {
 }
 
 function build() {
-  return src("src/frontend.js")
+  return src("src/*.js")
     .pipe(babel({ presets: ["@babel/preset-env"]}))
     .pipe(dest("./build"));
 }
 
 function copy() {
-  return src("static/*.html")
+  return src("src/*.html")
     .pipe(dest("./build"));
 }
 
