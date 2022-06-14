@@ -5,8 +5,7 @@ const puppeteer = require('puppeteer');
   const page = await browser.newPage();
   await page.goto('http://localhost:3400/index.html');
   
-  const body = await page.$('body');
-  const text = await body.evaluate(el => el.innerText);
+  const text = await page.$eval('body', (el) => el.innerText);
 
   console.dir(text);
 
