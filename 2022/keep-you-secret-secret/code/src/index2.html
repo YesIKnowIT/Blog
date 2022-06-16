@@ -1,0 +1,24 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+  <table id='sites'>
+    <tr><td class='site'>Eiffel's tower</td><td class='open_now'></td></tr>
+    <tr><td class='site'>Arc de Triomphe</td><td class='open_now'></td></tr>
+    <tr><td class='site'>Louvre Museum</td><td class='open_now'></td></tr>
+  </table>
+  <script>
+    (function(){
+      $('#sites tr').each((_, tr) => {
+        var site = $('.site', tr).text();
+        
+        $.getJSON('/search/' + encodeURIComponent(site))
+          .done((data) => {
+            $('.open_now', tr).text(data.open_now.toString());
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
