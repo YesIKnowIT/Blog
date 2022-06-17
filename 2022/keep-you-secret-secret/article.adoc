@@ -6,38 +6,42 @@
 :keywords: 
 
 [.teaser]
-This article is about...
+When you work collaboratively on a web application, or when you deploy it, there are configuration settings and ensitive piece of data you don't want to share.
+I don't pretend to be exhaustive.
+But I searched the web for various ways to deal with that, and this article is a compilation of what seems the most popular strategies.
 
 == My starting point
-
-
 Would you push your credit card number into a Git repository? Certainly no.
 Even if that repository in private, and you trust all the members of your team, there are too many risks:
-Even if you trust all themember of your team today, will it be the same in a few months, or after a new hire?
-What would happen if 
 Once published as cleartext, your credit card number can easilly leak, be copied to an unsecure location, or be transmitted to unexpected third parties.
 Even if you remove the critical piece of informations from the repository at a later point in time, it is still avaialbe from the project's history; that's the whole point of using Git.
 Rewriting history you said? Well, why not, but who wuld garantee there don't exist clones of the repoitory where the removed file is still avaialbe?
 Not memtioning the whole purpose of a code management system as Git is to remember the content of your files, even if you remove it later, once published any piece of information remain accessible in the history.
 
 
+What you wouldn't want to do with your credit card number, you don't want to do with your password, creadentiald or API keys.
+Less sensitive, to run, you application may require configuration setting that varie from taem member to team member, or from deployment evironment to other deployment environement.
+Just to give few example, those may be the localport to liste to for incomming requests, or the detail log level provided in error messages.
 
 
+I will encumber both your personnal secrets and the host-specific configuration setting under the broad term of local settings, here.
+And we will see how we can decouple those local settings from the underlying application, both to ease deployment in a variety of differnt contexts and to protect critical information from leaking through your application.
 
-I take here the perpective of working with personal secrets. 
-Things like your AWS or Google Cloud access token you don't want to share. 
-But over which you have full control in terms of creation and revocation.
+
+In the first party, we will focus on strategy to configure local settings on backend application, where the deployment host is supposed on full control of the developpers and out of reach from the (potentially malicious) end user.
+In the second party, we will consider strategies that may provide the same facilities, but this time for the frontedn part or your application, which is deployed on a host under the full control of a (potentially malicious) end user
 
 
 == In the backend
 
 Whether on your development machine, or on the deployment hosts, when working for the backend, you have control over the run-time environment.
-So you can change a file or setup some environement variables to create target-specific confirgurations or secrets.
-Those are the two primary strategy we will study here:
+On a correctly configured and secured server, an unauthorized user cannot dirrectly access your application files nor examine the execution environment or your application.
+
+So you can change a file or setup some environement variables to create target-specific confirguration settingss or secrets, and the won't be accessible from the outside world.
 
 === External config file
 
-The simplest solution to manage your local configuration settings and secrets is to store them in a configuration file.
+The simplest solution to manage your local settings is to store them in a configuration file.
 The exact file format is of little importance as long as you can read it from your application:
 for example, it could be JSON file, a YAML file, or even a source file for your developement language as in the following example:
 
@@ -49,30 +53,38 @@ include::code/config.js[]
 include::code/backend0.js[]
 ----
 
-The key point is you don't want to share your configuration file with the other users.
+The key point is you don't want to share your configuration file with the other users, and even less publish it out in the wild.
 So, that file must NOT be tracked by your source code management tool.
 
 I would encourrage you to do all the required precautions to ensure that file would never be version controlled.
 With git, this implies adding it to `.gitignore` and banning commands like `git add --all`.
+An other option to prevent the accidental publication of you configuration file, is to store it outside of your application tree.
+If you deploy on a Linux or BSD system and you have full control over the feployment hosts, storing your local settings in `/etc` is a common practice.
 
 This solution has the vertue of simplicity.
-Besides the risk of committing the configuration file by error, I find this solution somewhat cumbersome when I need to provide defaut values.
-That problem is elegantly solved using environment variables as we will see it now.
+
+However, even if I left asside the risk of committing the configuration file by error, it also has some drawbacks.
+First, I find this solution somewhat cumbersome when I need to provide defaut values.
+Then, it easilly becomes problematic when you have to manage differents configuration settings for differnt senarios on the same host.
+One might argue this problem could be solved by having one different contenaier with the specific settings for each scenario.
+
+Indeed.
+However, I still find these issues are elegantly solved using environment variables as we will see it now.
 
 
 === Enironment variables
 
 I read here and there authors qualifying this as a legacy solution.
-But it remains my favorite one.
+But it remains my favorite one, because it works equally well on a variety of hosting and deployment situations.
 
-An environment variable is a runtime entity that exists in the context of a running process.
-You can store whatever you ant in an environment variable:
-for example the port your server should listen to, the http proxy address or your private key to access an API.
+An environment variable is a runtime entity that exists (supposedly in RAM) in the context of a running process.
+Barring the underlying operating system limitations, you can store whatever you want in an environment variable:
+for example the port your server should listen to, the address or the HTTP proxy or your private key to access an API.
 
 On managed hosting, the deployment platform usually provides tool, either using a CLI or a GUI, to setup the environment variables that will be avaialble to your application at run-time.
 For example, on Heroku, you will use `heroky config:set ...` to create environment variables that will be accessible by your deployed application (https://devcenter.heroku.com/articles/config-vars)
 Most if not all programming languages exposes the environment variables so you may access them from your code..
-For example, `Node.js` offers the `process.env` objects for that purpose:
+For example, `Node.js` offers the `process.env` object for that purpose:
 
 ----
 include::code/backend1.js[]
@@ -80,7 +92,7 @@ include::code/backend1.js[]
 
 Look especially how the `port` constant is initialized.
 This syntax means "take the value of the environment variable `MY_PORT` *or* (if unset, empty or zero) set it to 3000".
-This is a way to provide a default value (`3000`) that can be overriden by an environment varaible (`MY_PORT`).
+This is a way to provide a default value (`3000`) that can be overriden by an environment variable (`MY_PORT`).
 
 
 On your local development computer, you will setup environement variables using the built-in shell features.
@@ -103,7 +115,7 @@ Don't tell anyone, but our API key is 123$abc
 
 
 As explained above, the environment variables only exists in the shell you set them up, and any of its sub-processes.
-If you close that shell, your setup will be lost.
+If you close that shell, your setup will be lost, and you will have to retype the two lines of the example above starting with the keyword `export`.
 
 When you have many environment variable to setup that way, it is tempting to write them all in a file, so you can load all of them at once in your shell:
 
@@ -129,7 +141,8 @@ At the bare minimum by blacklisting it:
 echo my.env >> .gitignore
 ----
 
-Or better, by storing that file otside of tyour working tree. Maybe in a directory only readable be you.
+Or better, by storing that file outside of your working tree. Maybe in a directory only readable by you, the developper.
+And if your deployment target does not provide facilities to configure environment variables, you may need to wrtie a small shell script to bootstrap your application -- or consider a change of hosting provider.
 
 
 [HACKR'NOTE]
@@ -163,6 +176,8 @@ sh$ ls -lsd /proc/588/environ
 0 -r-------- 1 sylvain sylvain 0 juin  13 16:03 /proc/588/environ
 ----
 
+If you host several applications on the same host, you should ensure each one is running under a differnt identity.
+Tha way an attaker exploiting a vulnerability in one of the application wouldn't immedialty gain access to the setting of all the other applications.
 
 ====
 
@@ -188,32 +203,39 @@ sudo docker run -it --rm \
     node:16.15-alpine node backend1.js
 ----
 
+Please note than storing sensitive informations unencrypted in a container image is probably not the safest move.
+In Docker, for example, it's just a matter of using `docker inspect` to retrieve your API key.
+Your container run-time may provide tools to deal with secrets in a secure manner (see https://earthly.dev/blog/docker-secrets/ for Docker), and there is a whole range of applications specifically designed to deal with secret management.
+
 === Decouple secret management
 
 Last but not least, let me introduce the concept of decoupled secret management.
-In this model, you interact with a third party application to access your secrets.
+In this model, you interact with a third party application to access your secrets, so they aren't no longuer stored alongside your application souces or configuration settings.
 
 The secret management tool will takes the responsibility to securely store and restrict access to the secrets.
-It also avoids storing and passing cleartext secrets between applications or hosts.
+It also avoids storing and transmitting cleartext secrets between applications or hosts.
 Most evolved systems may also logs secret's usages, revoke credentials when they are no longuer in use, or expire them after a certain time.
 
 
 HashiCorp Vault is one of these solutions.
 Depite many adantages, it is not exactly suited for the use case that interests me today.
-So, I will avoid setting up a Vault intstance just for that purpose.
-But you know such softwar exists, and you may investigate more about them if you need.
+So, I will avoid setting up a Vault intstance just for that purpose here.
+But now that you are aware of the existance of such software, you may investigate more about them if you need.
 
 == In the frontend
 
 We will now leave the confort of the backend where (almost) everything is under our control to the dreadful lands of the frontend developmenent, where nothing seem reliable.
 
-First, and to make it clear oce for all, there is no way of protecting a secret in a frontend application.
-Of course, you may use obfuscation so your Google Cloud API key will not be immediatly vissible.
-But, if the client makes use of a secret, that secret must be readable clent-side, so there is a way to to capture that secret.
+In a frontend application, there is generally few configuration settings.
+Except for an important class: the credentials, passwords and other API keys your frontend my requiere to interrect with other systems.
+so, for the rest of the discussion, I will specifically focus on secrets, as pieces of information you want to protect, rather than talking about configuration settings at large.
+
+First, and to make it clear once for all, there is no way of protecting a secret in a frontend application.
+Of course, you may use obfuscation so your Google Cloud API key will not be immediatly visible.
+But, if the client makes use of a secret, that secret must be readable clent-side, and there is a way to to capture that secret.
 
 So, are we curse? Should we resign in seing you credit card charged for API calls comming from an usurpated key?
-No, but the solution to choose will inevitably be a compromise.
-nd you must initialy determine the risk you try to mitigate.
+No, but the solution to choose will inevitably be a compromise between the complexity, performance penaties and risks you accept to take.
 
 === Limit the scope of your credentials
 
@@ -223,12 +245,12 @@ For example, if your application is designed to run only on a corporate intranet
 Some providers, like Amazon AWS or Google Cloud may offer hundreds of API and services.
 If it's feasible, it's probably wiser to limit the scope of yours keys or credential only to the set of services your really need.
 
-Finally, don't forget to setup alerts and budget limits to warn you if something goeas wrong before it's too late.
+Finally, don't forget to setup alerts and budget limits to warn you if something goes wrong before it's too late.
 
 === buildtime injection
 
-I said it, once a user has access to your frontend application, they may have access to the secrets used by that frontend application.
-So it's hopeless to search for strategy to protect the secrets of deployed applications.
+I said it, if a user has full access to the host running your application, then that user may have access to the secrets used by your application.
+So it's hopeless to search for strategy to protect the secrets used in a publicly deployed frontend applications.
 
 But it's different during developement.
 You won't probably use the deployment credentials during developmement.
@@ -237,10 +259,10 @@ Imagine for example you work on an opensource project. You probably don't want t
 
 In that case we may find solutions to protect your keys and credentials.
 
-If your frontend application has a build step, one possible solution is to inject the creadential at build time.
+If your frontend application has a build step, one possible solution is to inject the creadentials and other application settings  at build time:
 You build the frontend on your machine.
 The credentials are injected into the application from environment variables or cofiguration files just like we did for the backened.
-And you run/test the application locally on your machine with your credentials.
+And you run/test the application locally on your machine with your credentials and settings.
 
 At not any moment you have to share your credential with someone else.
 Of course, if you give access to the build application to a third person they may capture your credentials.
@@ -270,40 +292,58 @@ That file is loaded separatedly from the webpage:
 include::code/src/index.html
 ----
 
-Just like for the backend, you may have different sets of settings and credential for you different deployment: `test.env`, `production.env`.
-The only thing that you should be aware is to avoid sharing those files (and the generated `config.js`!) if you want to preserve your secrets and credentials.
+Just like for the backend, you may have different sets of settings and credential for you different deployment: `development.env`, `test.env`, or even `production.env`.
+The only thing that you should be aware is to avoid sharing those files if you want to preserve your secrets and credentials.
 That also means you shouldn't track those files with your version control system (Git, Subversion and so on).
+
+If you decide to publicly deploy an application using this strategy to manage its configuration settings and secrets, you are de-facto making them public.
+
+Instead of a clearly visible configuration file, you might be tempted to rewrite some of your scripts a build time to embed your secrets.
+Or you may add some extra steps to minify or somehow obfuscate your source files so it will be less easy for a casual user to capture sensitive informations.
+None of these strategy will protect you from someone decided to steal the secrets from your frontend applcation.
+At the very worst, simply spying the requests using some "developper tools" for your browser should reveal even the most carefully hidden API key!
+
+Despite all these warnings, if you take that way, you hould closely monitor your webserver logs.
+And if you see a sudden decorrelation between your credentials' usage and the number of of times the configuration file was served, you should consider that as an indicator of a potental abuse. And probably a signal that it's time to rotate your keys.
+
 
 === remote fetching
 
-A variation of the above technique will consist in replacing the static injection of credentials at build-time, by a dynamic resolution at run-time.
-Thet sounds pretty impressive, isn't it?
-But in practice the things are simple: at ome point your frontend obtain the required credentials by querying a backend service.
+A variation of the above technique will consist in replacing the static injection of credentials and application settings at build-time, by a dynamic resolution at run-time.
+That sounds pretty impressive, isn't it?
+But in practice the things are simple: at some point your frontend obtain the required credentials by querying a backend service.
 Instead of returning a pre-generated file like we did above, this time the configuration file is generated on the fly.
 
 
-The major drawback of this solution is you now need to deploy a backend application whereas a static web server was sufficient.
+The major drawback of this solution is you now need to deploy a backend application whereas previously a static web server was sufficient.
 As a corrollary, that makes things like caching or cross-region replication more complicated.
 
 But it also has few advantages:
 
-* You may audit, rotate or disable the credentials based on a certain threshold usage.
-* You may upadte the credentials without having to touch in any way to the frontend application.
+* You may audit and automaticcally rotate or disable the credentials based on a certain threshold usage.
+* You may update the credentials without having to touch in any way to the frontend application.
+* You may restrict access to sensitive informations only to user's otherwise authenticated by your system.
 
+Once again, let me repeat it's only question to mitigate the risks.
+Not to remove it completly.
+
+Here is an example of a basic Express application that serves static pages, with the exception of `config.js` which is server-ide generated:
 
 ----
 include code::backend2.js[]
 ----
 
+The backend obtains the local settings from environment variables as explained in the first part og thi article.
+The it uses those piece of data to dynamiccaly generate the client configuration file:
+
 ----
-sh$ MY_PORT=3400 node backend2.js
+sh$ MY_API_KEY='123$abc' MY_PORT=3400 node backend2.js
 Example app listening on port 3400
 ----
 
-----
-sh$ curl http://localhost:3400/config.js
+Client-side nothing distinguish the configuration file from the static files server by the same backend:
 
-var api_key='123$abc';
+----
 sh$ curl http://localhost:3400/index.html
 <html>
 <head>
@@ -316,18 +356,43 @@ sh$ curl http://localhost:3400/index.html
 </html>
 ----
 
+But when the browser will query the file `config.js`, it will receive a server-side generated file:
+
+----
+sh$ curl http://localhost:3400/config.js
+
+var api_key='123$abc';
+----
+
 === Proxying
 
-Finally, the only way to completly protect your secrest and acredential is to not use them in the frontend.
-The solution here is to relay requests comming from the frontend via your backend.
+Finally, the only way to completly protect your secrets and credential is to not use them in the frontend.
+The solution here is to relay the requests comming from the frontend via your backend.
 At the very least the backend will behave like a proxy, simply injecting the API key on the fly when receiving a request.
 
 Most interestingly, you may also take profit of that occasion to rethink you frontend-backend exchanges, in order to reduce the traffic, or abstract the frontend away from the data provider, so you might transparently change provider, or aggregate data from several sources.
-You may also implemment caching on the backend to reduce the number of (paying0 requests send to your provider.
+You may also implemment caching on the backend to reduce the number of (paying) requests send to your provider.
+Finally, if you implement your own user authentication scheme, you can associate the requests to a given user, and use that piece of information for API requests' accounting or rate limiting.
 
+But all this has a cost. By forcing all the traffic trhrough your backend application, you introduce a single point of failure and a serious bottleneck.
 
-But all this has a cost. By forcing all the traffic trhrough your backend application, You introduce a single point of failure and a serious bottleneck.
+In the example below, I setup an Express client to act as a proxy for the Google Cloud Places API.
+To somewhat reduce the traffic and abstract the frontend from the underlying data provider, I've rewritten the response to provide only the necessary bits of informations.
+Error handling and response caching is left as an exercice to the reader:
 
+embed::code/backend3.js[]
+
+With this strategy, the frontend no longer has to use the API key.
+All it knows is the backend provides an endpoint point to obtain the necesary piece of informations.
+From the frontend perspective, its indistinguishable if we provide the data ourselfes, or if we use a third party provider.
+In this example, there are still rooms for abusing our API endpoint and thus generating unexpected costs.
+But at least, our API key does not leak, and thus connot be used for other purposes.
+
+embed::code/src/index2.js[]
+
+== Conclusion
+
+TBD
 
 == Resources
 
